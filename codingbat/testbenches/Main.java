@@ -1,36 +1,74 @@
 // How to compile and run
 // javac Main.java && java -ea Main
 
+import java.util.Arrays;
+import java.util.Map;
+import java.util.HashMap;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("This will be printed");
+        System.out.println("Hello world!");
 
-        assert strDist("catcowcat", "cat") == 9;
-        assert strDist("catcowcat", "cow") == 3;
-        assert strDist("cccatcowcatxx", "cat") == 9;
-        assert strDist("abccatcowcatcatxyz", "cat") == 12;
-        assert strDist("xyx", "x") == 3;
-        assert strDist("xyx", "y") == 1;
-        assert strDist("xyx", "z") == 0;
-        assert strDist("z", "z") == 1;
-        assert strDist("x", "z") == 0;
-        assert strDist("", "z") == 0;
-        assert strDist("hiHellohihihi", "hi") == 13;
-        assert strDist("hiHellohihihi", "hih") == 5;
-        assert strDist("hiHellohihihi", "o") == 1;
-        assert strDist("hiHellohihihi", "ll") == 2;
+        // assert array220(new int [] {3, 30}, 0) == true;
+        // assert array220(new int [] {3}, 0) == false;
+        // assert array220(new int [] {}, 0) == false;
+        // assert array220(new int [] {3, 3, 30, 4}, 0) == true;
+        // assert array220(new int [] {2, 19, 4}, 0) == false;
+        // assert array220(new int [] {20, 2, 21}, 0) == false;
+        // assert array220(new int [] {20, 2, 21, 210}, 0) == true;
+        // assert array220(new int [] {2, 200, 2000}, 0) == true;
+        // assert array220(new int [] {0, 0}, 0) == true;
+        // assert array220(new int [] {1, 2, 3, 4, 5, 6}, 0) == false;
+        // assert array220(new int [] {1, 2, 3, 4, 5, 50, 6}, 0) == true;
+        // assert array220(new int [] {1, 2, 3, 4, 5, 51, 6}, 0) == false;
+        // assert array220(new int [] {1, 2, 3, 4, 4, 50, 500, 6}, 0) == true;
+
+        boolean a = array220(new int [] {30, 1, 4, 5, 3, 17}, 0);
+        System.out.println("array220(new int [] {30, 1, 4, 5, 3, 17}, 0) returns " + a);
+        assert a == true;
+
+
     }
 
-    // Given a string and a non-empty substring sub, compute recursively the largest substring which starts and ends with sub and return its length.
-    public static int strDist(String str, String sub) {
-        if (str.isEmpty())
-          return 0;
-        else if (str.indexOf(sub) != 0)
-            return strDist(str.substring(1), sub);
-        else if (str.lastIndexOf(sub) != str.length() - sub.length())
-            return strDist(str.substring(0, str.length() - 1), sub);
-        return str.length();
+  // public static boolean array220(intnew int [] {} nums, int index) {
+  //   if (index >= nums.length - 1)
+  //     return false;
+  //   else if (numsnew int [] {index} * 10 == numsnew int [] {index+1})
+  //     return true;
+  //   else
+  //     return array220(nums, index+1);
+  // }
+
+  // Another solution challenged by Umair
+  // public static boolean array220(int[] nums, int index) {
+  //   if (nums.length <= 1)
+  //     return false;
+  //   else if (nums[0] * 10 == nums[1])
+  //     return true;
+  //   else {
+  //     nums = Arrays.copyOfRange(nums, 1, nums.length);
+  //     return array220(nums, -1);
+  //   }
+  // }
+
+  // Umair's solution based on associative arrays
+  public static boolean array220(int[] nums, int index) {
+    return array220___(nums, index, new HashMap<Integer, Integer>());
+  }
+  public static boolean array220___(int[] nums, int index, Map<Integer, Integer> map) {
+    if(index >= nums.length)
+      return false;
+    Integer [] k_arr = map.keySet().toArray(new Integer [map.keySet().size()]);
+    Integer [] v_arr = map.values().toArray(new Integer [map.keySet().size()]);
+    System.out.println(nums[index] + "\tmap: " + map.keySet() + " --> " + map.values());
+    if(map.get(nums[index]) != null) {
+      return true;
     }
+    else {
+      map.put(nums[index]*10, nums[index]);
+      map.put(nums[index], nums[index]*10);
+      return array220___(nums, index+1, map);
+    }
+  }
 
 }
-

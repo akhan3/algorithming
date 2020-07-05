@@ -330,6 +330,7 @@ public class recursion1 {
     return a + stringClean(str.substring(1));
   }
 
+
   // Given a string, compute recursively the number of times lowercase "hi" appears in the string, however do not count "hi" that have an 'x' immedately before them.
   // countHi2("ahixhi") → 1
   // countHi2("ahibhi") → 2
@@ -354,6 +355,110 @@ public class recursion1 {
   }
 
 
+  // Given a string that contains a single pair of parenthesis, compute recursively a new string made of only of the parenthesis and their contents, so "xyz(abc)123" yields "(abc)".
+  // parenBit("xyz(abc)123") → "(abc)"
+  // parenBit("x(hello)") → "(hello)"
+  // parenBit("(xy)1") → "(xy)"
+  public String parenBit(String str) {
+    return parenBit(str, false);
+  }
+  public String parenBit(String str, boolean hot) {
+    if (str.length() == 0)
+      return str;
+    else if (!hot && str.charAt(0) == '(') {
+      hot = true;
+      return str.charAt(0) + parenBit(str.substring(1), hot);
+    }
+    else if (hot && str.charAt(0) == ')') {
+      hot = false;
+      return str.charAt(0) + parenBit(str.substring(1), hot);
+    }
+    else if (hot)
+      return str.charAt(0) + parenBit(str.substring(1), hot);
+    else
+      return parenBit(str.substring(1), hot);
+  }
+  // Their Solution:
+  public String _parenBit(String str) {
+    if (str.charAt(0) != '(') {
+      return _parenBit(str.substring(1));
+    }
+    if (str.charAt(str.length()-1) != ')') {
+      return _parenBit(str.substring(0, str.length()-1));
+    }
+    return str;
+    // Solution notes: this is tricky. Is the first char a '('?
+    // If not, recur, removing one char from the left of the string.
+    // Eventually this gets us to '(' at the start of the string.
+    // If the first char is '(', then recur similarly, removing one char from
+    // the end of the string, until it is ')'.
+    // Now the first and last chars are ( .. ) and you're done.
+  }
+
+
+  // Given a string, return true if it is a nesting of zero or more pairs of parenthesis, like "(())" or "((()))". Suggestion: check the first and last chars, and then recur on what's inside them.
+  // nestParen("(())") → true
+  // nestParen("((()))") → true
+  // nestParen("(((x))") → false
+  public boolean nestParen(String str) {
+  if (str.length() == 0)
+    return true;
+  else if (!((str.charAt(0) == '(') && (str.charAt(str.length()-1) == ')')))
+    return false;
+  else
+    return nestParen(str.substring(1, str.length()-1));
+  }
+
+
+
+  // Given a string and a non-empty substring sub, compute recursively the number of times that sub appears in the string, without the sub strings overlapping.
+  // strCount("catcowcat", "cat") → 2
+  // strCount("catcowcat", "cow") → 1
+  // strCount("catcowcat", "dog") → 0
+  public int strCount(String str, String sub) {
+    if (str.isEmpty())
+      return 0;
+    else if (str.indexOf(sub) == 0)
+      return 1 + strCount(str.substring(sub.length()), sub);
+    else
+      return strCount(str.substring(1), sub);
+  }
+
+
+  // Given a string and a non-empty substring sub, compute recursively if at least n copies of sub appear in the string somewhere, possibly with overlapping. N will be non-negative.
+  // strCopies("catcowcat", "cat", 2) → true
+  // strCopies("catcowcat", "cow", 2) → false
+  // strCopies("catcowcat", "cow", 1) → true
+  public boolean strCopies(String str, String sub, int n) {
+    int count = 0;
+    return strCopies(str, sub, n, count);
+  }
+  public boolean strCopies(String str, String sub, int n, int count) {
+    if (n == 0)
+      return true;
+    else if (str.isEmpty())
+      return false;
+    else if (str.indexOf(sub) == 0)
+      if (++count >= n)
+        return true;
+      else
+        return strCopies(str.substring(1), sub, n, count);
+    else
+      return strCopies(str.substring(1), sub, n, count);
+  }
+  // Their Solution:
+  public boolean _strCopies(String str, String sub, int n) {
+    if (n == 0) return true;
+    int len = sub.length();
+    if (str.length() < len) return false;
+
+    if (str.substring(0, len).equals(sub)) {
+      // Found it, so subtract 1 from n in the recursion
+      return _strCopies(str.substring(1), sub, n-1);
+    } else {
+      return _strCopies(str.substring(1), sub, n);
+    }
+  }
 
 
 }

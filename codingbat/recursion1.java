@@ -236,6 +236,32 @@ public class recursion1 {
     else
       return array220(nums, index+1);
   }
+  // Another solution challenged by Umair
+  public boolean array220_(int[] nums, int index) {
+    if (nums.length <= 1)
+      return false;
+    else if (nums[0] * 10 == nums[1])
+      return true;
+    else {
+      nums = Arrays.copyOfRange(nums, 1, nums.length);
+      return array220(nums, -999);
+    }
+  }
+  // Umair's solution based on associative arrays
+  public boolean array220__(int[] nums, int index) {
+    return array220___(nums, index, new HashMap<Integer, Integer>());
+  }
+  boolean array220___(int[] nums, int index, Map<Integer, Integer> map) {
+    if(index >= nums.length)
+      return false;
+    if(map.get(nums[index]) != null) {
+      return true;
+    }
+    else {
+      map.put(nums[index]*10, nums[index]);
+      return array220___(nums, index+1, map);
+    }
+  }
 
 
   // Given a string, compute recursively a new string where all the adjacent chars are now separated by a "*".
@@ -378,7 +404,7 @@ public class recursion1 {
     else
       return parenBit(str.substring(1), hot);
   }
-  // Their Solution:
+  // Codingbat official solution:
   public String _parenBit(String str) {
     if (str.charAt(0) != '(') {
       return _parenBit(str.substring(1));
@@ -456,7 +482,7 @@ public class recursion1 {
     else
       return strCopies_(str.substring(1), sub, n);
   }
-  // Their Solution:
+  // Codingbat official solution:
   public boolean _strCopies(String str, String sub, int n) {
     if (n == 0) return true;
     int len = sub.length();

@@ -446,6 +446,16 @@ public class recursion1 {
     else
       return strCopies(str.substring(1), sub, n, count);
   }
+  public boolean strCopies_(String str, String sub, int n) {
+    if (n == 0)
+      return true;
+    else if (str.isEmpty())
+      return false;
+    else if (str.indexOf(sub) == 0)
+      return strCopies_(str.substring(1), sub, n-1);
+    else
+      return strCopies_(str.substring(1), sub, n);
+  }
   // Their Solution:
   public boolean _strCopies(String str, String sub, int n) {
     if (n == 0) return true;

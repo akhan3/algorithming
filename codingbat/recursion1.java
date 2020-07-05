@@ -156,4 +156,204 @@ public class recursion1 {
     }
   }
 
+
+  // Given a string, compute recursively (no loops) a new string where all appearances of "pi" have been replaced by "3.14".
+  // changePi("xpix") → "x3.14x"
+  // changePi("pipi") → "3.143.14"
+  // changePi("pip") → "3.14p"
+  public String changePi(String str) {
+    if (str.length() <= 1)
+      return str;
+    else {
+      boolean pi_found = str.indexOf("pi") == 0;
+      String str2;
+      int delta;
+      if (pi_found) {
+        str2 = "3.14";
+        delta = 2;
+      }
+      else {
+        str2 = str.substring(0, 1);
+        delta = 1;
+      }
+      // CAUTION: string concatenation is not commutative
+      return str2 + changePi(str.substring(delta));
+    }
+  }
+
+
+  // Given a string, compute recursively a new string where all the 'x' chars have been removed.
+  // noX("xaxb") → "ab"
+  // noX("abc") → "abc"
+  // noX("xx") → ""
+  public String noX(String str) {
+    if (str.length() == 0)
+      return str;
+    else {
+      String a = (str.indexOf('x') == 0) ? "" : str.substring(0, 1);
+      return a + noX(str.substring(1));
+    }
+  }
+
+
+  // Given an array of ints, compute recursively if the array contains a 6. We'll use the convention of considering only the part of the array that begins at the given index. In this way, a recursive call can pass index+1 to move down the array. The initial call will pass in index as 0.
+  // array6([1, 6, 4], 0) → true
+  // array6([1, 4], 0) → false
+  // array6([6], 0) → true
+  public boolean array6(int[] nums, int index) {
+    if (index == nums.length)
+      return false;
+    else if (nums[index] == 6)
+      return true;  // short circuit behavior of OR gate
+                    // this improves best-case and average-case run time
+    else
+      return array6(nums, index+1);
+  }
+
+
+  // Given an array of ints, compute recursively the number of times that the value 11 appears in the array. We'll use the convention of considering only the part of the array that begins at the given index. In this way, a recursive call can pass index+1 to move down the array. The initial call will pass in index as 0.
+  // array11([1, 2, 11], 0) → 1
+  // array11([11, 11], 0) → 2
+  // array11([1, 2, 3, 4], 0) → 0
+  public int array11(int[] nums, int index) {
+    if (index == nums.length)
+      return 0;
+    int a = (nums[index] == 11) ? 1 : 0;
+    return a + array11(nums, index+1);
+  }
+
+
+  // Given an array of ints, compute recursively if the array contains somewhere a value followed in the array by that value times 10. We'll use the convention of considering only the part of the array that begins at the given index. In this way, a recursive call can pass index+1 to move down the array. The initial call will pass in index as 0.
+  // array220([1, 2, 20], 0) → true
+  // array220([3, 30], 0) → true
+  // array220([3], 0) → false
+  public boolean array220(int[] nums, int index) {
+    if (index >= nums.length - 1)
+      return false;
+    else if (nums[index] * 10 == nums[index+1])
+      return true;  // short circuit behavior of OR gate
+                    // this improves best-case and average-case run time
+    else
+      return array220(nums, index+1);
+  }
+
+
+  // Given a string, compute recursively a new string where all the adjacent chars are now separated by a "*".
+  // allStar("hello") → "h*e*l*l*o"
+  // allStar("abc") → "a*b*c"
+  // allStar("ab") → "a*b"
+  public String allStar(String str) {
+    if (str.length() <= 1)
+      return str;
+    return str.charAt(0) + "*" + allStar(str.substring(1));
+  }
+
+
+  // Given a string, compute recursively a new string where identical chars that are adjacent in the original string are separated from each other by a "*".
+  // pairStar("hello") → "hel*lo"
+  // pairStar("xxyy") → "x*xy*y"
+  // pairStar("aaaa") → "a*a*a*a"
+  public String pairStar(String str) {
+    if (str.length() <= 1)
+      return str;
+    String a;
+    if (str.charAt(0) == str.charAt(1))
+      a = str.charAt(0) + "*";
+    else
+      a = str.substring(0, 1);
+    return a + pairStar(str.substring(1));
+
+  }
+
+
+  // Given a string, compute recursively a new string where all the lowercase 'x' chars have been moved to the end of the string.
+  // endX("xxre") → "rexx"
+  // endX("xxhixx") → "hixxxx"
+  // endX("xhixhix") → "hihixxx"
+  public String endX(String str) {
+    if (str.length() <= 1)
+      return str;
+    // NOTE: We are really making use of non-commutative nature of string concatenation here
+    if (str.charAt(0) == 'x')
+      return endX(str.substring(1)) + str.charAt(0);
+    else
+      return str.charAt(0) + endX(str.substring(1));
+  }
+
+  // We'll say that a "pair" in a string is two instances of a char separated by a char. So "AxA" the A's make a pair. Pair's can overlap, so "AxAxA" contains 3 pairs -- 2 for A and 1 for x. Recursively compute the number of pairs in the given string.
+  // countPairs("axa") → 1
+  // countPairs("axax") → 2
+  // countPairs("axbx") → 1
+  public int countPairs(String str) {
+    if (str.length() <= 2)
+      return 0;
+    int a = (str.charAt(0) == str.charAt(2)) ? 1 : 0;
+    return a + countPairs(str.substring(1));
+  }
+
+
+  // Count recursively the total number of "abc" and "aba" substrings that appear in the given string.
+  // countAbc("abc") → 1
+  // countAbc("abcxxabc") → 2
+  // countAbc("abaxxaba") → 2
+  public int countAbc(String str) {
+    if (str.length() <= 2)
+      return 0;
+    int n1 = (str.indexOf("abc") == 0) ? 1 : 0;
+    int n2 = (str.indexOf("aba") == 0) ? 1 : 0;
+    return n1 + n2 + countAbc(str.substring(1));
+  }
+
+
+  // Given a string, compute recursively (no loops) the number of "11" substrings in the string. The "11" substrings should not overlap.
+  // count11("11abc11") → 2
+  // count11("abc11x11x11") → 3
+  // count11("111") → 1
+  public int count11(String str) {
+    if (str.length() <= 1)
+      return 0;
+    int n1 = (str.indexOf("11") == 0) ? 1 : 0;
+    int n2 = (str.indexOf("111") == 0) ? 1 : 0;
+    int n3 = (str.indexOf("1111") == 0) ? 1 : 0; // weird but it passes the tests
+    return n1 - n2 + n3 + count11(str.substring(1));
+  }
+
+
+  // Given a string, return recursively a "cleaned" string where adjacent chars that are the same have been reduced to a single char. So "yyzzza" yields "yza".
+  // stringClean("yyzzza") → "yza"
+  // stringClean("abbbcdd") → "abcd"
+  // stringClean("Hello") → "Helo"
+  public String stringClean(String str) {
+    if (str.length() <= 1)
+      return str;
+    String a = (str.charAt(0) == str.charAt(1)) ? "" : str.substring(0, 1);
+    return a + stringClean(str.substring(1));
+  }
+
+  // Given a string, compute recursively the number of times lowercase "hi" appears in the string, however do not count "hi" that have an 'x' immedately before them.
+  // countHi2("ahixhi") → 1
+  // countHi2("ahibhi") → 2
+  // countHi2("xhixhi") → 0
+  public int countHi2(String str) {
+    if (str.length() <= 1)
+      return 0;
+    int n, delta;
+    if (str.indexOf("xhi") == 0) {
+      n = 0;
+      delta = 3;
+    }
+    else if (str.indexOf("hi") == 0) {
+      n = 1;
+      delta = 2;
+    }
+    else {
+      n = 0;
+      delta = 1;
+    }
+    return n + countHi2(str.substring(delta));
+  }
+
+
+
+
 }

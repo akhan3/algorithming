@@ -22,14 +22,14 @@
 - My solution works, though it has 4 `if-else-if` branches in addition to the
     base condition, so can certainly be refactored.
 - These habits came from my background in modeling hardware state machines in FPGA,
-    a situation which require the programmer to be more explicit in specifying their intent.
+    a framework which requires the programmer to be more explicit in specifying their intent.
 - Then I looked at the official solution and it blew my mind that they solved the problem
     in a completely stateless manner.
 - There I learned the technique that after reaching the opening parentheses via head pointer,
      tail pointer can also be advanced to reach for the closing parentheses.
-- This was such an elegant solution and was contained in 2 if branches and a base case.
+- This looked to me a very elegant solution as it was implemented in only 2 `if` branches and a base case.
 - Interestingly, in such situations, the base case was towards the end after the
-    recursive conditions fall through and just returned the remaining string after the
+    recursive `if` conditions fall through and returned the remaining string after the
     head and tail pointers trimmed it to just what was required.
 
 ### `strCopies`
@@ -38,4 +38,4 @@
 - It was illuminating to see that the official solution again managed to solve it
     without maintaining any state.
 - They elegantly decremented argument `n` in recursive calls when a substring match
-    was detected and terminated recursion as soon as n reached zero. __Mind = blown!__
+    was detected and terminated recursion as soon as `n` reached zero. __Mind = blown!__

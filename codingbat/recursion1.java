@@ -520,12 +520,12 @@ public class recursion1 {
   public int strDist(String str, String sub) {
     if (str.isEmpty())
       return 0;
-    else if (str.indexOf(sub) != 0)
-      return strDist(str.substring(1), sub);
-    else if (str.lastIndexOf(sub) != str.length() - sub.length())
-      return strDist(str.substring(0, str.length() - 1), sub);
-    else
-      return str.length();
+    else if (str.indexOf(sub) != 0)                               // if not found at head
+      return strDist(str.substring(1), sub);                      // trim from head and recurse
+    else if (str.lastIndexOf(sub) != str.length() - sub.length()) // if not found at tail
+      return strDist(str.substring(0, str.length() - 1), sub);    // trim from tail and recurse
+    else                                                          // if we reach here, we must have found the solution
+      return str.length();                                        // TADA!
   }
 
 

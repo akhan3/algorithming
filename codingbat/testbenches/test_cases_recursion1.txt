@@ -1,355 +1,355 @@
-factorial(1) == 1
-factorial(2) == 2
-factorial(3) == 6
-factorial(4) == 24
-factorial(5) == 120
-factorial(6) == 720
-factorial(7) == 5040
-factorial(8) == 40320
-factorial(12) == 479001600
+assert factorial(1) == 1;
+assert factorial(2) == 2;
+assert factorial(3) == 6;
+assert factorial(4) == 24;
+assert factorial(5) == 120;
+assert factorial(6) == 720;
+assert factorial(7) == 5040;
+assert factorial(8) == 40320;
+assert factorial(12) == 479001600;
 
-bunnyEars(0) == 0
-bunnyEars(1) == 2
-bunnyEars(2) == 4
-bunnyEars(3) == 6
-bunnyEars(4) == 8
-bunnyEars(5) == 10
-bunnyEars(12) == 24
-bunnyEars(50) == 100
-bunnyEars(234) == 468
+assert bunnyEars(0) == 0;
+assert bunnyEars(1) == 2;
+assert bunnyEars(2) == 4;
+assert bunnyEars(3) == 6;
+assert bunnyEars(4) == 8;
+assert bunnyEars(5) == 10;
+assert bunnyEars(12) == 24;
+assert bunnyEars(50) == 100;
+assert bunnyEars(234) == 468;
 
-fibonacci(0) == 0
-fibonacci(1) == 1
-fibonacci(2) == 1
-fibonacci(3) == 2
-fibonacci(4) == 3
-fibonacci(5) == 5
-fibonacci(6) == 8
-fibonacci(7) == 13
+assert fibonacci(0) == 0;
+assert fibonacci(1) == 1;
+assert fibonacci(2) == 1;
+assert fibonacci(3) == 2;
+assert fibonacci(4) == 3;
+assert fibonacci(5) == 5;
+assert fibonacci(6) == 8;
+assert fibonacci(7) == 13;
 
-bunnyEars2(0) == 0
-bunnyEars2(1) == 2
-bunnyEars2(2) == 5
-bunnyEars2(3) == 7
-bunnyEars2(4) == 10
-bunnyEars2(5) == 12
-bunnyEars2(6) == 15
-bunnyEars2(10) == 25
+assert bunnyEars2(0) == 0;
+assert bunnyEars2(1) == 2;
+assert bunnyEars2(2) == 5;
+assert bunnyEars2(3) == 7;
+assert bunnyEars2(4) == 10;
+assert bunnyEars2(5) == 12;
+assert bunnyEars2(6) == 15;
+assert bunnyEars2(10) == 25;
 
-triangle(0) == 0
-triangle(1) == 1
-triangle(2) == 3
-triangle(3) == 6
-triangle(4) == 10
-triangle(5) == 15
-triangle(6) == 21
-triangle(7) == 28
+assert triangle(0) == 0;
+assert triangle(1) == 1;
+assert triangle(2) == 3;
+assert triangle(3) == 6;
+assert triangle(4) == 10;
+assert triangle(5) == 15;
+assert triangle(6) == 21;
+assert triangle(7) == 28;
 
-sumDigits(126) == 9
-sumDigits(49) == 13
-sumDigits(12) == 3
-sumDigits(10) == 1
-sumDigits(1) == 1
-sumDigits(0) == 0
-sumDigits(730) == 10
-sumDigits(1111) == 4
-sumDigits(11111) == 5
-sumDigits(10110) == 3
-sumDigits(235) == 10
+assert sumDigits(126) == 9;
+assert sumDigits(49) == 13;
+assert sumDigits(12) == 3;
+assert sumDigits(10) == 1;
+assert sumDigits(1) == 1;
+assert sumDigits(0) == 0;
+assert sumDigits(730) == 10;
+assert sumDigits(1111) == 4;
+assert sumDigits(11111) == 5;
+assert sumDigits(10110) == 3;
+assert sumDigits(235) == 10;
 
-count7(717) == 2
-count7(7) == 1
-count7(123) == 0
-count7(77) == 2
-count7(7123) == 1
-count7(771237) == 3
-count7(771737) == 4
-count7(47571) == 2
-count7(777777) == 6
-count7(70701277) == 4
-count7(777576197) == 5
-count7(99999) == 0
-count7(99799) == 1
+assert count7(717) == 2;
+assert count7(7) == 1;
+assert count7(123) == 0;
+assert count7(77) == 2;
+assert count7(7123) == 1;
+assert count7(771237) == 3;
+assert count7(771737) == 4;
+assert count7(47571) == 2;
+assert count7(777777) == 6;
+assert count7(70701277) == 4;
+assert count7(777576197) == 5;
+assert count7(99999) == 0;
+assert count7(99799) == 1;
 
-count8(8) == 1
-count8(818) == 2
-count8(8818) == 4
-count8(8088) == 4
-count8(123) == 0
-count8(81238) == 2
-count8(88788) == 6
-count8(8234) == 1
-count8(2348) == 1
-count8(23884) == 3
-count8(0) == 0
-count8(1818188) == 5
-count8(8818181) == 5
-count8(1080) == 1
-count8(188) == 3
-count8(88888) == 9
-count8(9898) == 2
-count8(78) == 1
+assert count8(8) == 1;
+assert count8(818) == 2;
+assert count8(8818) == 4;
+assert count8(8088) == 4;
+assert count8(123) == 0;
+assert count8(81238) == 2;
+assert count8(88788) == 6;
+assert count8(8234) == 1;
+assert count8(2348) == 1;
+assert count8(23884) == 3;
+assert count8(0) == 0;
+assert count8(1818188) == 5;
+assert count8(8818181) == 5;
+assert count8(1080) == 1;
+assert count8(188) == 3;
+assert count8(88888) == 9;
+assert count8(9898) == 2;
+assert count8(78) == 1;
 
-powerN(3, 1) == 3
-powerN(3, 2) == 9
-powerN(3, 3) == 27
-powerN(2, 1) == 2
-powerN(2, 2) == 4
-powerN(2, 3) == 8
-powerN(2, 4) == 16
-powerN(2, 5) == 32
-powerN(10, 1) == 10
-powerN(10, 2) == 100
-powerN(10, 3) == 1000
+assert powerN(3, 1) == 3;
+assert powerN(3, 2) == 9;
+assert powerN(3, 3) == 27;
+assert powerN(2, 1) == 2;
+assert powerN(2, 2) == 4;
+assert powerN(2, 3) == 8;
+assert powerN(2, 4) == 16;
+assert powerN(2, 5) == 32;
+assert powerN(10, 1) == 10;
+assert powerN(10, 2) == 100;
+assert powerN(10, 3) == 1000;
 
-countX("xxhixx") == 4
-countX("xhixhix") == 3
-countX("hi") == 0
-countX("h") == 0
-countX("x") == 1
-countX("") == 0
-countX("hihi") == 0
-countX("hiAAhi12hi") == 0
+assert countX("xxhixx") == 4;
+assert countX("xhixhix") == 3;
+assert countX("hi") == 0;
+assert countX("h") == 0;
+assert countX("x") == 1;
+assert countX("") == 0;
+assert countX("hihi") == 0;
+assert countX("hiAAhi12hi") == 0;
 
-countHi("xxhixx") == 1
-countHi("xhixhix") == 2
-countHi("hi") == 1
-countHi("hihih") == 2
-countHi("h") == 0
-countHi("") == 0
-countHi("ihihihihih") == 4
-countHi("ihihihihihi") == 5
-countHi("hiAAhi12hi") == 3
-countHi("xhixhxihihhhih") == 3
-countHi("ship") == 1
+assert countHi("xxhixx") == 1;
+assert countHi("xhixhix") == 2;
+assert countHi("hi") == 1;
+assert countHi("hihih") == 2;
+assert countHi("h") == 0;
+assert countHi("") == 0;
+assert countHi("ihihihihih") == 4;
+assert countHi("ihihihihihi") == 5;
+assert countHi("hiAAhi12hi") == 3;
+assert countHi("xhixhxihihhhih") == 3;
+assert countHi("ship") == 1;
 
-changeXY("codex") == "codey"
-changeXY("xxhixx") == "yyhiyy"
-changeXY("xhixhix") == "yhiyhiy"
-changeXY("hiy") == "hiy"
-changeXY("h") == "h"
-changeXY("x") == "y"
-changeXY("") == ""
-changeXY("xxx") == "yyy"
-changeXY("yyhxyi") == "yyhyyi"
-changeXY("hihi") == "hihi"
+assert changeXY("codex") == "codey";
+assert changeXY("xxhixx") == "yyhiyy";
+assert changeXY("xhixhix") == "yhiyhiy";
+assert changeXY("hiy") == "hiy";
+assert changeXY("h") == "h";
+assert changeXY("x") == "y";
+assert changeXY("") == "";
+assert changeXY("xxx") == "yyy";
+assert changeXY("yyhxyi") == "yyhyyi";
+assert changeXY("hihi") == "hihi";
 
-changePi("xpix") == "x3.14x"
-changePi("pipi") == "3.143.14"
-changePi("pip") == "3.14p"
-changePi("pi") == "3.14"
-changePi("hip") == "hip"
-changePi("p") == "p"
-changePi("x") == "x"
-changePi("") == ""
-changePi("pixx") == "3.14xx"
-changePi("xyzzy") == "xyzzy"
+assert changePi("xpix") == "x3.14x";
+assert changePi("pipi") == "3.143.14";
+assert changePi("pip") == "3.14p";
+assert changePi("pi") == "3.14";
+assert changePi("hip") == "hip";
+assert changePi("p") == "p";
+assert changePi("x") == "x";
+assert changePi("") == "";
+assert changePi("pixx") == "3.14xx";
+assert changePi("xyzzy") == "xyzzy";
 
-noX("xaxb") == "ab"
-noX("abc") == "abc"
-noX("xx") == ""
-noX("") == ""
-noX("axxbxx") == "ab"
-noX("Hellox") == "Hello"
+assert noX("xaxb") == "ab";
+assert noX("abc") == "abc";
+assert noX("xx") == "";
+assert noX("") == "";
+assert noX("axxbxx") == "ab";
+assert noX("Hellox") == "Hello";
 
-array6([1, 6, 4], 0) == true
-array6([1, 4], 0) == false
-array6([6], 0) == true
-array6([], 0) == false
-array6([6, 2, 2], 0) == true
-array6([2, 5], 0) == false
-array6([1, 9, 4, 6, 6], 0) == true
-array6([2, 5, 6], 0) == true
+assert array6([1, 6, 4], 0) == true;
+assert array6([1, 4], 0) == false;
+assert array6([6], 0) == true;
+assert array6([], 0) == false;
+assert array6([6, 2, 2], 0) == true;
+assert array6([2, 5], 0) == false;
+assert array6([1, 9, 4, 6, 6], 0) == true;
+assert array6([2, 5, 6], 0) == true;
 
-array11([1, 2, 11], 0) == 1
-array11([11, 11], 0) == 2
-array11([1, 2, 3, 4], 0) == 0
-array11([1, 11, 3, 11, 11], 0) == 3
-array11([11], 0) == 1
-array11([1], 0) == 0
-array11([], 0) == 0
-array11([11, 2, 3, 4, 11, 5], 0) == 2
-array11([11, 5, 11], 0) == 2
+assert array11([1, 2, 11], 0) == 1;
+assert array11([11, 11], 0) == 2;
+assert array11([1, 2, 3, 4], 0) == 0;
+assert array11([1, 11, 3, 11, 11], 0) == 3;
+assert array11([11], 0) == 1;
+assert array11([1], 0) == 0;
+assert array11([], 0) == 0;
+assert array11([11, 2, 3, 4, 11, 5], 0) == 2;
+assert array11([11, 5, 11], 0) == 2;
 
-array220([1, 2, 20], 0) == true
-array220([3, 30], 0) == true
-array220([3], 0) == false
-array220([], 0) == false
-array220([3, 3, 30, 4], 0) == true
-array220([2, 19, 4], 0) == false
-array220([20, 2, 21], 0) == false
-array220([20, 2, 21, 210], 0) == true
-array220([2, 200, 2000], 0) == true
-array220([0, 0], 0) == true
-array220([1, 2, 3, 4, 5, 6], 0) == false
-array220([1, 2, 3, 4, 5, 50, 6], 0) == true
-array220([1, 2, 3, 4, 5, 51, 6], 0) == false
-array220([1, 2, 3, 4, 4, 50, 500, 6], 0) == true
+assert array220([1, 2, 20], 0) == true;
+assert array220([3, 30], 0) == true;
+assert array220([3], 0) == false;
+assert array220([], 0) == false;
+assert array220([3, 3, 30, 4], 0) == true;
+assert array220([2, 19, 4], 0) == false;
+assert array220([20, 2, 21], 0) == false;
+assert array220([20, 2, 21, 210], 0) == true;
+assert array220([2, 200, 2000], 0) == true;
+assert array220([0, 0], 0) == true;
+assert array220([1, 2, 3, 4, 5, 6], 0) == false;
+assert array220([1, 2, 3, 4, 5, 50, 6], 0) == true;
+assert array220([1, 2, 3, 4, 5, 51, 6], 0) == false;
+assert array220([1, 2, 3, 4, 4, 50, 500, 6], 0) == true;
 
-allStar("hello") == "h*e*l*l*o"
-allStar("abc") == "a*b*c"
-allStar("ab") == "a*b"
-allStar("a") == "a"
-allStar("") == ""
-allStar("3.14") == "3*.*1*4"
-allStar("Chocolate") == "C*h*o*c*o*l*a*t*e"
-allStar("1234") == "1*2*3*4"
+assert allStar("hello") == "h*e*l*l*o";
+assert allStar("abc") == "a*b*c";
+assert allStar("ab") == "a*b";
+assert allStar("a") == "a";
+assert allStar("") == "";
+assert allStar("3.14") == "3*.*1*4";
+assert allStar("Chocolate") == "C*h*o*c*o*l*a*t*e";
+assert allStar("1234") == "1*2*3*4";
 
-pairStar("hello") == "hel*lo"
-pairStar("xxyy") == "x*xy*y"
-pairStar("aaaa") == "a*a*a*a"
-pairStar("aaab") == "a*a*ab"
-pairStar("aa") == "a*a"
-pairStar("a") == "a"
-pairStar("") == ""
-pairStar("noadjacent") == "noadjacent"
-pairStar("abba") == "ab*ba"
-pairStar("abbba") == "ab*b*ba"
+assert pairStar("hello") == "hel*lo";
+assert pairStar("xxyy") == "x*xy*y";
+assert pairStar("aaaa") == "a*a*a*a";
+assert pairStar("aaab") == "a*a*ab";
+assert pairStar("aa") == "a*a";
+assert pairStar("a") == "a";
+assert pairStar("") == "";
+assert pairStar("noadjacent") == "noadjacent";
+assert pairStar("abba") == "ab*ba";
+assert pairStar("abbba") == "ab*b*ba";
 
-endX("xxre") == "rexx"
-endX("xxhixx") == "hixxxx"
-endX("xhixhix") == "hihixxx"
-endX("hiy") == "hiy"
-endX("h") == "h"
-endX("x") == "x"
-endX("xx") == "xx"
-endX("") == ""
-endX("bxx") == "bxx"
-endX("bxax") == "baxx"
-endX("axaxax") == "aaaxxx"
-endX("xxhxi") == "hixxx"
+assert endX("xxre") == "rexx";
+assert endX("xxhixx") == "hixxxx";
+assert endX("xhixhix") == "hihixxx";
+assert endX("hiy") == "hiy";
+assert endX("h") == "h";
+assert endX("x") == "x";
+assert endX("xx") == "xx";
+assert endX("") == "";
+assert endX("bxx") == "bxx";
+assert endX("bxax") == "baxx";
+assert endX("axaxax") == "aaaxxx";
+assert endX("xxhxi") == "hixxx";
 
-countPairs("axa") == 1
-countPairs("axax") == 2
-countPairs("axbx") == 1
-countPairs("hi") == 0
-countPairs("hihih") == 3
-countPairs("ihihhh") == 3
-countPairs("ihjxhh") == 0
-countPairs("") == 0
-countPairs("a") == 0
-countPairs("aa") == 0
-countPairs("aaa") == 1
+assert countPairs("axa") == 1;
+assert countPairs("axax") == 2;
+assert countPairs("axbx") == 1;
+assert countPairs("hi") == 0;
+assert countPairs("hihih") == 3;
+assert countPairs("ihihhh") == 3;
+assert countPairs("ihjxhh") == 0;
+assert countPairs("") == 0;
+assert countPairs("a") == 0;
+assert countPairs("aa") == 0;
+assert countPairs("aaa") == 1;
 
-countAbc("abc") == 1
-countAbc("abcxxabc") == 2
-countAbc("abaxxaba") == 2
-countAbc("ababc") == 2
-countAbc("abxbc") == 0
-countAbc("aaabc") == 1
-countAbc("hello") == 0
-countAbc("") == 0
-countAbc("ab") == 0
-countAbc("aba") == 1
-countAbc("aca") == 0
-countAbc("aaa") == 0
+assert countAbc("abc") == 1;
+assert countAbc("abcxxabc") == 2;
+assert countAbc("abaxxaba") == 2;
+assert countAbc("ababc") == 2;
+assert countAbc("abxbc") == 0;
+assert countAbc("aaabc") == 1;
+assert countAbc("hello") == 0;
+assert countAbc("") == 0;
+assert countAbc("ab") == 0;
+assert countAbc("aba") == 1;
+assert countAbc("aca") == 0;
+assert countAbc("aaa") == 0;
 
-count11("11abc11") == 2
-count11("abc11x11x11") == 3
-count11("111") == 1
-count11("1111") == 2
-count11("1") == 0
-count11("") == 0
-count11("hi") == 0
-count11("11x111x1111") == 4
-count11("1x111") == 1
-count11("1Hello1") == 0
-count11("Hello") == 0
+assert count11("11abc11") == 2;
+assert count11("abc11x11x11") == 3;
+assert count11("111") == 1;
+assert count11("1111") == 2;
+assert count11("1") == 0;
+assert count11("") == 0;
+assert count11("hi") == 0;
+assert count11("11x111x1111") == 4;
+assert count11("1x111") == 1;
+assert count11("1Hello1") == 0;
+assert count11("Hello") == 0;
 
-stringClean("yyzzza") == "yza"
-stringClean("abbbcdd") == "abcd"
-stringClean("Hello") == "Helo"
-stringClean("XXabcYY") == "XabcY"
-stringClean("112ab445") == "12ab45"
-stringClean("Hello Bookkeeper") == "Helo Bokeper"
+assert stringClean("yyzzza") == "yza";
+assert stringClean("abbbcdd") == "abcd";
+assert stringClean("Hello") == "Helo";
+assert stringClean("XXabcYY") == "XabcY";
+assert stringClean("112ab445") == "12ab45";
+assert stringClean("Hello Bookkeeper") == "Helo Bokeper";
 
-countHi2("ahixhi") == 1
-countHi2("ahibhi") == 2
-countHi2("xhixhi") == 0
-countHi2("hixhi") == 1
-countHi2("hixhhi") == 2
-countHi2("hihihi") == 3
-countHi2("hihihix") == 3
-countHi2("xhihihix") == 2
-countHi2("xxhi") == 0
-countHi2("hixxhi") == 1
-countHi2("hi") == 1
-countHi2("xxxx") == 0
-countHi2("h") == 0
-countHi2("x") == 0
-countHi2("") == 0
-countHi2("Hellohi") == 1
+assert countHi2("ahixhi") == 1;
+assert countHi2("ahibhi") == 2;
+assert countHi2("xhixhi") == 0;
+assert countHi2("hixhi") == 1;
+assert countHi2("hixhhi") == 2;
+assert countHi2("hihihi") == 3;
+assert countHi2("hihihix") == 3;
+assert countHi2("xhihihix") == 2;
+assert countHi2("xxhi") == 0;
+assert countHi2("hixxhi") == 1;
+assert countHi2("hi") == 1;
+assert countHi2("xxxx") == 0;
+assert countHi2("h") == 0;
+assert countHi2("x") == 0;
+assert countHi2("") == 0;
+assert countHi2("Hellohi") == 1;
 
-parenBit("xyz(abc)123") == "(abc)"
-parenBit("x(hello)") == "(hello)"
-parenBit("(xy)1") == "(xy)"
-parenBit("not really (possible)") == "(possible)"
-parenBit("(abc)") == "(abc)"
-parenBit("(abc)xyz") == "(abc)"
-parenBit("(abc)x") == "(abc)"
-parenBit("(x)") == "(x)"
-parenBit("()") == "()"
-parenBit("res (ipsa) loquitor") == "(ipsa)"
-parenBit("hello(not really)there") == "(not really)"
-parenBit("ab(ab)ab") == "(ab)"
+assert parenBit("xyz(abc)123") == "(abc)";
+assert parenBit("x(hello)") == "(hello)";
+assert parenBit("(xy)1") == "(xy)";
+assert parenBit("not really (possible)") == "(possible)";
+assert parenBit("(abc)") == "(abc)";
+assert parenBit("(abc)xyz") == "(abc)";
+assert parenBit("(abc)x") == "(abc)";
+assert parenBit("(x)") == "(x)";
+assert parenBit("()") == "()";
+assert parenBit("res (ipsa) loquitor") == "(ipsa)";
+assert parenBit("hello(not really)there") == "(not really)";
+assert parenBit("ab(ab)ab") == "(ab)";
 
-nestParen("(())") == true
-nestParen("((()))") == true
-nestParen("(((x))") == false
-nestParen("((())") == false
-nestParen("((()()") == false
-nestParen("()") == true
-nestParen("") == true
-nestParen("(yy)") == false
-nestParen("(())") == true
-nestParen("(((y))") == false
-nestParen("((y)))") == false
-nestParen("((()))") == true
-nestParen("(())))") == false
-nestParen("((yy())))") == false
-nestParen("(((())))") == true
+assert nestParen("(())") == true;
+assert nestParen("((()))") == true;
+assert nestParen("(((x))") == false;
+assert nestParen("((())") == false;
+assert nestParen("((()()") == false;
+assert nestParen("()") == true;
+assert nestParen("") == true;
+assert nestParen("(yy)") == false;
+assert nestParen("(())") == true;
+assert nestParen("(((y))") == false;
+assert nestParen("((y)))") == false;
+assert nestParen("((()))") == true;
+assert nestParen("(())))") == false;
+assert nestParen("((yy())))") == false;
+assert nestParen("(((())))") == true;
 
-strCount("catcowcat", "cat") == 2
-strCount("catcowcat", "cow") == 1
-strCount("catcowcat", "dog") == 0
-strCount("cacatcowcat", "cat") == 2
-strCount("xyx", "x") == 2
-strCount("iiiijj", "i") == 4
-strCount("iiiijj", "ii") == 2
-strCount("iiiijj", "iii") == 1
-strCount("iiiijj", "j") == 2
-strCount("iiiijj", "jj") == 1
-strCount("aaabababab", "ab") == 4
-strCount("aaabababab", "aa") == 1
-strCount("aaabababab", "a") == 6
-strCount("aaabababab", "b") == 4
+assert strCount("catcowcat", "cat") == 2;
+assert strCount("catcowcat", "cow") == 1;
+assert strCount("catcowcat", "dog") == 0;
+assert strCount("cacatcowcat", "cat") == 2;
+assert strCount("xyx", "x") == 2;
+assert strCount("iiiijj", "i") == 4;
+assert strCount("iiiijj", "ii") == 2;
+assert strCount("iiiijj", "iii") == 1;
+assert strCount("iiiijj", "j") == 2;
+assert strCount("iiiijj", "jj") == 1;
+assert strCount("aaabababab", "ab") == 4;
+assert strCount("aaabababab", "aa") == 1;
+assert strCount("aaabababab", "a") == 6;
+assert strCount("aaabababab", "b") == 4;
 
-strCopies("catcowcat", "cat", 2) == true
-strCopies("catcowcat", "cow", 2) == false
-strCopies("catcowcat", "cow", 1) == true
-strCopies("iiijjj", "i", 3) == true
-strCopies("iiijjj", "i", 4) == false
-strCopies("iiijjj", "ii", 2) == true
-strCopies("iiijjj", "ii", 3) == false
-strCopies("iiijjj", "x", 3) == false
-strCopies("iiijjj", "x", 0) == true
-strCopies("iiiiij", "iii", 3) == true
-strCopies("iiiiij", "iii", 4) == false
-strCopies("ijiiiiij", "iiii", 2) == true
-strCopies("ijiiiiij", "iiii", 3) == false
-strCopies("dogcatdogcat", "dog", 2) == true
+assert strCopies("catcowcat", "cat", 2) == true;
+assert strCopies("catcowcat", "cow", 2) == false;
+assert strCopies("catcowcat", "cow", 1) == true;
+assert strCopies("iiijjj", "i", 3) == true;
+assert strCopies("iiijjj", "i", 4) == false;
+assert strCopies("iiijjj", "ii", 2) == true;
+assert strCopies("iiijjj", "ii", 3) == false;
+assert strCopies("iiijjj", "x", 3) == false;
+assert strCopies("iiijjj", "x", 0) == true;
+assert strCopies("iiiiij", "iii", 3) == true;
+assert strCopies("iiiiij", "iii", 4) == false;
+assert strCopies("ijiiiiij", "iiii", 2) == true;
+assert strCopies("ijiiiiij", "iiii", 3) == false;
+assert strCopies("dogcatdogcat", "dog", 2) == true;
 
-strDist("catcowcat", "cat") == 9
-strDist("catcowcat", "cow") == 3
-strDist("cccatcowcatxx", "cat") == 9
-strDist("abccatcowcatcatxyz", "cat") == 12
-strDist("xyx", "x") == 3
-strDist("xyx", "y") == 1
-strDist("xyx", "z") == 0
-strDist("z", "z") == 1
-strDist("x", "z") == 0
-strDist("", "z") == 0
-strDist("hiHellohihihi", "hi") == 13
-strDist("hiHellohihihi", "hih") == 5
-strDist("hiHellohihihi", "o") == 1
-strDist("hiHellohihihi", "ll") == 2
+assert strDist("catcowcat", "cat") == 9;
+assert strDist("catcowcat", "cow") == 3;
+assert strDist("cccatcowcatxx", "cat") == 9;
+assert strDist("abccatcowcatcatxyz", "cat") == 12;
+assert strDist("xyx", "x") == 3;
+assert strDist("xyx", "y") == 1;
+assert strDist("xyx", "z") == 0;
+assert strDist("z", "z") == 1;
+assert strDist("x", "z") == 0;
+assert strDist("", "z") == 0;
+assert strDist("hiHellohihihi", "hi") == 13;
+assert strDist("hiHellohihihi", "hih") == 5;
+assert strDist("hiHellohihihi", "o") == 1;
+assert strDist("hiHellohihihi", "ll") == 2;

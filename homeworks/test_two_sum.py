@@ -1,6 +1,10 @@
 import pytest
 import random
-from two_sum import two_sum_unsorted_brute_force, two_sum_unsorted_optimized
+from two_sum import (
+    two_sum_unsorted_brute_force,
+    two_sum_unsorted_optimized,
+    two_sum_presorted,
+)
 
 # Seed the random generator for repeatability
 random.seed(0)
@@ -45,5 +49,13 @@ def test_two_sum_unsorted_brute_force(nums, target, expected):
 def test_two_sum_unsorted_optimized(nums, target, expected):
     random.shuffle(nums)
     ret = two_sum_unsorted_optimized(nums, target)
+    print("{} : {} -> {} ({} expected)".format(nums, target, ret, expected))
+    assert ret == expected
+
+
+@two_sum_test_cases
+def test_two_sum_presorted(nums, target, expected):
+    nums.sort()
+    ret = two_sum_presorted(nums, target)
     print("{} : {} -> {} ({} expected)".format(nums, target, ret, expected))
     assert ret == expected

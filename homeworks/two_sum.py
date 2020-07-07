@@ -1,6 +1,10 @@
 import pytest
 
 
+# HW-1
+# Given an array of unsorted integers and a number k.
+# Check if there is a pair of integers in the array that sums to K.
+# Write an optimized and brute force solution both.
 def two_sum_unsorted_brute_force(nums, target):
     if len(nums) < 2:  # if the array doesn't have two elements to begin with, bail out
         return False
@@ -21,6 +25,17 @@ def two_sum_unsorted_optimized(nums, target):
             return True  # TADA!
         cache.add(target - N)  # insertion in O(1)
         # save this element's complement for later look-up to avoid a nested loop
+    return False  # if we reach here, it is because no match was found
+
+
+# HW-2
+# Given an array of sorted integers and a number k.
+# Check if there is a pair of integers in the array that sums to K.
+def two_sum_presorted(nums, target):
+    if len(nums) < 2:  # if the array doesn't have two elements to begin with, bail out
+        return False
+    # TODO: implement the algorithm in O(log n)
+    # Possible candidates: iterative binary search, recursive binary search
     return False  # if we reach here, it is because no match was found
 
 

@@ -46,14 +46,16 @@ public class recursion2 {
   public static boolean groupSum(int start, int[] nums, int target) {
     if (nums.length == 0 && target == 0)
       return true;
-    // sum =
-    // if (target == 0)
-      return false;
+    int sum = arraySum(start, nums);
+    if (target == sum)
+      return true;
+    return false;
   }
 
-
-  public int arraySum(int start, int[] nums) {
-    if (start == nums.length - 1)
+  public static int arraySum(int start, int[] nums) {
+    if (start == nums.length)
+      return 0;
+    else if (start == nums.length - 1)
       return nums[start];
     else
      return nums[0] + arraySum(start+1, nums);

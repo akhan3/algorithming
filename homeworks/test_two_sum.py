@@ -1,95 +1,47 @@
 import pytest
-from two_sum_sorted import two_sum_sorted
+import random
+from two_sum import two_sum_unsorted_brute_force
 
-# TODO: refactor ugly global variable
-test_sorted = True
-
-
-def two_sum_wrapper(nums, target):
-    if test_sorted:
-        nums.sort()
-    return two_sum_sorted(nums, target)
+# Seed the random generator for repeatability
+random.seed(0)
 
 
-def test_empty_match():
-    assert two_sum_wrapper([], 0)
+two_sum_test_cases = pytest.mark.parametrize(
+    "nums, target, expected",
+    [
+        ([], 0, False),
+        ([], 5, False),
+        ([4], 4, False),
+        ([4], 5, False),
+        ([4], 0, False),
+        ([6, 4], 6, False),
+        ([6, 4], 5, False),
+        ([6, 0, 4], 6, True),
+        ([8, 1, 6, 20, -3], -6, False),
+        ([8, 1, 6, -6, -3], -6, False),
+        ([8, 1, 6, 4, -3], 5, True),
+        ([3, 1, 6, 4, 2, -1], 5, True),
+        ([3, 5, 20, 4, -3], 5, False),
+        ([8, 1, 6, 4, -3], -40, False),
+        ([8, 1, 6, 4, -3], 0, False),
+        ([8, 1, 6, 4, -3], 0, False),
+        ([8, 1, 6, 4, -3], 7, True),
+        ([8, 1, 6, 4, -3], 1, True),
+        ([8, 1, 6, 4, -3, 8, 1, 6, 4, 1, 6, 4, -3, 8, 1, 6, 4, -3], int(1e6), False),
+    ],
+)
 
 
-def test_empty_not_match():
-    assert not two_sum_wrapper([], 5)
+@two_sum_test_cases
+def test_two_sum_unsorted_brute_force(nums, target, expected):
+    random.shuffle(nums)
+    ret = two_sum_unsorted_brute_force(nums, target)
+    print("{} : {} -> {} ({} expected)".format(nums, target, ret, expected))
+    assert ret == expected
 
 
-def test_1_length_match():
-    assert two_sum_wrapper([4], 4)
-
-
-def test_1_length_not_match():
-    assert not two_sum_wrapper([4], 5)
-
-
-def test_1_length_match_zero():
-    assert two_sum_wrapper([4], 0)
-
-
-def test_2_length_match():
-    assert two_sum_wrapper([6, 4], 6)
-
-
-def test_2_length_not_match():
-    assert not two_sum_wrapper([6, 4], 5)
-
-
-def test_5_length_match():
-    assert two_sum_wrapper([8, 1, 6, 4, -3], 5)
-
-
-def test_5_length_match_multiple():
-    assert two_sum_wrapper([3, 1, 2, 4, -3], 5)
-
-
-def test_5_length_not_match():
-    assert not two_sum_wrapper([8, 1, 6, 4, -3], -40)
-
-
-def test_5_length_match_zero():
-    assert two_sum_wrapper([8, 1, 6, 4, -3], 0)
-
-
-@pytest.mark.skip(reason="test case not written yet")
-def test_some_repeated_match():
-    pass
-
-
-@pytest.mark.skip(reason="test case not written yet")
-def test_all_repeated_match():
-    pass
-
-
-@pytest.mark.skip(reason="test case not written yet")
-def test_all_unique_match():
-    pass
-
-
-@pytest.mark.skip(reason="test case not written yet")
-def test_all_zeros_match():
-    pass
-
-
-@pytest.mark.skip(reason="test case not written yet")
-def test_some_repeated_not_match():
-    pass
-
-
-@pytest.mark.skip(reason="test case not written yet")
-def test_all_repeated_not_match():
-    pass
-
-
-@pytest.mark.skip(reason="test case not written yet")
-def test_all_unique_not_match():
-    pass
-
-
-@pytest.mark.skip(reason="test case not written yet")
-def test_all_zeros_not_match():
-    pass
+@pytest.mark.skip(reason="not implemented yet")
+@two_sum_test_cases
+def test_two_sum_unsorted_optimized(nums, target, expected):
+    ret = two_sum_unsorted_optimized(nums, target)
+    assert ret == expected

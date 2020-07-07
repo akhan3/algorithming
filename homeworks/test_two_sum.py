@@ -1,10 +1,9 @@
 import pytest
 import random
-from two_sum import two_sum_unsorted_brute_force
+from two_sum import two_sum_unsorted_brute_force, two_sum_unsorted_optimized
 
 # Seed the random generator for repeatability
 random.seed(0)
-
 
 two_sum_test_cases = pytest.mark.parametrize(
     "nums, target, expected",
@@ -40,8 +39,9 @@ def test_two_sum_unsorted_brute_force(nums, target, expected):
     assert ret == expected
 
 
-@pytest.mark.skip(reason="not implemented yet")
 @two_sum_test_cases
 def test_two_sum_unsorted_optimized(nums, target, expected):
+    random.shuffle(nums)
     ret = two_sum_unsorted_optimized(nums, target)
+    print("{} : {} -> {} ({} expected)".format(nums, target, ret, expected))
     assert ret == expected

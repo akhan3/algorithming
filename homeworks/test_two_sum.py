@@ -3,7 +3,8 @@ import random
 from two_sum import (
     two_sum_unsorted_brute_force,
     two_sum_unsorted_optimized,
-    two_sum_presorted,
+    two_sum_presorted_binarysearch,
+    two_sum_presorted_linsearch,
 )
 
 # Seed the random generator for repeatability
@@ -57,8 +58,16 @@ def test_two_sum_unsorted_optimized(nums, target, expected):
 
 # @pytest.mark.skip(reason="not implemented yet")
 @two_sum_test_cases
-def test_two_sum_presorted(nums, target, expected):
+def test_two_sum_presorted_binarysearch(nums, target, expected):
     nums.sort()
-    ret = two_sum_presorted(nums, target)
+    ret = two_sum_presorted_binarysearch(nums, target)
+    print("{} : {} -> {} ({} expected)".format(nums, target, ret, expected))
+    assert ret == expected
+
+
+@two_sum_test_cases
+def test_two_sum_presorted_linsearch(nums, target, expected):
+    nums.sort()
+    ret = two_sum_presorted_linsearch(nums, target)
     print("{} : {} -> {} ({} expected)".format(nums, target, ret, expected))
     assert ret == expected

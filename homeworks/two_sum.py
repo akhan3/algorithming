@@ -36,7 +36,7 @@ def two_sum_unsorted_optimized(nums, target):
 # Check if there is a pair of integers in the array that sums to K.
 
 # This implementation runs in O(n log n)
-def two_sum_presorted(nums, target):
+def two_sum_presorted_binarysearch(nums, target):
     if len(nums) < 2:  # if the array doesn't have two elements to begin with, bail out
         return False
     for k, N in enumerate(nums):  # iterate over elements: O(n)
@@ -45,32 +45,66 @@ def two_sum_presorted(nums, target):
     return False  # if we reach here, it is because no match was found
 
 
-# TODO: implement the algorithm in O(log n)
+# This implementation runs in O(n)
+def two_sum_presorted_linsearch(nums, target):
+    if len(nums) < 2:  # if the array doesn't have two elements to begin with, bail out
+        return False
+    else:
+        return lin_search_de(0, len(nums) - 1, target, nums)  # O(n)
 
 
-# recursive binary search
-def binary_search(lower, upper, target, nums):
-    if lower > upper:  # if the pointers cross over, search is over
+# linear search double-ended (recursive)
+def lin_search_de(head, tail, target, nums) -> bool:
+    if not (head < tail):  # the pointers must strictly stay apart (no overlapping)
+        return False
+    ans = nums[head] + nums[tail]
+    if ans == target:  # match found
+        return True  # TADA!
+    elif ans < target:  # still too small
+        return lin_search_de(head + 1, tail, target, nums)  # trim head
+    elif ans > target:  # still too large
+        return lin_search_de(head, tail - 1, target, nums)  # trim tail
+
+
+# linear search double-ended (iterative)
+def lin_search_de_iter(head, tail, target, nums) -> bool:
+    while head < tail:  # the pointers must strictly stay apart (no overlapping)
+        ans = nums[head] + nums[tail]
+        if ans == target:  # match found
+            return True  # TADA!
+        elif ans < target:  # still too small
+            head = head + 1  # trim head
+        elif ans > target:  # still too large
+            tail = tail - 1  # trim tail
+    return False  # if we reach here, it is because no match was found
+
+
+# binary search (recursive)
+def binary_search(head, tail, target, nums) -> int:
+    if not (head <= tail):  # if the pointers cross over, search is over
         return -1  # return failure
-    middle = (lower + upper) // 2  # floor division to locate midpoint
-    if nums[middle] > target:  # if too large
-        return binary_search(lower, middle - 1, target, nums)  # trim upper half
-    elif nums[middle] < target:  # if too small
-        return binary_search(middle + 1, upper, target, nums)  # trim lower half
-    else:  # if equal
+    middle = (head + tail) // 2  # floor division to locate midpoint
+    ans = nums[middle]
+    if ans == target:  # match found
         return middle  # TADA!
+    elif ans < target:  # still too small
+        return binary_search(middle + 1, tail, target, nums)  # trim head half
+    elif ans > target:  # still too large
+        return binary_search(head, middle - 1, target, nums)  # trim tail half
 
 
-# iterative binary search
-def binary_search_iter(lower, upper, target, nums):
-    while lower <= upper:  # if the pointers cross over, search is over
-        middle = (lower + upper) // 2  # floor division to locate midpoint
-        if nums[middle] > target:  # if too large
-            upper = middle - 1  # trim upper half
-        elif nums[middle] < target:  # if too small
-            lower = middle + 1  # trim lower half
-        else:  # if equal
+# binary search (iterative)
+def binary_search_iter(head, tail, target, nums) -> int:
+    while head <= tail:  # if the pointers cross over, search is over
+        middle = (head + tail) // 2  # floor division to locate midpoint
+        ans = nums[middle]
+        if ans == target:  # match found
             return middle  # TADA!
+        elif ans < target:  # still too small
+            head = middle + 1  # trim head half
+        elif ans > target:  # still too large
+            tail = middle - 1  # trim tail half
+    # if we reach here, it is because the item was not found
     return -1  # return failure
 
 

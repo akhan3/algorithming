@@ -23,7 +23,8 @@ two_sum_test_cases = pytest.mark.parametrize(
         ([8, 1, 6, 20, -3], -6, False),
         ([8, 1, 6, -6, -3], -6, False),
         ([8, 1, 6, 6, 4], 12, True),
-        ([8, 1, 6, 4, -3], 5, True),
+        ([8, 1, 6, 6, 4], 12, True),
+        ([3, 3, 3, 4, 2, 4, 2, 5, 1], 7, True),
         ([3, 1, 6, 4, 2, -1], 5, True),
         ([3, 5, 20, 4, -3], 5, False),
         ([8, 1, 6, 4, -3], -40, False),
@@ -32,7 +33,7 @@ two_sum_test_cases = pytest.mark.parametrize(
         ([8, 1, 6, 4, -3], 7, True),
         ([8, 1, 6, 4, -3], 1, True),
         ([8, 1, 6, 4, -3, 8, 1, 6, 4, 1, 6, 4, -3, 8, 1, 6, 4, -3], int(1e6), False),
-        ([8, 1, 6, 4, -3, 8, 1, 6, 4, 1, 6, 4, -3, 8, 1, 6, 4, -3], -2, True),
+        ([8, 1, 6, 4, -3, 8, 1, 6, 4, 1, 6, 4, -3, 8, 1, 192, -80, -30], 200, True),
     ],
 )
 
@@ -53,6 +54,7 @@ def test_two_sum_unsorted_optimized(nums, target, expected):
     assert ret == expected
 
 
+# @pytest.mark.skip(reason="not implemented yet")
 @two_sum_test_cases
 def test_two_sum_presorted(nums, target, expected):
     nums.sort()

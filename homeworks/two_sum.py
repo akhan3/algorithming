@@ -5,6 +5,8 @@ import pytest
 # Given an array of unsorted integers and a number k.
 # Check if there is a pair of integers in the array that sums to K.
 # Write an optimized and brute force solution both.
+
+# This implementation runs in O(n^2)
 def two_sum_unsorted_brute_force(nums, target):
     if len(nums) < 2:  # if the array doesn't have two elements to begin with, bail out
         return False
@@ -15,6 +17,7 @@ def two_sum_unsorted_brute_force(nums, target):
     return False  # if we reach here, it is because no match was found
 
 
+# This implementation runs in O(n)
 def two_sum_unsorted_optimized(nums, target):
     if len(nums) < 2:  # if the array doesn't have two elements to begin with, bail out
         return False
@@ -31,6 +34,8 @@ def two_sum_unsorted_optimized(nums, target):
 # HW-2
 # Given an array of sorted integers and a number k.
 # Check if there is a pair of integers in the array that sums to K.
+
+# This implementation runs in O(n log n)
 def two_sum_presorted(nums, target):
     if len(nums) < 2:  # if the array doesn't have two elements to begin with, bail out
         return False

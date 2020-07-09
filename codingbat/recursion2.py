@@ -40,8 +40,6 @@ from pprint import pprint
 # - Use tuples for immutability benefits instead of lists
 # -
 
-# ============================================================================
-
 
 def groupSum(start: int, nums: tuple, target: int) -> bool:
     return groupSumAux(start, nums, target, [])
@@ -60,67 +58,6 @@ def groupSumAux(start: int, nums: tuple, target: int, container: list = []):
     if groupSumAux(start + 1, nums, target, container):
         return True
     return False
-
-
-
-# ============================================================================
-
-
-def groupSum_v0(start: int, nums: tuple, target: int) -> bool:
-    # zero sum can be produced from an empty array (idempotent property)
-    if len(nums) == 0 and target == 0:
-        return True
-    if len(nums) == 1:  # base case
-        return nums[0] == target
-    else:
-        a = groupSumAux(nums[1:], target - nums[0])
-        b = groupSum(start + 1, nums, target)
-        return a or b
-        # return groupSumAux(nums[1:], target - nums[0]) or groupSum(nums[1:], target)
-
-
-def groupSumAux_v99(nums: tuple, target: int, start: int = 0, container: list = []):
-    if start == len(nums):
-        print(target, sum(container), "<--", container)
-        return
-    container.append(nums[start])
-    groupSumAux(nums, target, start + 1, container)
-    container.pop()
-    groupSumAux(nums, target, start + 1, container)
-
-
-def groupSumAux_v1(nums: tuple, target: int) -> bool:
-    print(nums, target)
-    assert len(nums) >= 2
-    if target == 0:
-        return True
-    else:
-        nums_sub = nums[1:]
-        return False or groupSumAux(nums, target)
-
-
-def genpowset_v1(nums: tuple):
-    if len(nums) == 1:
-        print("gps>", nums[:1])
-        return
-    else:
-        print("gps>", nums)
-        for idx in range(len(nums[1:])):
-            k = idx
-            nums_sub = nums[1:k] + nums[k + 1 :]
-            print("gps>", nums[:1] + nums_sub)
-            genpowset(nums_sub)
-
-
-def genpowset_v2(nums: tuple):
-    if len(nums) == 0:
-        return
-    print("gps>", nums)
-    for k in range(1, 1 + len(nums[1:])):
-        nums_sub = nums[:k] + nums[k + 1 :]
-        # print("gps>", nums_sub)
-        genpowset(nums_sub)
-    genpowset(nums[1:])
 
 
 def genpowset(nums: tuple, n: int = 0, container: list = []):
@@ -168,18 +105,6 @@ def main():
     return pytest.main(
         ["-v", "--capture=no", inspect.getframeinfo(inspect.currentframe()).filename]
     )
-
-    # nums = tuple(("a", "b", "c", "d"))
-    nums = tuple((10, 20, 30, 40))
-    genpowset(nums)
-
-    # nums = tuple((2, 3, 4))
-    # print(nums)
-    # print("===================")
-    # modified = genpowset(nums)
-    # print("===================")
-    # print(nums)
-    # print(modified)
 
 
 if __name__ == "__main__":

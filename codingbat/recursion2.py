@@ -47,11 +47,9 @@ def groupSum(start: int, nums: tuple, target: int) -> bool:
 
 
 def groupSumAux(start: int, nums: tuple, target: int, container: list = []):
+    print(start, container)
     if start == len(nums):
-        ans = sum(container)
-        ret = ans == target
-        print(target, "==", ans, "=", ret, "<--", container)
-        return ret
+        return check(target, container)
     container.append(nums[start])
     if groupSumAux(start + 1, nums, target, container):
         return True
@@ -59,6 +57,13 @@ def groupSumAux(start: int, nums: tuple, target: int, container: list = []):
     if groupSumAux(start + 1, nums, target, container):
         return True
     return False
+
+
+def check(target: int, container: list):
+    ans = sum(container)
+    ret = ans == target
+    print(" ", container, "-->", ans, "==", target, "=", ret)
+    return ret
 
 
 def genpowset(nums: tuple, n: int = 0, container: list = []):

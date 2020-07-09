@@ -46,17 +46,17 @@ def groupSum(start: int, nums: tuple, target: int) -> bool:
     return groupSumAux(start, nums, target, [])
 
 
-def groupSumAux(start: int, nums: tuple, target: int, container: list = []):
-    print(start, container)
+def groupSumAux(
+    start: int, nums: tuple, target: int, container: list = [], matched: bool = False
+):
+    print(start, container, matched)
     if start == len(nums):
         return check(target, container)
     container.append(nums[start])
-    if groupSumAux(start + 1, nums, target, container):
-        return True
+    matched = groupSumAux(start + 1, nums, target, container, matched) or matched
     container.pop()
-    if groupSumAux(start + 1, nums, target, container):
-        return True
-    return False
+    matched = groupSumAux(start + 1, nums, target, container, matched) or matched
+    return matched
 
 
 def check(target: int, container: list):

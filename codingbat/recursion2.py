@@ -42,15 +42,16 @@ from pprint import pprint
 
 
 def groupSum(start: int, nums: tuple, target: int) -> bool:
+    print()
     return groupSumAux(start, nums, target, [])
 
 
 def groupSumAux(start: int, nums: tuple, target: int, container: list = []):
     if start == len(nums):
         ans = sum(container)
-        print(target, "==", ans, "<--", container)
-        # print("returning from", inspect.currentframe().f_lineno)
-        return ans == target
+        ret = ans == target
+        print(target, "==", ans, "=", ret, "<--", container)
+        return ret
     container.append(nums[start])
     if groupSumAux(start + 1, nums, target, container):
         return True

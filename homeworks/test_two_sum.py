@@ -10,38 +10,35 @@ from two_sum import (
 # Seed the random generator for repeatability
 random.seed(0)
 
+
+def load_test_cases(filename):
+    with open(filename, "r") as fh:
+        txt = fh.read()
+    txt = txt.split("\n")
+
+    all_test_cases = list()
+    for line in txt:
+        line = line.strip()
+        if len(line) == 0 or line.startswith("#"):  # ignore lines starting with "#""
+            continue
+        line = line.split("#")[0]  # ignore everything beyond a "#""
+        this_line = line.split("|")
+        this_line = list(map(str.strip, this_line))
+        if this_line[0].lower() == "false":
+            expected = False
+        else:
+            expected = True
+        target = int(this_line[1])
+        if len(this_line[2]):
+            nums = list(map(int, this_line[2].split(" ")))
+        else:
+            nums = []
+        all_test_cases.append((nums, target, expected))
+    return all_test_cases
+
+
 two_sum_test_cases = pytest.mark.parametrize(
-    "nums, target, expected",
-    [
-        ([], 0, False),
-        ([], 5, False),
-        ([4], 4, False),
-        ([4], 5, False),
-        ([4], 0, False),
-        ([6, 4], 6, False),
-        ([6, 4], 5, False),
-        ([4, 4], 8, True),
-        ([4, 4, 8], 8, True),
-        ([1, 1, 8], 2, True),
-        ([1, 8, 1], 2, True),
-        ([6, 0, 4], 6, True),
-        ([8, 1, 6, 20, -3], -6, False),
-        ([8, 1, 6, -6, -3], -6, False),
-        ([8, 1, 6, 6, 4], 12, True),
-        ([8, 1, 6, 6, 4], 12, True),
-        ([3, 3, 3, 4, 2, 4, 2, 5, 1], 7, True),
-        ([3, 1, 6, 4, 2, -1], 5, True),
-        ([3, 5, 20, 4, -3], 5, False),
-        ([8, 1, 6, 4, -3], -40, False),
-        ([8, 1, 6, 4, -3], 0, False),
-        ([6, 4, 7, 37], 14, False),
-        ([8, 4, 6, 4, -3], 8, True),
-        ([8, 1, 6, 4, -3], 7, True),
-        ([8, 1, 6, 4, -3], 1, True),
-        ([8, 1, 6, 4, -3, 8, 1, 6, 4, 1, 6, 4, -3, 8, 1, 6, 4, -3], int(1e6), False),
-        ([8, 1, 6, 4, -3, 8, 1, 6, 4, 1, 6, 4, -3, 8, 1, 192, -80, -30], 200, True),
-        ([8, 1, 6, 4, -3, 8, 1, 6, 4, 1, 6, 400, 600, 8, 1, 192, -80, -30], 200, True),
-    ],
+    "nums, target, expected", load_test_cases("two_sum_test_vectors_001.txt")
 )
 
 

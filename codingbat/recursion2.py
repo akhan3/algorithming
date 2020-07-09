@@ -8,6 +8,7 @@
 # splitOdd10       split53
 
 import pytest
+import inspect
 from pprint import pprint
 
 
@@ -39,18 +40,56 @@ from pprint import pprint
 # - Use tuples for immutability benefits instead of lists
 # -
 
+# ============================================================================
+
 
 def groupSum(start: int, nums: tuple, target: int) -> bool:
+    return groupSumAux(start, nums, target, [])
+
+
+def groupSumAux(start: int, nums: tuple, target: int, container: list = []):
+    if start == len(nums):
+        ans = sum(container)
+        print(target, "==", ans, "<--", container)
+        # print("returning from", inspect.currentframe().f_lineno)
+        return ans == target
+    container.append(nums[start])
+    if groupSumAux(start + 1, nums, target, container):
+        return True
+    container.pop()
+    if groupSumAux(start + 1, nums, target, container):
+        return True
+    return False
+
+
+
+# ============================================================================
+
+
+def groupSum_v0(start: int, nums: tuple, target: int) -> bool:
     # zero sum can be produced from an empty array (idempotent property)
     if len(nums) == 0 and target == 0:
         return True
     if len(nums) == 1:  # base case
         return nums[0] == target
     else:
-        return groupSumAux(nums[1:], target - nums[0]) or groupSum(nums[1:], target)
+        a = groupSumAux(nums[1:], target - nums[0])
+        b = groupSum(start + 1, nums, target)
+        return a or b
+        # return groupSumAux(nums[1:], target - nums[0]) or groupSum(nums[1:], target)
 
 
-def groupSumAux(nums: tuple, target: int) -> bool:
+def groupSumAux_v99(nums: tuple, target: int, start: int = 0, container: list = []):
+    if start == len(nums):
+        print(target, sum(container), "<--", container)
+        return
+    container.append(nums[start])
+    groupSumAux(nums, target, start + 1, container)
+    container.pop()
+    groupSumAux(nums, target, start + 1, container)
+
+
+def groupSumAux_v1(nums: tuple, target: int) -> bool:
     print(nums, target)
     assert len(nums) >= 2
     if target == 0:

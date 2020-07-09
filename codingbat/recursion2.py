@@ -42,33 +42,20 @@ from pprint import pprint
 
 
 def groupSum(start: int, nums: tuple, target: int) -> bool:
-    print()
-    return groupSumAux(start, nums, target, [])
+    container = list()  # stack container to hold generated subsets
+    return groupSumAux(start, nums, target, container)
 
 
 def groupSumAux(start: int, nums: tuple, target: int, container: list = []):
-    if start == len(nums):
-        ans = sum(container)
-        ret = ans == target
-        print(target, "==", ans, "=", ret, "<--", container)
-        return ret
-    container.append(nums[start])
-    if groupSumAux(start + 1, nums, target, container):
-        return True
-    container.pop()
-    if groupSumAux(start + 1, nums, target, container):
-        return True
-    return False
-
-
-def genpowset(nums: tuple, n: int = 0, container: list = []):
-    if n == len(nums):
-        print(sum(container), "<--", container)
-        return
-    container.append(nums[n])
-    genpowset(nums, n + 1, container)
-    container.pop()
-    genpowset(nums, n + 1, container)
+    if start == len(nums):  # if we reached the last element
+        return sum(container) == target  # sum the subset and compare to target
+    container.append(nums[start])  # put the current element on our stack
+    if groupSumAux(start + 1, nums, target, container):  # recurse towards next element
+        return True  # return success if a match is already found
+    container.pop()  # remove the current element from our stack
+    if groupSumAux(start + 1, nums, target, container):  # recurse towards next element
+        return True  # return success if a match is already found
+    return False  # if we reach here, it is because no match was found
 
 
 groupSum_test_cases = pytest.mark.parametrize(

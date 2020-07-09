@@ -1,0 +1,31 @@
+# test empty array
+False    |  0       |
+False    |  5       |
+# test length=1 array
+False    |  4       |   4
+False    |  5       |   4
+False    |  0       |   4
+# test length=2 array
+False    |  6       |   6 4
+False    |  5       |   6 4
+True     |  8       |   4 4
+# general tests
+True     |  8       |   4 4 8
+True     |  2       |   1 1 8
+True     |  2       |   1 8 1
+True     |  6       |   6 0 4
+False    |  -6      |   8 1 6 20 -3
+False    |  -6      |   8 1 6 -6 -3     # test if a number is paired with itself
+True     |  12      |   8 1 6 6 4
+True     |  7       |   3 3 3 4 2 4 2 5 1
+True     |  5       |   3 1 6 4 2 -1
+False    |  5       |   3 5 20 4 -3
+False    |  -40     |   8 1 6 4 -3
+False    |  0       |   8 1 6 4 -3
+False    |  14      |   6 4 7 37        # edge case for complement in hash table
+True     |  8       |   8 4 6 4 -3
+True     |  7       |   8 1 6 4 -3
+True     |  1       |   8 1 6 4 -3
+False    |  99999   |   8 1 6 4 -3 8 1 6 4 1 6 4 -3 8 1 6 4 -3
+True     |  200     |   8 1 6 4 -3 8 1 6 4 1 6 4 -3 8 1 192 -80 -30
+True     |  200     |   8 1 6 4 -3 8 1 6 4 1 6 400 600 8 1 192 -80 -30

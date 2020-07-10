@@ -98,6 +98,7 @@ groupSum_test_cases = pytest.mark.parametrize(
     "start, nums, target, expected",
     [
         (0, tuple([1, 2, 3, 4]), 5, True),  # my test
+        (0, tuple([1, 2, 90, 4]), 90, True),  # my test
         (0, tuple([2, 4, 8]), 10, True),
         (0, tuple([2, 4, 8]), 14, True),
         (0, tuple([2, 4, 8]), 9, False),
@@ -111,6 +112,9 @@ groupSum_test_cases = pytest.mark.parametrize(
         (0, tuple([10, 2, 2, 5]), 17, True),
         (0, tuple([10, 2, 2, 5]), 15, True),
         (0, tuple([10, 2, 2, 5]), 9, True),
+        (0, tuple([10, 20, 30, 40]), 9, False),  # my test
+        (0, tuple([10, 20, 30, 40]), 50, True),  # my test
+        (0, tuple([10, 20, 30, 40]), 0, True),  # 0 sum should match any array
     ],
 )
 
@@ -122,7 +126,9 @@ def test_groupSum(start, nums, target, expected):
 
 def main():
     # just run test cases and return the exit code
-    # return pytest.main(["-v", "--capture=no"])
+    return pytest.main(
+        ["-v", "--capture=no", inspect.getframeinfo(inspect.currentframe()).filename]
+    )
 
     # nums = tuple(("a", "b", "c", "d"))
     nums = tuple((10, 20, 30, 40))

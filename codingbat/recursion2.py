@@ -8,9 +8,6 @@
 # splitOdd10       split53
 
 import pytest
-import inspect
-from pprint import pprint
-
 
 # Given an array of ints, is it possible to choose a group of some
 # of the ints, such that the group sums to the given target? This is a
@@ -90,9 +87,8 @@ def test_groupSum(start, nums, target, expected):
 
 def main():
     # just run test cases and return the exit code
-    return pytest.main(
-        ["-v", "--capture=no", inspect.getframeinfo(inspect.currentframe()).filename]
-    )
+    # __file__ is necessary otherwise pytest cannot find any tests
+    return pytest.main(["-v", "--capture=no", __file__])
 
 
 if __name__ == "__main__":

@@ -104,21 +104,20 @@ public class recursion2 {
   // groupNoAdj(0, [2, 5, 10, 4], 7) → false
   // groupNoAdj(0, [2, 5, 10, 4, 2], 7) → true // only this test is fasiling
   public boolean groupNoAdj(int start, int[] nums, int target) {
-      int accum = 0;  // accumulator to hold running sum
       boolean adj = false;
-      return groupNoAdjAux(start, nums, target, accum, adj);
+      return groupNoAdjAux(start, nums, target, adj);
   }
 
-  public boolean groupNoAdjAux(int start, int[] nums, int target, int accum, boolean adj) {
+  public boolean groupNoAdjAux(int start, int[] nums, int target, boolean adj) {
     if (start >= nums.length)
-      return accum == target;
+      return target == 0;
     if (!adj)
-      accum += nums[start];
-    if (groupNoAdjAux(start + 1, nums, target, accum, true))
+      target -= nums[start];
+    if (groupNoAdjAux(start + 1, nums, target, true))
       return true;
     if (!adj)
-      accum -= nums[start];
-    if (groupNoAdjAux(start + 1, nums, target, accum, false))
+      target += nums[start];
+    if (groupNoAdjAux(start + 1, nums, target, false))
       return true;
     return false;
   }

@@ -160,5 +160,54 @@ public class recursion2 {
     return false;
   }
 
+
+
+
+  // Given an array of ints, is it possible to choose a group of some of the
+  // ints, such that the group sums to the given target, with this additional
+  // constraint: if there are numbers in the array that are adjacent and the
+  // identical value, they must either all be chosen, or none of them chosen. For
+  // example, with the array {1, 2, 2, 2, 5, 2}, either all three 2's in the middle
+  // must be chosen or not, all as a group. (one loop can be used to find the extent
+  // of the identical values).
+  // groupSumClump(0, [2, 4, 8], 10) → true
+  // groupSumClump(0, [1, 2, 4, 8, 1], 14) → true
+  // groupSumClump(0, [2, 4, 4, 8], 14) → false
+  // groupSumClump(0, [8, 2, 2, 1], 9) → true       // only failing case
+  // groupSumClump(0, [8, 2, 2, 1], 11) → false
+  // groupSumClump(0, [1], 1) → true
+  // groupSumClump(0, [9], 1) → false
+  public boolean groupSumClump(int start, int[] nums, int target) {
+    boolean hot = false;
+    return groupSumClumpAux(start, nums, target, hot);
+  }
+  public boolean groupSumClumpAux(int start, int[] nums, int target, boolean hot) {
+    if (start == nums.length)
+      return target == 0;
+    // look ahead
+    int nskip = 0;
+    if (start <= nums.length-2 && nums[start] == nums[start+1]) {
+      hot = true;
+      for (int k = 0; k < nums.length-start-1; k++)
+        if (nums[start+k] == nums[start+1+k])
+          nskip++;
+    }
+
+    // TODO: WIP: not sure what I am doing here
+    //            hot must be reset once the offending block passes away
+    //            complementary case must also be considered
+    if (!hot) {
+      target -= nums[start];
+      if (groupSumClumpAux(start+1, nums, target, hot))
+        return true;
+      target += nums[start];
+      if (groupSumClumpAux(start+1, nums, target, hot))
+        return true;
+    }
+    return false;
+
+  }
+
+
 }
 

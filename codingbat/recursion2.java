@@ -49,17 +49,13 @@ public class recursion2 {
   // assert groupSum(0, [10, 2, 2, 5], 15) == true;
   // assert groupSum(0, [10, 2, 2, 5], 9) == true;
   public boolean groupSum(int start, int[] nums, int target) {
-    int accum = 0;  // accumulator to hold running sum
-    return groupSumAux(start, nums, target, accum);
-  }
-  public boolean groupSumAux(int start, int[] nums, int target, int accum) {
     if (start == nums.length)
-      return accum == target;
-    accum += nums[start];
-    if (groupSumAux(start + 1, nums, target, accum))
+      return target == 0;
+    target -= nums[start];
+    if (groupSum(start + 1, nums, target))
       return true;
-    accum -= nums[start];
-    if (groupSumAux(start + 1, nums, target, accum))
+    target += nums[start];
+    if (groupSum(start + 1, nums, target))
       return true;
     return false;
   }

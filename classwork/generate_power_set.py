@@ -1,19 +1,21 @@
-def print_set(container):
-    print("{}{}{}".format("{", ", ".join(container), "}"))
+#!/usr/bin/env python3
 
 
-def gen_power_set(S, head=0, container=[]):
+def generate_power_set(S, head=0, container=list()):
     if head == len(S):
-        print_set(container)
+        print(container)
         return
+    # use container as a holding stack
     container.append(S[head])  # select this element
-    gen_power_set(S, head + 1, container)
+    generate_power_set(S, head + 1, container)
     container.pop()  # do NOT select this element
-    gen_power_set(S, head + 1, container)
+    generate_power_set(S, head + 1, container)
     return
 
 
 if __name__ == "__main__":
-    gen_power_set("12345")
+    generate_power_set([1, 2, 3])
     print("----------------------------------------------------")
-    gen_power_set("abc")
+    generate_power_set("abc")
+    print("----------------------------------------------------")
+    generate_power_set([10, 20, 30, 40, 50])

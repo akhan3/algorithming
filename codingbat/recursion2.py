@@ -53,24 +53,24 @@ def groupSum(start: int, nums: tuple, target: int, accum: int = 0):
 groupSum_test_cases = pytest.mark.parametrize(
     "start, nums, target, expected",
     [
-        (0, tuple([1, 2, 3, 4]), 5, True),  # my test
-        (0, tuple([1, 2, 90, 4]), 90, True),  # my test
-        (0, tuple([2, 4, 8]), 10, True),
-        (0, tuple([2, 4, 8]), 14, True),
-        (0, tuple([2, 4, 8]), 9, False),
-        (0, tuple([2, 4, 8]), 8, True),
-        (1, tuple([2, 4, 8]), 8, True),
-        (1, tuple([2, 4, 8]), 2, False),
-        (0, tuple([1]), 1, True),
-        (0, tuple([9]), 1, False),
-        (1, tuple([9]), 0, True),
-        (0, tuple([]), 0, True),
-        (0, tuple([10, 2, 2, 5]), 17, True),
-        (0, tuple([10, 2, 2, 5]), 15, True),
-        (0, tuple([10, 2, 2, 5]), 9, True),
-        (0, tuple([10, 20, 30, 40]), 9, False),  # my test
-        (0, tuple([10, 20, 30, 40]), 50, True),  # my test
-        (0, tuple([10, 20, 30, 40]), 0, True),  # 0 sum should match any array
+        (0, [1, 2, 3, 4], 5, True),  # my test
+        (0, [1, 2, 90, 4], 90, True),  # my test
+        (0, [2, 4, 8], 10, True),
+        (0, [2, 4, 8], 14, True),
+        (0, [2, 4, 8], 9, False),
+        (0, [2, 4, 8], 8, True),
+        (1, [2, 4, 8], 8, True),
+        (1, [2, 4, 8], 2, False),
+        (0, [1], 1, True),
+        (0, [9], 1, False),
+        (1, [9], 0, True),
+        (0, [], 0, True),
+        (0, [10, 2, 2, 5], 17, True),
+        (0, [10, 2, 2, 5], 15, True),
+        (0, [10, 2, 2, 5], 9, True),
+        (0, [10, 20, 30, 40], 9, False),  # my test
+        (0, [10, 20, 30, 40], 50, True),  # my test
+        (0, [10, 20, 30, 40], 0, True),  # 0 sum should match any array
     ],
 )
 

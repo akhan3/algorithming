@@ -50,6 +50,26 @@ def groupSum(start: int, nums: tuple, target: int):
     return False  # if we reach here, it is because no match was found
 
 
+def groupSumClump(start: int, nums: tuple, target: int, hot=False):
+    if start == len(nums):
+        return target == 0
+    # look ahead
+    nskip = 0
+    if start <= nums.length - 2 and nums[start] == nums[start + 1]:
+        hot = True
+    for k in enumerate(nums):
+        if nums[start + k] == nums[start + 1 + k]:
+            nskip += 1
+    if not hot:
+        target -= nums[start]
+    if groupSumClump(start + 1, nums, target, hot):
+        return True
+    target += nums[start]
+    if groupSumClump(start + 1, nums, target, hot):
+        return True
+    return False
+
+
 groupSum_test_cases = pytest.mark.parametrize(
     "start, nums, target, expected",
     [
@@ -75,8 +95,30 @@ groupSum_test_cases = pytest.mark.parametrize(
 )
 
 
+groupSumClump_test_cases = pytest.mark.parametrize(
+    "start, nums, target, expected",
+    [
+        (0, [2, 4, 8], 10, True),
+        (0, [1, 2, 4, 8, 1], 14, True),
+        (0, [2, 4, 4, 8], 14, False),  # failing in Python
+        (0, [8, 2, 2, 1], 9, True),  # failing in Java
+        (0, [8, 2, 2, 1], 11, False),  # failing in Python
+        (0, [1], 1, True),
+        (0, [9], 1, False),
+        # my tests follow
+        (0, [10, 20, 30, 40], 0, True),  # 0 sum should match any array
+        (0, [], 0, True),
+    ],
+)
+
+
 @groupSum_test_cases
 def test_groupSum(start, nums, target, expected):
+    assert groupSum(start, nums, target) == expected
+
+
+@groupSumClump_test_cases
+def test_groupSumClump(start, nums, target, expected):
     assert groupSum(start, nums, target) == expected
 
 

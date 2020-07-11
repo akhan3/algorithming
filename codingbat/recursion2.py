@@ -38,19 +38,14 @@ import pytest
 # -
 
 
-def groupSum(start: int, nums: tuple, target: int) -> bool:
-    container = list()  # stack container to hold generated subsets
-    return groupSumAux(start, nums, target, container)
-
-
-def groupSumAux(start: int, nums: tuple, target: int, container: list = []):
+def groupSum(start: int, nums: tuple, target: int, accum: int = 0):
     if start == len(nums):  # if we reached the last element
-        return sum(container) == target  # sum the subset and compare to target
-    container.append(nums[start])  # put the current element on our stack
-    if groupSumAux(start + 1, nums, target, container):  # recurse towards next element
+        return accum == target  # compare to target and return
+    accum += nums[start]  # consider the current element
+    if groupSum(start + 1, nums, target, accum):  # recurse towards next element
         return True  # return success if a match is already found
-    container.pop()  # remove the current element from our stack
-    if groupSumAux(start + 1, nums, target, container):  # recurse towards next element
+    accum -= nums[start]  # do not consider the current element
+    if groupSum(start + 1, nums, target, accum):  # recurse towards next element
         return True  # return success if a match is already found
     return False  # if we reach here, it is because no match was found
 

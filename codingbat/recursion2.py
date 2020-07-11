@@ -83,7 +83,7 @@ def test_groupSum(start, nums, target, expected):
 def main():
     # just run test cases and return the exit code
     # __file__ is necessary otherwise pytest cannot find any tests
-    return pytest.main(["-v", "--capture=no", __file__])
+    return pytest.main(["-l", "--capture=no", __file__])
 
 
 if __name__ == "__main__":

@@ -8,6 +8,8 @@
 // splitOdd10       split53
 
 import java.util.Stack;
+import java.util.Deque;
+import java.util.ArrayDeque;
 import java.lang.Integer;
 
 public class recursion2 {
@@ -48,25 +50,25 @@ public class recursion2 {
   // assert groupSum(0, [10, 2, 2, 5], 9) == true;
   public static boolean groupSum(int start, int[] nums, int target) {
     Stack<Integer> container = new Stack<>();
-    Deque<Integer> container = new ArrayDeque<Integer>(); // stack container to hold generated subsets
+    Deque<Integer> container2 = new ArrayDeque<Integer>(); // stack container to hold generated subsets
     return groupSumAux(start, nums, target, container);
   }
 
 
   public static boolean groupSumAux(int start, int[] nums, int target, Stack<Integer> container) {
     if (start == nums.length)
-      return sumArray(container.toArray()) == target;
+      return sumArray((Integer [])container.toArray()) == target;
     container.push(nums[start]);
     if (groupSumAux(start + 1, nums, target, container))
-      return True;
+      return true;
     container.pop();
     if (groupSumAux(start + 1, nums, target, container))
-      return True;
-    return False;
+      return true;
+    return false;
   }
 
 
-  public int sumArray(int[] container) {
+  public static int sumArray(Integer[] container) {
     int sum = 0;
     for (int k =0; k < container.length; k++)
       sum += container[k];

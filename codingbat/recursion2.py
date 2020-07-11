@@ -8,9 +8,6 @@
 # splitOdd10       split53
 
 import pytest
-import inspect
-from pprint import pprint
-
 
 # Given an array of ints, is it possible to choose a group of some
 # of the ints, such that the group sums to the given target? This is a
@@ -41,19 +38,14 @@ from pprint import pprint
 # -
 
 
-def groupSum(start: int, nums: tuple, target: int) -> bool:
-    container = list()  # stack container to hold generated subsets
-    return groupSumAux(start, nums, target, container)
-
-
-def groupSumAux(start: int, nums: tuple, target: int, container: list = []):
+def groupSum(start: int, nums: tuple, target: int):
     if start == len(nums):  # if we reached the last element
-        return sum(container) == target  # sum the subset and compare to target
-    container.append(nums[start])  # put the current element on our stack
-    if groupSumAux(start + 1, nums, target, container):  # recurse towards next element
+        return target == 0  # if target is vanished return success
+    target -= nums[start]  # consider the current element
+    if groupSum(start + 1, nums, target):  # recurse towards next element
         return True  # return success if a match is already found
-    container.pop()  # remove the current element from our stack
-    if groupSumAux(start + 1, nums, target, container):  # recurse towards next element
+    target += nums[start]  # do not consider the current element
+    if groupSum(start + 1, nums, target):  # recurse towards next element
         return True  # return success if a match is already found
     return False  # if we reach here, it is because no match was found
 
@@ -61,24 +53,24 @@ def groupSumAux(start: int, nums: tuple, target: int, container: list = []):
 groupSum_test_cases = pytest.mark.parametrize(
     "start, nums, target, expected",
     [
-        (0, tuple([1, 2, 3, 4]), 5, True),  # my test
-        (0, tuple([1, 2, 90, 4]), 90, True),  # my test
-        (0, tuple([2, 4, 8]), 10, True),
-        (0, tuple([2, 4, 8]), 14, True),
-        (0, tuple([2, 4, 8]), 9, False),
-        (0, tuple([2, 4, 8]), 8, True),
-        (1, tuple([2, 4, 8]), 8, True),
-        (1, tuple([2, 4, 8]), 2, False),
-        (0, tuple([1]), 1, True),
-        (0, tuple([9]), 1, False),
-        (1, tuple([9]), 0, True),
-        (0, tuple([]), 0, True),
-        (0, tuple([10, 2, 2, 5]), 17, True),
-        (0, tuple([10, 2, 2, 5]), 15, True),
-        (0, tuple([10, 2, 2, 5]), 9, True),
-        (0, tuple([10, 20, 30, 40]), 9, False),  # my test
-        (0, tuple([10, 20, 30, 40]), 50, True),  # my test
-        (0, tuple([10, 20, 30, 40]), 0, True),  # 0 sum should match any array
+        (0, [1, 2, 3, 4], 5, True),  # my test
+        (0, [1, 2, 90, 4], 90, True),  # my test
+        (0, [2, 4, 8], 10, True),
+        (0, [2, 4, 8], 14, True),
+        (0, [2, 4, 8], 9, False),
+        (0, [2, 4, 8], 8, True),
+        (1, [2, 4, 8], 8, True),
+        (1, [2, 4, 8], 2, False),
+        (0, [1], 1, True),
+        (0, [9], 1, False),
+        (1, [9], 0, True),
+        (0, [], 0, True),
+        (0, [10, 2, 2, 5], 17, True),
+        (0, [10, 2, 2, 5], 15, True),
+        (0, [10, 2, 2, 5], 9, True),
+        (0, [10, 20, 30, 40], 9, False),  # my test
+        (0, [10, 20, 30, 40], 50, True),  # my test
+        (0, [10, 20, 30, 40], 0, True),  # 0 sum should match any array
     ],
 )
 
@@ -90,9 +82,8 @@ def test_groupSum(start, nums, target, expected):
 
 def main():
     # just run test cases and return the exit code
-    return pytest.main(
-        ["-v", "--capture=no", inspect.getframeinfo(inspect.currentframe()).filename]
-    )
+    # __file__ is necessary otherwise pytest cannot find any tests
+    return pytest.main(["-l", "--capture=no", __file__])
 
 
 if __name__ == "__main__":

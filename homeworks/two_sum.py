@@ -110,7 +110,7 @@ def binary_search_iter(head, tail, target, nums) -> int:
 
 def main():
     # just run test cases and return the exit code
-    return pytest.main(["-v", "--capture=no"])
+    return pytest.main(["-l", "--capture=no"])
 
 
 if __name__ == "__main__":

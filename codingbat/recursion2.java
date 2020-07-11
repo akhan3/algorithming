@@ -124,6 +124,31 @@ public class recursion2 {
 
 
 
+  // Given an array of ints, is it possible to choose a group of some of the ints, such that the group sums to the given target with these additional constraints: all multiples of 5 in the array must be included in the group. If the value immediately following a multiple of 5 is 1, it must not be chosen. (No loops needed.)
+  // groupSum5(0, [2, 5, 10, 4], 19) → true
+  // groupSum5(0, [2, 5, 10, 4], 17) → true
+  // groupSum5(0, [2, 5, 10, 4], 12) → false
+  public boolean groupSum5(int start, int[] nums, int target) {
+    boolean seen5ish = false;
+    return groupSum5Aux(start, nums, target, seen5ish);
+  }
+  public boolean groupSum5Aux(int start, int[] nums, int target, boolean seen5ish) {
+    if (start == nums.length)
+      return target == 0;
+    if (nums[start] % 5 == 0)
+      seen5ish = true; // TODO: should be reset once the offending condition is removed
+    if (!seen5ish || nums[start] != 1) {
+      target -= nums[start];
+      if (groupSum5Aux(start + 1, nums, target, seen5ish))
+        return true;
+      target += nums[start];
+    }
+    if (nums[start] % 5 != 0) {
+      if (groupSum5Aux(start + 1, nums, target, seen5ish))
+        return true;
+    }
+    return false;
+  }
 
 }
 

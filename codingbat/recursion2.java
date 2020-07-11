@@ -16,9 +16,9 @@ public class recursion2 {
 
 
   public static void main(String[] args) {
-    int [] nums = {2,4,8};
-    boolean found = groupSum(0, nums, 10);
-    System.out.println("found: " + found);
+    // int [] nums = {2,4,8};
+    // boolean found = groupSum(0, nums, 10);
+    // System.out.println("found: " + found);
 
     // for (int k=0; k<nums.length; k++)
     //   System.out.println("Hello: " + nums);
@@ -48,33 +48,58 @@ public class recursion2 {
   // assert groupSum(0, [10, 2, 2, 5], 17) == true;
   // assert groupSum(0, [10, 2, 2, 5], 15) == true;
   // assert groupSum(0, [10, 2, 2, 5], 9) == true;
-  public static boolean groupSum(int start, int[] nums, int target) {
-    Stack<Integer> container = new Stack<>();
-    Deque<Integer> container2 = new ArrayDeque<Integer>(); // stack container to hold generated subsets
-    return groupSumAux(start, nums, target, container);
+  public boolean groupSum(int start, int[] nums, int target) {
+    int accum = 0;  // accumulator to hold running sum
+    return groupSumAux(start, nums, target, accum);
   }
-
-
-  public static boolean groupSumAux(int start, int[] nums, int target, Stack<Integer> container) {
+  public boolean groupSumAux(int start, int[] nums, int target, int accum) {
     if (start == nums.length)
-      return sumArray((Integer [])container.toArray()) == target;
-    container.push(nums[start]);
-    if (groupSumAux(start + 1, nums, target, container))
+      return accum == target;
+    accum += nums[start];
+    if (groupSumAux(start + 1, nums, target, accum))
       return true;
-    container.pop();
-    if (groupSumAux(start + 1, nums, target, container))
+    accum -= nums[start];
+    if (groupSumAux(start + 1, nums, target, accum))
       return true;
     return false;
   }
 
 
-  public static int sumArray(Integer[] container) {
-    int sum = 0;
-    for (int k =0; k < container.length; k++)
-      sum += container[k];
-    return sum;
+  // Given an array of ints, is it possible to choose a group of some of the ints, beginning at the start index, such that the group sums to the given target? However, with the additional constraint that all 6's must be chosen. (No loops needed.)
+  // groupSum6(0, [5, 6, 2], 8) → true
+  // groupSum6(0, [5, 6, 2], 9) → false
+  // groupSum6(0, [5, 6, 2], 7) → false
+  public boolean groupSum6(int start, int[] nums, int target) {
+    int accum = 0;  // accumulator to hold running sum
+    int rem6 = count6(start, nums);
+    return groupSum6Aux(start, nums, target, accum, rem6);
   }
+  public boolean groupSum6Aux(int start, int[] nums, int target, int accum, int rem6) {
+    if (target == 0)
+      return true;
+    if (start == nums.length)
+      return (rem6 == 0) && (accum == target);
 
+    accum += nums[start];
+    if (nums[start] == 6)
+      rem6--;
+    if (groupSum6Aux(start + 1, nums, target, accum, rem6))
+      return true;
+
+    accum -= nums[start];
+    if (nums[start] == 6)
+      rem6++;
+    if (groupSum6Aux(start + 1, nums, target, accum, rem6))
+      return true;
+    return false;
+  }
+  public int count6(int start, int[] nums) {
+    int count = 0;
+    for (int k = 0; k < nums.length; k++)
+      if (nums[k] == 6)
+        count++;
+    return count;
+  }
 
 
 }

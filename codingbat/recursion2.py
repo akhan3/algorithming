@@ -38,14 +38,14 @@ import pytest
 # -
 
 
-def groupSum(start: int, nums: tuple, target: int, accum: int = 0):
+def groupSum(start: int, nums: tuple, target: int):
     if start == len(nums):  # if we reached the last element
-        return accum == target  # compare to target and return
-    accum += nums[start]  # consider the current element
-    if groupSum(start + 1, nums, target, accum):  # recurse towards next element
+        return target == 0  # if target is vanished return success
+    target -= nums[start]  # consider the current element
+    if groupSum(start + 1, nums, target):  # recurse towards next element
         return True  # return success if a match is already found
-    accum -= nums[start]  # do not consider the current element
-    if groupSum(start + 1, nums, target, accum):  # recurse towards next element
+    target += nums[start]  # do not consider the current element
+    if groupSum(start + 1, nums, target):  # recurse towards next element
         return True  # return success if a match is already found
     return False  # if we reach here, it is because no match was found
 

@@ -19,14 +19,16 @@ def robo_sum_max(M, row=0, col=0):
     if row == nR - 1 and col == nC - 1:  # if you hit the last cell
         return M[row][col]
 
-    # corner cases
     if col == nC - 1:  # if you hit the right wall
-        return M[row][col] + robo_sum_max(M, row + 1, col)
-    if row == nR - 1:  # if you hit the bottom wall
-        return M[row][col] + robo_sum_max(M, row, col + 1)
+        rght = 0
+    else:
+        rght = robo_sum_max(M, row, col + 1)
 
-    rght = robo_sum_max(M, row, col + 1)
-    down = robo_sum_max(M, row + 1, col)
+    if row == nR - 1:  # if you hit the bottom wall
+        down = 0
+    else:
+        down = robo_sum_max(M, row + 1, col)
+
     return M[row][col] + max(rght, down)
 
 

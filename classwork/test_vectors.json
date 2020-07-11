@@ -1,4 +1,30 @@
 {
+  "check_palindrome_test_vectors_001": [
+    {
+      "in": "racecar",
+      "out": true
+    },
+    {
+      "in": "abba",
+      "out": true
+    },
+    {
+      "in": "a",
+      "out": true
+    },
+    {
+      "in": "",
+      "out": true
+    },
+    {
+      "in": "hello",
+      "out": false
+    },
+    {
+      "in": "ax",
+      "out": false
+    }
+  ],
   "robo_sum_max_test_vectors_001": [
     {
       "in": [],

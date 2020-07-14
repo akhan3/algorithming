@@ -52,10 +52,8 @@ def groupSum(start: int, nums: tuple, target: int):
 
 def _get_repeat_count(start: int, nums: tuple) -> int:
     n = 0
-    while True:
-        if start + n <= len(nums) - 2:
-            if nums[start + n] != nums[start + n + 1]:
-                break
+    while start + n < len(nums) - 1:
+        if nums[start + n] == nums[start + n + 1]:
             n += 1
         else:
             break

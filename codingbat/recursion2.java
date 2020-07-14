@@ -129,7 +129,6 @@ public class recursion2 {
   }
 
 
-
   // Given an array of ints, is it possible to choose a group of some of the
   // ints, such that the group sums to the given target with these additional
   // constraints: all multiples of 5 in the array must be included in the group.
@@ -161,8 +160,6 @@ public class recursion2 {
   }
 
 
-
-
   // Given an array of ints, is it possible to choose a group of some of the
   // ints, such that the group sums to the given target, with this additional
   // constraint: if there are numbers in the array that are adjacent and the
@@ -173,40 +170,45 @@ public class recursion2 {
   // groupSumClump(0, [2, 4, 8], 10) → true
   // groupSumClump(0, [1, 2, 4, 8, 1], 14) → true
   // groupSumClump(0, [2, 4, 4, 8], 14) → false
-  // groupSumClump(0, [8, 2, 2, 1], 9) → true       // only failing case
+  // groupSumClump(0, [8, 2, 2, 1], 9) → true
   // groupSumClump(0, [8, 2, 2, 1], 11) → false
   // groupSumClump(0, [1], 1) → true
   // groupSumClump(0, [9], 1) → false
   public boolean groupSumClump(int start, int[] nums, int target) {
-    boolean hot = false;
-    return groupSumClumpAux(start, nums, target, hot);
-  }
-  public boolean groupSumClumpAux(int start, int[] nums, int target, boolean hot) {
     if (start == nums.length)
       return target == 0;
-    // look ahead
-    int nskip = 0;
-    if (start <= nums.length-2 && nums[start] == nums[start+1]) {
-      hot = true;
-      for (int k = 0; k < nums.length-start-1; k++)
-        if (nums[start+k] == nums[start+1+k])
-          nskip++;
-    }
 
-    // TODO: WIP: not sure what I am doing here
-    //            hot must be reset once the offending block passes away
-    //            complementary case must also be considered
-    if (!hot) {
-      target -= nums[start];
-      if (groupSumClumpAux(start+1, nums, target, hot))
-        return true;
-      target += nums[start];
-      if (groupSumClumpAux(start+1, nums, target, hot))
-        return true;
-    }
+    int n = _getRepeatCount(start, nums);
+    int repeatSum = _getRepeatSum(n, start, nums);
+
+    target -= repeatSum;
+    if (groupSumClump(start+n+1, nums, target))
+      return true;
+
+    target += repeatSum;
+    if (groupSumClump(start+n+1, nums, target))
+      return true;
+
     return false;
-
   }
+
+  public int _getRepeatCount(int start, int[] nums) {
+    int n = 0;
+    while (start+n < nums.length-1)
+      if (nums[start+n] == nums[start+n+1])
+        n++;
+      else
+        break;
+    return n;
+  }
+
+  public int _getRepeatSum(int nRepeat, int start, int[] nums) {
+    int sum = 0;
+    for (int k = start; k < start + nRepeat + 1; k++)
+      sum += nums[k];
+    return sum;
+  }
+
 
 
 }

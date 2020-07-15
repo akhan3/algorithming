@@ -7,6 +7,7 @@
 # groupSum5        groupSumClump   splitArray
 # splitOdd10       split53
 
+import enum
 import pytest
 
 # Given an array of ints, is it possible to choose a group of some
@@ -99,6 +100,36 @@ def _splitArrayCheckCompSum(sums: tuple, head, tail) -> bool:
     return _splitArrayCheckCompSum(sums, head + 1, tail - 1)
 
 
+def split53(nums: tuple) -> bool:
+    sums = list()
+    _split53Aux(0, nums, sums, 0)
+    print(sums)
+    return _split53CheckCompSum(sums, 0, len(sums) - 1)
+
+
+def _split53Aux(start: int, nums: tuple, sums: list, accum: int):
+    if start == len(nums):
+        sums.append(accum)
+    else:
+        # if subs_type == subset_type.X1
+        accum += nums[start]
+        _split53Aux(start + 1, nums, sums, accum)
+        accum -= nums[start]
+        _split53Aux(start + 1, nums, sums, accum)
+
+
+def _split53CheckCompSum(sums: tuple, head, tail) -> bool:
+    if head > tail:
+        return False
+    a = sums[head]
+    b = sums[tail]
+    # if ((_is5x(a) && _is3x(b) && !_is5x(b)) || (_is5x(b) && _is3x(a) && !_is5x(a)))
+    if a == b:
+        return True
+    else:
+        return _splitArrayCheckCompSum(sums, head + 1, tail - 1)
+
+
 groupSum_test_cases = pytest.mark.parametrize(
     "start, nums, target, expected",
     [
@@ -170,6 +201,21 @@ splitArray_test_cases = pytest.mark.parametrize(
 )
 
 
+split53_test_cases = pytest.mark.parametrize(
+    "nums, expected",
+    [
+        ([1, 1], True),
+        ([1, 1, 1], False),
+        ([2, 4, 2], True),
+        ([2, 2, 2, 1], False),
+        ([3, 3, 5, 1], True),
+        ([3, 5, 8], False),
+        ([2, 4, 6], True),
+        ([3, 5, 6, 10, 3, 3], True),
+    ],
+)
+
+
 @groupSum_test_cases
 def test_groupSum(start, nums, target, expected):
     assert groupSum(start, nums, target) == expected
@@ -183,6 +229,11 @@ def test_groupSumClump(start, nums, target, expected):
 @splitArray_test_cases
 def test_splitArray(nums, expected):
     assert splitArray(tuple(nums)) == expected
+
+
+@split53_test_cases
+def test_split53(nums, expected):
+    assert split53(tuple(nums)) == expected
 
 
 def main():

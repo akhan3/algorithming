@@ -50,6 +50,31 @@ def groupSum(start: int, nums: tuple, target: int):
     return False  # if we reach here, it is because no match was found
 
 
+def _get_repeat_count(start: int, nums: tuple) -> int:
+    n = 0
+    while start + n < len(nums) - 1:
+        if nums[start + n] == nums[start + n + 1]:
+            n += 1
+        else:
+            break
+    return n
+
+
+def groupSumClump(start: int, nums: tuple, target: int):
+    if start == len(nums):  # if we reached the last element
+        return target == 0  # if target is vanished return success
+
+    n = _get_repeat_count(start, nums)
+
+    target -= sum(nums[start : start + n + 1])  # consider the current element
+    if groupSumClump(start + n + 1, nums, target):  # recurse towards next element
+        return True  # return success if a match is already found
+    target += sum(nums[start : start + n + 1])  # do not consider the current element
+    if groupSumClump(start + n + 1, nums, target):  # recurse towards next element
+        return True  # return success if a match is already found
+    return False  # if we reach here, it is because no match was found
+
+
 groupSum_test_cases = pytest.mark.parametrize(
     "start, nums, target, expected",
     [
@@ -75,9 +100,40 @@ groupSum_test_cases = pytest.mark.parametrize(
 )
 
 
+groupSumClump_test_cases = pytest.mark.parametrize(
+    "start, nums, target, expected",
+    [
+        (0, [2, 4, 8], 10, True),
+        (0, [1, 2, 4, 8, 1], 14, True),
+        (0, [2, 4, 4, 8], 14, False),  # failing in Python
+        (0, [8, 2, 2, 1], 9, True),  # failing in Java
+        (0, [8, 2, 2, 1], 11, False),  # failing in Python
+        (0, [1], 1, True),
+        (0, [9], 1, False),
+        # my tests follow
+        (0, [10, 20, 30, 40], 0, True),  # 0 sum should match any array
+        (0, [], 0, True),
+        (0, [3, 2, 2, 7], 7, True),  # my test
+        (0, [3, 2, 2, 7], 12, False),  # my test
+        (0, [3, 2, 2, 1, 20, 1], 6, True),  # my test
+        (0, [2, 2, 5, 2, 2], 5, True),  # my test
+        (0, [3, 2, 2, 5, 2, 2], 5, True),  # my test
+        (0, [3, 2, 2, 5, 2, 2], 7, True),  # my test
+        (0, [13, 2, 2, 5, 2, 2], 18, True),  # my test
+        (0, [13, 2, 2, 5, 2, 2], 15, False),  # my test
+        (0, [13, 2, 2, 5, 2, 2], 4, True),  # my test
+    ],
+)
+
+
 @groupSum_test_cases
 def test_groupSum(start, nums, target, expected):
     assert groupSum(start, nums, target) == expected
+
+
+@groupSumClump_test_cases
+def test_groupSumClump(start, nums, target, expected):
+    assert groupSumClump(start, nums, target) == expected
 
 
 def main():

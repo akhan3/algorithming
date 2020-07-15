@@ -245,5 +245,45 @@ public class recursion2 {
       return _splitArrayCheckCompSum(sums);
   }
 
-}
 
+
+  // Given an array of ints, is it possible to divide the ints into two groups,
+  // so that the sum of one group is a multiple of 10, and the sum of the other
+  // group is odd. Every int must be in one group or the other. Write a
+  // recursive helper method that takes whatever arguments you like, and make
+  // the initial call to your recursive helper from splitOdd10(). (No loops
+  // needed.)
+  // splitOdd10([5, 5, 5]) → true
+  // splitOdd10([5, 5, 6]) → false
+  // splitOdd10([5, 5, 6, 1]) → true
+  public boolean splitOdd10(int[] nums) {
+    Deque<Integer> sums = new ArrayDeque<Integer>();
+    _splitOdd10Aux(0, nums, sums, 0);
+    if (sums.size() == 1)
+      return false;
+    return _splitOdd10CheckCompSum(sums);
+  }
+
+  public void _splitOdd10Aux(int start, int[] nums, Deque<Integer> sums, int accum) {
+    if (start == nums.length)
+      sums.addLast(accum);
+    else {
+      accum += nums[start];
+      _splitOdd10Aux(start+1, nums, sums, accum);
+      accum -= nums[start];
+      _splitOdd10Aux(start+1, nums, sums, accum);
+    }
+  }
+
+  public boolean _splitOdd10CheckCompSum(Deque<Integer> sums) {
+    if (sums.size() == 0)
+      return false;
+    int a = sums.pollFirst();
+    int b = sums.pollLast();
+    if ((a%10==0 && b%2==1) || (b%10==0 && a%2==1))
+      return true;
+    else
+      return _splitOdd10CheckCompSum(sums);
+  }
+
+}

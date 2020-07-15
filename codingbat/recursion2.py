@@ -75,6 +75,30 @@ def groupSumClump(start: int, nums: tuple, target: int):
     return False  # if we reach here, it is because no match was found
 
 
+def splitArray(nums: tuple) -> bool:
+    sums = list()
+    _splitArrayAux(0, nums, sums, 0)
+    return _splitArrayCheckCompSum(sums, 0, len(sums) - 1)
+
+
+def _splitArrayAux(start: int, nums: tuple, sums: list, accum: int):
+    if start == len(nums):
+        sums.append(accum)
+    else:
+        accum += nums[start]
+        _splitArrayAux(start + 1, nums, sums, accum)
+        accum -= nums[start]
+        _splitArrayAux(start + 1, nums, sums, accum)
+
+
+def _splitArrayCheckCompSum(sums: tuple, head, tail) -> bool:
+    if head > tail:
+        return False
+    if sums[head] == sums[tail]:
+        return True
+    return _splitArrayCheckCompSum(sums, head + 1, tail - 1)
+
+
 groupSum_test_cases = pytest.mark.parametrize(
     "start, nums, target, expected",
     [
@@ -126,6 +150,26 @@ groupSumClump_test_cases = pytest.mark.parametrize(
 )
 
 
+splitArray_test_cases = pytest.mark.parametrize(
+    "nums, expected",
+    [
+        ([2, 2], True),
+        ([2, 3], False),
+        ([5, 2, 3], True),
+        ([5, 2, 2], False),
+        ([1, 1, 1, 1, 1, 1], True),
+        ([1, 1, 1, 1, 1], False),
+        ([], True),
+        ([1], False),
+        ([3, 5], False),
+        ([5, 3, 2], True),
+        ([2, 2, 10, 10, 1, 1], True),
+        ([1, 2, 2, 10, 10, 1, 1], False),
+        ([1, 2, 3, 10, 10, 1, 1], True),
+    ],
+)
+
+
 @groupSum_test_cases
 def test_groupSum(start, nums, target, expected):
     assert groupSum(start, nums, target) == expected
@@ -134,6 +178,11 @@ def test_groupSum(start, nums, target, expected):
 @groupSumClump_test_cases
 def test_groupSumClump(start, nums, target, expected):
     assert groupSumClump(start, nums, target) == expected
+
+
+@splitArray_test_cases
+def test_splitArray(nums, expected):
+    assert splitArray(tuple(nums)) == expected
 
 
 def main():

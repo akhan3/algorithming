@@ -7,7 +7,6 @@
 // groupSum5        groupSumClump   splitArray
 // splitOdd10       split53
 
-import java.util.Stack;
 import java.util.Deque;
 import java.util.ArrayDeque;
 import java.lang.Integer;
@@ -210,6 +209,41 @@ public class recursion2 {
   }
 
 
+  // Given an array of ints, is it possible to divide the ints into two
+  // groups, so that the sums of the two groups are the same. Every int must be
+  // in one group or the other. Write a recursive helper method that takes
+  // whatever arguments you like, and make the initial call to your recursive
+  // helper from splitArray(). (No loops needed.)
+  // splitArray([2, 2]) → true
+  // splitArray([2, 3]) → false
+  // splitArray([5, 2, 3]) → true
+  public boolean splitArray(int[] nums) {
+    if (nums.length == 0)
+      return true;
+    Deque<Integer> sums = new ArrayDeque<Integer>();
+    _splitArrayAux(0, nums, sums, 0);
+    return _splitArrayCheckCompSum(sums);
+  }
+
+  public void _splitArrayAux(int start, int[] nums, Deque<Integer> sums, int accum) {
+    if (start == nums.length)
+      sums.addLast(accum);
+    else {
+      accum += nums[start];
+      _splitArrayAux(start+1, nums, sums, accum);
+      accum -= nums[start];
+      _splitArrayAux(start+1, nums, sums, accum);
+    }
+  }
+
+  public boolean _splitArrayCheckCompSum(Deque<Integer> sums) {
+    if (sums.size() == 0)
+      return false;
+    else if (sums.pollFirst() == sums.pollLast())
+      return true;
+    else
+      return _splitArrayCheckCompSum(sums);
+  }
 
 }
 

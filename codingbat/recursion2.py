@@ -7,7 +7,6 @@
 # groupSum5        groupSumClump   splitArray
 # splitOdd10       split53
 
-import enum
 import pytest
 
 # Given an array of ints, is it possible to choose a group of some
@@ -101,33 +100,36 @@ def _splitArrayCheckCompSum(sums: tuple, head, tail) -> bool:
 
 
 def split53(nums: tuple) -> bool:
-    sums = list()
-    _split53Aux(0, nums, sums, 0)
-    print(sums)
-    return _split53CheckCompSum(sums, 0, len(sums) - 1)
+    sums5x = list()
+    sums3x = list()
+    _split53Aux(0, nums, sums5x, 0, _is3x)
+    _split53Aux(0, nums, sums3x, 0, _is5x)
+    return _split53CheckCompSum(tuple(sums5x), tuple(sums3x), 0, len(sums5x) - 1)
 
 
-def _split53Aux(start: int, nums: tuple, sums: list, accum: int):
+def _split53Aux(start: int, nums: tuple, sums: list, accum: int, func):
     if start == len(nums):
         sums.append(accum)
     else:
-        # if subs_type == subset_type.X1
-        accum += nums[start]
-        _split53Aux(start + 1, nums, sums, accum)
-        accum -= nums[start]
-        _split53Aux(start + 1, nums, sums, accum)
+        incr = nums[start] if not func(nums[start]) else float("nan")
+        _split53Aux(start + 1, nums, sums, accum + incr, func)
+        _split53Aux(start + 1, nums, sums, accum, func)
 
 
-def _split53CheckCompSum(sums: tuple, head, tail) -> bool:
+def _is5x(x):
+    return x % 5 == 0
+
+
+def _is3x(x):
+    return (x % 3 == 0) and (x % 5 != 0)
+
+
+def _split53CheckCompSum(sums5x: tuple, sums3x: tuple, head, tail) -> bool:
     if head > tail:
         return False
-    a = sums[head]
-    b = sums[tail]
-    # if ((_is5x(a) && _is3x(b) && !_is5x(b)) || (_is5x(b) && _is3x(a) && !_is5x(a)))
-    if a == b:
+    if (sums5x[head] == sums3x[tail]) or (sums5x[tail] == sums3x[head]):
         return True
-    else:
-        return _splitArrayCheckCompSum(sums, head + 1, tail - 1)
+    return _split53CheckCompSum(sums5x, sums3x, head + 1, tail - 1)
 
 
 groupSum_test_cases = pytest.mark.parametrize(

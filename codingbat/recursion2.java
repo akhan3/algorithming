@@ -220,31 +220,28 @@ public class recursion2 {
   public boolean splitArray(int[] nums) {
     if (nums.length == 0)
       return true;
-    Deque<Integer> sums = new ArrayDeque<Integer>();
+    Deque<Integer> sums = new ArrayDeque<Integer>();  // container to store the sums
     _splitArrayAux(0, nums, sums, 0);
-    return _splitArrayCheckCompSum(sums);
+    return _splitArrayCheckCompSum(sums); // match the sums in complementary positions
   }
 
   public void _splitArrayAux(int start, int[] nums, Deque<Integer> sums, int accum) {
-    if (start == nums.length)
-      sums.addLast(accum);
+    if (start == nums.length) // if reached past the last element
+      sums.addLast(accum);    // populate the container with the finished accumulator
     else {
-      accum += nums[start];
-      _splitArrayAux(start+1, nums, sums, accum);
-      accum -= nums[start];
-      _splitArrayAux(start+1, nums, sums, accum);
+      _splitArrayAux(start+1, nums, sums, accum + nums[start]); // advance while including the current element
+      _splitArrayAux(start+1, nums, sums, accum);               // advance while NOT including the current element
     }
   }
 
   public boolean _splitArrayCheckCompSum(Deque<Integer> sums) {
-    if (sums.size() == 0)
-      return false;
-    else if (sums.pollFirst() == sums.pollLast())
-      return true;
+    if (sums.size() == 0) // if the container is vanished
+      return false;       // return failure, since no match was found
+    else if (sums.pollFirst() == sums.pollLast()) // match the elements in complementary positions
+      return true;  // TADA!
     else
-      return _splitArrayCheckCompSum(sums);
+      return _splitArrayCheckCompSum(sums); // recurse
   }
-
 
 
   // Given an array of ints, is it possible to divide the ints into two groups,
@@ -296,42 +293,47 @@ public class recursion2 {
   // split53([1, 1, 1]) → false
   // split53([2, 4, 2]) → true
   public boolean split53(int[] nums) {
+    // containers to store the sums
     Deque<Double> sums5x = new ArrayDeque<Double>();
     Deque<Double> sums3x = new ArrayDeque<Double>();
-    _split53Aux(0, nums, sums5x, 0, 3);
-    _split53Aux(0, nums, sums3x, 0, 5);
+    // Scan the array twice...
+    _split53Aux(0, nums, sums5x, 0, 3);   //    once while avoiding 3x
+    _split53Aux(0, nums, sums3x, 0, 5);   //    then while avoiding 5x
+    // match the sums in complementary positions
     return _split53CheckCompSum(sums5x, sums3x);
   }
 
   public void _split53Aux(int start, int[] nums, Deque<Double> sums, double accum, int to_avoid) {
-    if (start == nums.length)
-      sums.addLast(accum);
-    else {
-      double incr = nums[start];
-      if (to_avoid == 5) {
-        if (nums[start] % 5 == 0)
-          incr = Double.NaN;
-      }
-      else if (to_avoid == 3) {
-        if ((nums[start] % 3 == 0) && (nums[start] % 5 != 0))
-          incr = Double.NaN;
-      }
-      _split53Aux(start+1, nums, sums, accum + incr, to_avoid);
-      _split53Aux(start+1, nums, sums, accum, to_avoid);
+    if (start == nums.length) { // if reached past the last element
+      sums.addLast(accum);      // populate the container with the finished accumulator
+      return;
     }
+    // avoid the elements that need to be avoided
+    double incr = nums[start];
+    if (to_avoid == 5) {
+      if (nums[start] % 5 == 0)
+        incr = Double.NaN; // invalidate the accumulator to identify later
+    }
+    else if (to_avoid == 3) {
+      if ((nums[start] % 3 == 0) && (nums[start] % 5 != 0))
+        incr = Double.NaN; // invalidate the accumulator to identify later
+    }
+    // Recurse
+    _split53Aux(start+1, nums, sums, accum + incr, to_avoid); // advance while including the current element
+    _split53Aux(start+1, nums, sums, accum, to_avoid);        // advance while NOT including the current element
   }
 
-  public boolean _split53CheckCompSum(Deque<Double> sums5x, Deque<Double> sums3x) {
-    if (sums5x.size() == 0)
-      return false;
-    double a = sums5x.pollFirst();
-    double b = sums3x.pollLast();
-    double c = sums5x.pollLast();
-    double d = sums3x.pollFirst();
-    if ((a == b) || (c == d))
-      return true;
+  public boolean _split53CheckCompSum(Deque<Double> sums1, Deque<Double> sums2) {
+    if (sums1.size() == 0)  // if the container is vanished
+      return false;         // return failure, since no match was found
+    double a = sums1.pollFirst(); // extract head of first array
+    double b = sums2.pollLast();  // extract tail of second array
+    double c = sums1.pollLast();  // extract tail of first array
+    double d = sums2.pollFirst(); // extract head of second array
+    if ((a == b) || (c == d))     // match the elements in complementary positions
+      return true;                // TADA!
     else
-      return _split53CheckCompSum(sums5x, sums3x);
+      return _split53CheckCompSum(sums1, sums2);  // recurse
   }
 
 }

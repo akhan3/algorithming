@@ -286,4 +286,52 @@ public class recursion2 {
       return _splitOdd10CheckCompSum(sums);
   }
 
+
+  // Given an array of ints, is it possible to divide the ints into two groups,
+  // so that the sum of the two groups is the same, with these constraints: all
+  // the values that are multiple of 5 must be in one group, and all the values
+  // that are a multiple of 3 (and not a multiple of 5) must be in the other.
+  // (No loops needed.)
+  // split53([1, 1]) → true
+  // split53([1, 1, 1]) → false
+  // split53([2, 4, 2]) → true
+  public boolean split53(int[] nums) {
+    Deque<Double> sums5x = new ArrayDeque<Double>();
+    Deque<Double> sums3x = new ArrayDeque<Double>();
+    _split53Aux(0, nums, sums5x, 0, 3);
+    _split53Aux(0, nums, sums3x, 0, 5);
+    return _split53CheckCompSum(sums5x, sums3x);
+  }
+
+  public void _split53Aux(int start, int[] nums, Deque<Double> sums, double accum, int to_avoid) {
+    if (start == nums.length)
+      sums.addLast(accum);
+    else {
+      double incr = nums[start];
+      if (to_avoid == 5) {
+        if (nums[start] % 5 == 0)
+          incr = Double.NaN;
+      }
+      else if (to_avoid == 3) {
+        if ((nums[start] % 3 == 0) && (nums[start] % 5 != 0))
+          incr = Double.NaN;
+      }
+      _split53Aux(start+1, nums, sums, accum + incr, to_avoid);
+      _split53Aux(start+1, nums, sums, accum, to_avoid);
+    }
+  }
+
+  public boolean _split53CheckCompSum(Deque<Double> sums5x, Deque<Double> sums3x) {
+    if (sums5x.size() == 0)
+      return false;
+    double a = sums5x.pollFirst();
+    double b = sums3x.pollLast();
+    double c = sums5x.pollLast();
+    double d = sums3x.pollFirst();
+    if ((a == b) || (c == d))
+      return true;
+    else
+      return _split53CheckCompSum(sums5x, sums3x);
+  }
+
 }

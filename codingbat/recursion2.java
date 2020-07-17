@@ -50,10 +50,8 @@ public class recursion2 {
   public boolean groupSum(int start, int[] nums, int target) {
     if (start == nums.length)
       return target == 0;
-    target -= nums[start];
-    if (groupSum(start + 1, nums, target))
+    if (groupSum(start + 1, nums, target - nums[start]))
       return true;
-    target += nums[start];
     if (groupSum(start + 1, nums, target))
       return true;
     return false;
@@ -68,35 +66,14 @@ public class recursion2 {
   // groupSum6(0, [5, 6, 2], 9) → false
   // groupSum6(0, [5, 6, 2], 7) → false
   public boolean groupSum6(int start, int[] nums, int target) {
-    int accum = 0;  // accumulator to hold running sum
-    int rem6 = count6(start, nums);
-    return groupSum6Aux(start, nums, target, accum, rem6);
-  }
-  public boolean groupSum6Aux(int start, int[] nums, int target, int accum, int rem6) {
-    if (target == 0)
-      return true;
     if (start == nums.length)
-      return (rem6 == 0) && (accum == target);
-
-    accum += nums[start];
-    if (nums[start] == 6)
-      rem6--;
-    if (groupSum6Aux(start + 1, nums, target, accum, rem6))
+      return target == 0;
+    if (groupSum6(start + 1, nums, target - nums[start]))
       return true;
-
-    accum -= nums[start];
-    if (nums[start] == 6)
-      rem6++;
-    if (groupSum6Aux(start + 1, nums, target, accum, rem6))
-      return true;
+    if (nums[start] != 6)
+      if (groupSum6(start + 1, nums, target))
+        return true;
     return false;
-  }
-  public int count6(int start, int[] nums) {
-    int count = 0;
-    for (int k = 0; k < nums.length; k++)
-      if (nums[k] == 6)
-        count++;
-    return count;
   }
 
 
@@ -109,20 +86,16 @@ public class recursion2 {
   // groupNoAdj(0, [2, 5, 10, 4], 7) → false
   // groupNoAdj(0, [2, 5, 10, 4, 2], 7) → true // only this test is fasiling
   public boolean groupNoAdj(int start, int[] nums, int target) {
-      boolean adj = false;
-      return groupNoAdjAux(start, nums, target, adj);
+    return groupNoAdj(0, nums, target, true);
   }
 
-  public boolean groupNoAdjAux(int start, int[] nums, int target, boolean adj) {
-    if (start >= nums.length)
+  public boolean groupNoAdj(int start, int[] nums, int target, boolean allowed) {
+    if (start == nums.length)
       return target == 0;
-    if (!adj)
-      target -= nums[start];
-    if (groupNoAdjAux(start + 1, nums, target, true))
-      return true;
-    if (!adj)
-      target += nums[start];
-    if (groupNoAdjAux(start + 1, nums, target, false))
+    if (allowed)
+      if (groupNoAdj(start+1, nums, target-nums[start], false))
+        return true;
+    if (groupNoAdj(start+1, nums, target, true))
       return true;
     return false;
   }
@@ -137,24 +110,14 @@ public class recursion2 {
   // groupSum5(0, [2, 5, 10, 4], 17) → true
   // groupSum5(0, [2, 5, 10, 4], 12) → false
   public boolean groupSum5(int start, int[] nums, int target) {
-    boolean seen5ish = false;
-    return groupSum5Aux(start, nums, target, seen5ish);
-  }
-  public boolean groupSum5Aux(int start, int[] nums, int target, boolean seen5ish) {
     if (start == nums.length)
       return target == 0;
-    if (nums[start] % 5 == 0)
-      seen5ish = true; // TODO: should be reset once the offending condition is removed
-    if (!seen5ish || nums[start] != 1) {
-      target -= nums[start];
-      if (groupSum5Aux(start + 1, nums, target, seen5ish))
+    if (!((start > 0) && (nums[start-1] % 5 == 0) && nums[start] == 1))
+      if (groupSum5(start + 1, nums, target - nums[start]))
         return true;
-      target += nums[start];
-    }
-    if (nums[start] % 5 != 0) {
-      if (groupSum5Aux(start + 1, nums, target, seen5ish))
+    if (!(nums[start] % 5 == 0))
+      if (groupSum5(start + 1, nums, target))
         return true;
-    }
     return false;
   }
 
@@ -177,35 +140,15 @@ public class recursion2 {
     if (start == nums.length)
       return target == 0;
 
-    int n = _getRepeatCount(start, nums);
-    int repeatSum = _getRepeatSum(n, start, nums);
+    int k = 0;
+    while((start+k+1 < nums.length) && (nums[start+k+1] == nums[start+k]))
+        k++;
 
-    target -= repeatSum;
-    if (groupSumClump(start+n+1, nums, target))
+    if (groupSumClump(start+k+1, nums, target - (k+1)*nums[start]))
       return true;
-
-    target += repeatSum;
-    if (groupSumClump(start+n+1, nums, target))
+    if (groupSumClump(start+k+1, nums, target))
       return true;
-
     return false;
-  }
-
-  public int _getRepeatCount(int start, int[] nums) {
-    int n = 0;
-    while (start+n < nums.length-1)
-      if (nums[start+n] == nums[start+n+1])
-        n++;
-      else
-        break;
-    return n;
-  }
-
-  public int _getRepeatSum(int nRepeat, int start, int[] nums) {
-    int sum = 0;
-    for (int k = start; k < start + nRepeat + 1; k++)
-      sum += nums[k];
-    return sum;
   }
 
 
@@ -272,14 +215,10 @@ public class recursion2 {
   public boolean split53(int start, int[] nums, int accum1, int accum2) {
     if (start == nums.length)
       return accum1 == accum2;
-    if (nums[start] % 5 == 0) {
-      if (split53(start+1, nums, accum1 + nums[start], accum2))
-        return true;
-    }
-    else if (nums[start] % 3 == 0 && nums[start] % 5 != 0 ) {
-      if (split53(start+1, nums, accum1, accum2 + nums[start]))
-        return true;
-    }
+    if (nums[start] % 5 == 0)
+      return split53(start+1, nums, accum1+nums[start], accum2);
+    else if ((nums[start] % 3 == 0) && (nums[start] % 5 != 0))
+      return split53(start+1, nums, accum1, accum2+nums[start]);
     else {
       if (split53(start+1, nums, accum1 + nums[start], accum2))
         return true;

@@ -2,7 +2,7 @@
 
 
 lut = {
-    "1": "",
+    "1": " ",
     "2": "ABC",
     "3": "DEF",
     "4": "GHI",
@@ -15,17 +15,19 @@ lut = {
 }
 
 
-def phonet9(inp, i=0, out="", k=0):
-    # print("  " + inp[: i + 1])
+def phonet9(inp, i=0, container=list()):
     if i == len(inp):
-        print(">        " + str(k) + " ", str(out))
+        print("".join(container))
         return
-    print("  " + inp[: i + 1])
-    chars = lut[inp[i]]
-    for k, ch in enumerate(chars):
-        phonet9(inp, i + 1, out + ch, k)
-    return
+    for ch in lut[inp[i]]:
+        container.append(ch)
+        phonet9(inp, i + 1, container)
+        container.pop()
 
 
 if __name__ == "__main__":
-    phonet9("235")
+    phonet9("574")
+    print("----------------------------------------------------")
+    phonet9("418")
+    print("----------------------------------------------------")
+    phonet9("650")

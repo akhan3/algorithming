@@ -1,3 +1,6 @@
+import sys
+
+
 class Node:
     def __init__(self, value):
         self.value = value
@@ -20,12 +23,29 @@ def print_pre_order(node):
     print_pre_order(node.left)
     print_pre_order(node.right)
 
+
 def print_post_order(node):
     if node is None:
         return
     print_post_order(node.left)
     print_post_order(node.right)
     print(node.value, end=", ")  # current
+
+
+def get_max_bintree(node):
+    container = [-sys.maxsize]
+    get_max_bintree_aux(node, container)
+    return container[0]
+
+
+def get_max_bintree_aux(node, container):
+    if node is None:
+        return
+    get_max_bintree_aux(node.left, container)
+    get_max_bintree_aux(node.right, container)
+    if node.value > container[0]:
+        container[0] = node.value
+
 
 def main():
     root = Node(4)
@@ -43,6 +63,8 @@ def main():
     print_pre_order(root)
     print()
     print_post_order(root)
+    print()
+    print(get_max_bintree(root))
 
 
 if __name__ == "__main__":

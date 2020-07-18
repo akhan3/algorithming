@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # https://codingbat.com/java/Recursion-2
 
 # Harder recursion problems. Currently, these are all recursive

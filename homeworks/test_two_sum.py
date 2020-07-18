@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import pytest
 import random
 from two_sum import (

@@ -2,61 +2,82 @@ import sys
 
 
 class Node:
-    def __init__(self, value):
+    def __init__(self, value, left=None, right=None):
         self.value = value
-        self.left = None
-        self.right = None
+        self.left = left
+        self.right = right
 
 
+# BFS uses queue and thus iteration
+def print_bfs(node):
+    Q = [node]
+    while len(Q) != 0:
+        node = Q.pop(0)  # dequeue
+        if node is None:
+            continue
+        print(node.value, end=", ")  # process currennt node
+        Q.append(node.left)  # enqueue all children
+        Q.append(node.right)  # enqueue all children
+
+
+# DFS uses stack and thus recursion
 def print_in_order(node):
     if node is None:
         return
-    print_in_order(node.left)
-    print(node.value, end=", ")  # current
-    print_in_order(node.right)
+    print_in_order(node.left)  # L
+    print(node.value, end=", ")  # C
+    print_in_order(node.right)  # R
 
 
 def print_pre_order(node):
     if node is None:
         return
-    print(node.value, end=", ")  # current
-    print_pre_order(node.left)
-    print_pre_order(node.right)
+    print(node.value, end=", ")  # C
+    print_pre_order(node.left)  # L
+    print_pre_order(node.right)  # R
 
 
 def print_post_order(node):
     if node is None:
         return
-    print_post_order(node.left)
-    print_post_order(node.right)
-    print(node.value, end=", ")  # current
+    print_post_order(node.left)  # L
+    print_post_order(node.right)  # R
+    print(node.value, end=", ")  # C
 
 
-def get_max_bintree(node):
-    container = [-sys.maxsize]
-    get_max_bintree_aux(node, container)
-    return container[0]
-
-
-def get_max_bintree_aux(node, container):
+def get_max_bintree(node, container=-sys.maxsize):
     if node is None:
-        return
-    get_max_bintree_aux(node.left, container)
-    get_max_bintree_aux(node.right, container)
-    if node.value > container[0]:
-        container[0] = node.value
+        return container
+    container = get_max_bintree(node.left, container)
+    container = get_max_bintree(node.right, container)
+    if node.value > container:
+        container = node.value
+    return container
 
 
 def main():
-    root = Node(4)
-    n1 = Node(3)
-    n2 = Node(8)
-    n3 = Node(1)
-    n4 = Node(9)
-    root.left = n1
-    root.right = n2
-    n1.left = n3
-    n2.right = n4
+    #     4
+    #    / \
+    #   3   8
+    #  / \   \
+    # 2   5   1
+    #    /
+    #   6
+
+    n4 = Node(4)
+    n3 = Node(3)
+    n8 = Node(8)
+    n2 = Node(2)
+    n5 = Node(5)
+    n1 = Node(1)
+    n6 = Node(6)
+    root = n4
+    n4.left = n3
+    n4.right = n8
+    n3.left = n2
+    n3.right = n5
+    n5.left = n6
+    n8.right = n1
 
     print_in_order(root)
     print()
@@ -65,6 +86,10 @@ def main():
     print_post_order(root)
     print()
     print(get_max_bintree(root))
+    print_bfs(root)
+    print()
+    print_bfs(n3)
+    print()
 
 
 if __name__ == "__main__":

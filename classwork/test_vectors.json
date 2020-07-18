@@ -1,5 +1,5 @@
 {
-  "check_palindrome_test_vectors_001": [
+  "is_palindrome_test_vectors_001": [
     {
       "in": "racecar",
       "out": true
@@ -22,6 +22,22 @@
     },
     {
       "in": "ax",
+      "out": false
+    },
+    {
+      "in": "alala",
+      "out": true
+    },
+    {
+      "in": "blaalb",
+      "out": true
+    },
+    {
+      "in": "kiwik",
+      "out": true
+    },
+    {
+      "in": "kixwik",
       "out": false
     }
   ],

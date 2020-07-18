@@ -1,22 +1,29 @@
+#!/usr/bin/env python3
+
 import pytest
 import json
 
 
-def check_palindrome(s):
-    # print(s)
+def is_palindrome(s):
     if len(s) <= 1:
         return True
-    if s[0] != s[-1]:
+    if s[0] != s[-1]:  # fail early
         return False
-    # if s[0] == s[-1] and len(s) == 2:
-    #     return True
-    return check_palindrome(s[1:-1])  # trim 1st and last character and recurse
+    return is_palindrome(s[1:-1])  # trim 1st and last character and recurse
+
+
+def is_palindrome_nocopy(s, k=0):
+    if k >= len(s) // 2:
+        return True
+    if s[k] != s[-k - 1]:  # fail early
+        return False
+    return is_palindrome_nocopy(s, k + 1)
 
 
 def load_test_cases(filename):
     with open(filename, "r") as fh:
         txt = json.load(fh)
-    txt = txt["check_palindrome_test_vectors_001"]
+    txt = txt["is_palindrome_test_vectors_001"]
     tc = list()
     for t in txt:
         tc.append((t["in"], t["out"]))
@@ -29,8 +36,9 @@ loaded_test_cases = pytest.mark.parametrize(
 
 
 @loaded_test_cases
-def test_check_palindrome(input, expected):
-    assert check_palindrome(input) == expected
+def test_is_palindrome(input, expected):
+    assert is_palindrome(input) == expected
+    assert is_palindrome_nocopy(input) == expected
 
 
 def main():
@@ -41,8 +49,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    # assert check_palindrome("")
-    # assert check_palindrome("")
-    # assert check_palindrome("a")
-    # assert not check_palindrome("hello")
-    # assert not check_palindrome("ax")

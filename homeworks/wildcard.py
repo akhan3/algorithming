@@ -3,39 +3,38 @@
 import pytest
 
 
-# time complexity: O(n)
-def wildcard(input: str, output=[], i=0):
+def wildcard(input: str, output=set(), container=[], i=0):
     if i == len(input):
-        print("".join(output))
+        output.add("".join(container))
         return
     if input[i] == "?":
-        output.append("0")
-        wildcard(input, output, i + 1)
-        output.pop()
-        output.append("1")
-        wildcard(input, output, i + 1)
-        output.pop()
+        container.append("0")
+        wildcard(input, output, container, i + 1)
+        container.pop()
+        container.append("1")
+        wildcard(input, output, container, i + 1)
+        container.pop()
     else:
-        output.append(input[i])
-        wildcard(input, output, i + 1)
-        output.pop()
+        container.append(input[i])
+        wildcard(input, output, container, i + 1)
+        container.pop()
+    return output
+
 
 
 wildcard_test_cases = pytest.mark.parametrize(
     "input, output",
     [
-        ("10?", ("101", "100")),
-        ("1?0?", ("1000", "1001", "1100", "1101")),
-        ("?", ("1", "0")),
+        ("10?", {"101", "100"}),
+        ("1?0?", {"1000", "1001", "1100", "1101"}),
+        ("?", {"1", "0"}),
     ],
 )
 
 
 @wildcard_test_cases
 def test_wildcard(input, output):
-    # assert wildcard(input, []) == output
-    print()
-    wildcard(input, [])
+    assert wildcard(input, set(), list()) == output
 
 
 def main():

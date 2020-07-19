@@ -26,7 +26,7 @@ def explore(M, container=None, row=0, col=0, accum=0):
 
 
 def max_sum_southeast(M):
-    container = explore(M, [])
+    container = explore(M)
     return max(container)
 
 

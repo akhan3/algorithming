@@ -2,7 +2,7 @@
 
 import pytest
 
-
+# this solution uses two containers to build a word and then to store the finished words
 def wildcard(input: str, output=set(), container=[], i=0):
     if i == len(input):
         output.add("".join(container))
@@ -21,6 +21,17 @@ def wildcard(input: str, output=set(), container=[], i=0):
     return output
 
 
+# this solution is not space efficient since it passes strings around
+def wildcard_str_passing(input: str, output: str = "", i=0):
+    if i == len(input):
+        print(output)
+        return
+    if input[i] == "?":
+        wildcard_str_passing(input, output + "0", i + 1)
+        wildcard_str_passing(input, output + "1", i + 1)
+    else:
+        wildcard_str_passing(input, output + input[i], i + 1)
+
 
 wildcard_test_cases = pytest.mark.parametrize(
     "input, output",
@@ -35,6 +46,7 @@ wildcard_test_cases = pytest.mark.parametrize(
 @wildcard_test_cases
 def test_wildcard(input, output):
     assert wildcard(input, set(), list()) == output
+    wildcard_str_passing(input)
 
 
 def main():

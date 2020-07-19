@@ -7,10 +7,43 @@ import pytest
 def power(x: float, n: int) -> float:
     if n < 0:
         return power(1 / x, -n)  # turn negative exponent into positive
-    if n == 0:
+    elif n == 0:
         return 1
     return x * power(x, n - 1)
 
+
+# my own algorithm
+# time complexity: O(log n + n/2) = O(n)
+def powerfast(x: float, n: int, raised: int = 0, product: float = 1) -> float:
+    if n < 0:
+        return powerfast(1 / x, -n)  # turn negative exponent into positive
+    elif n == 1:
+        return x
+    elif raised == n:
+        return product
+
+    if raised == 0:
+        return powerfast(x, n, 2, x * x)
+    elif 2 * raised <= n:
+        return powerfast(x, n, raised * 2, product * product)
+    elif 2 * raised > n:
+        for k in range(n - raised): # O(n/2) = O(n)
+            product *= x
+        return product
+
+
+# inspired from https://stackoverflow.com/a/101613/107349
+# time complexity: O(log n)
+def powerfaster(x: float, n: int, product: float = 1) -> float:
+    if n < 0:
+        return powerfaster(1 / x, -n)  # turn negative exponent into positive
+    elif n == 0:
+        return 1
+    lsb = n & 0b1  # bit mask to get LSB
+    # accumulate product if lsb is set
+    ans = x * product if lsb else product
+    # square the base, right-shift exponent, and recurse
+    return ans * powerfaster(x * x, n >> 1, product)
 
 
 powerfunc_test_cases = pytest.mark.parametrize(
@@ -39,6 +72,8 @@ powerfunc_test_cases = pytest.mark.parametrize(
 @powerfunc_test_cases
 def test_powerfunc(x, n, ans):
     assert power(x, n) == ans
+    assert powerfast(x, n) == ans
+    assert powerfaster(x, n) == ans
 
 
 def main():
@@ -49,7 +84,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    print(power(0.5, 2))
-    print(power(2, -3))
-    print(power(60, 0))
-    print(power(60, 1))

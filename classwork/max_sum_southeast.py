@@ -28,6 +28,21 @@ def max_sum_southeast(M):
     return max(container)
 
 
+def max_sum_southeast_simpler(M, row=0, col=0):
+    # handle empty matrices
+    if len(M) == 0 or len(M[0]) == 0:
+        return 0
+    # when arrived at finish box
+    if row == len(M) - 1 and col == len(M[0]) - 1:
+        return M[row][col]
+    # recurse south and east from current location
+    # but do not recurse if we hit either southern or eastern wall
+    south = 0 if row == len(M) - 1 else max_sum_southeast_simpler(M, row + 1, col)
+    east = 0 if col == len(M[0]) - 1 else max_sum_southeast_simpler(M, row, col + 1)
+    # collect recursive results and propagate the maximum
+    return M[row][col] + max(south, east)
+
+
 def load_test_cases(filename):
     with open(filename, "r") as fh:
         txt = json.load(fh)
@@ -46,6 +61,7 @@ loaded_test_cases = pytest.mark.parametrize(
 @loaded_test_cases
 def test_robo_sum_max(input, expected):
     assert max_sum_southeast(input) == expected
+    assert max_sum_southeast_simpler(input) == expected
 
 
 def main():

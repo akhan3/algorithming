@@ -15,6 +15,18 @@ def substring_powerset(input: str, container: list = []):
         container.pop()
 
 
+def substring_powerset_nopcopy(input: str, container: list = [], i: int = 0):
+    if i == len(input):
+        [print(q, end="\t") for q in container]
+        print()
+        return
+    for k in range(len(input[i:])):
+        container.append(input[i : i + k + 1])
+        # recursion will use the original string (no copy)
+        substring_powerset_nopcopy(input, container, i + k + 1)
+        container.pop()
+
+
 func_test_cases = pytest.mark.parametrize(
     "input, output", [("hello", None), ("four", None), ("six", None)]
 )
@@ -24,6 +36,7 @@ func_test_cases = pytest.mark.parametrize(
 def test_func(input, output):
     print()
     assert substring_powerset(input) == output
+    assert substring_powerset_nopcopy(input) == output
 
 
 def main():

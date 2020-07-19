@@ -27,7 +27,7 @@ def powerfast(x: float, n: int, raised: int = 0, product: float = 1) -> float:
     elif 2 * raised <= n:
         return powerfast(x, n, raised * 2, product * product)
     elif 2 * raised > n:
-        for k in range(n - raised): # O(n/2) = O(n)
+        for k in range(n - raised):  # O(n/2) = O(n)
             product *= x
         return product
 

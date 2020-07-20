@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-import pytest
 import json
+import pytest
 
 
 def explore(M, container=None, row=0, col=0, accum=0):

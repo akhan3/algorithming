@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-import pytest
 import random
+import pytest
 from two_sum import (
     two_sum_unsorted_brute_force,
     two_sum_unsorted_optimized,

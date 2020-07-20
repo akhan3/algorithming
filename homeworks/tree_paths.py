@@ -18,13 +18,12 @@ class Node:
 def tree_paths(root, path=None):
     if path is None:  # https://stackoverflow.com/a/113198/107349
         path = list()
+    if root is None:
+        return  # break recursion
     if not root.left and not root.right:  # If no children
         print(path + [root.value])  # It's a leaf node. Print the accumulated path
-        return  # break recursion
-    if root.left:
-        tree_paths(root.left, path + [root.value])  # traverse left
-    if root.right:
-        tree_paths(root.right, path + [root.value])  # traverse right
+    tree_paths(root.left, path + [root.value])  # traverse left
+    tree_paths(root.right, path + [root.value])  # traverse right
 
 
 class TestSetup:

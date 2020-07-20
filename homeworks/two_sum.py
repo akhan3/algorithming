@@ -56,7 +56,7 @@ def two_sum_presorted_linsearch(nums, target):
 
 # linear search double-ended (recursive)
 def lin_search_de(head, tail, target, nums) -> bool:
-    if not (head < tail):  # the pointers must strictly stay apart (no overlapping)
+    if not head < tail:  # the pointers must strictly stay apart (no overlapping)
         return False
     ans = nums[head] + nums[tail]
     if ans == target:  # match found
@@ -83,7 +83,7 @@ def lin_search_de_iter(head, tail, target, nums) -> bool:
 
 # binary search (recursive)
 def binary_search(head, tail, target, nums) -> int:
-    if not (head <= tail):  # if the pointers cross over, search is over
+    if not head <= tail:  # if the pointers cross over, search is over
         return -1  # return failure
     middle = (head + tail) // 2  # floor division to locate midpoint
     ans = nums[middle]

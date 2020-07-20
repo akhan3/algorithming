@@ -56,14 +56,14 @@ def load_test_cases(filename):
 
 
 loaded_test_cases = pytest.mark.parametrize(
-    "input, expected", load_test_cases("test_vectors.json")
+    "inp, expected", load_test_cases("test_vectors.json")
 )
 
 
 @loaded_test_cases
-def test_robo_sum_max(input, expected):
-    assert max_sum_southeast(input) == expected
-    assert max_sum_southeast_simpler(input) == expected
+def test_robo_sum_max(inp, expected):
+    assert max_sum_southeast(inp) == expected
+    assert max_sum_southeast_simpler(inp) == expected
 
 
 def main():

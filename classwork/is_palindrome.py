@@ -31,14 +31,14 @@ def load_test_cases(filename):
 
 
 loaded_test_cases = pytest.mark.parametrize(
-    "input, expected", load_test_cases("test_vectors.json")
+    "inp, expected", load_test_cases("test_vectors.json")
 )
 
 
 @loaded_test_cases
-def test_is_palindrome(input, expected):
-    assert is_palindrome(input) == expected
-    assert is_palindrome_nocopy(input) == expected
+def test_is_palindrome(inp, expected):
+    assert is_palindrome(inp) == expected
+    assert is_palindrome_nocopy(inp) == expected
 
 
 def main():

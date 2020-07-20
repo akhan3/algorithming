@@ -28,13 +28,21 @@ def substring_powerset_nopcopy(input: str, container: list = [], i: int = 0):
 
 
 func_test_cases = pytest.mark.parametrize(
-    "input, output", [("hello", None), ("four", None), ("six", None)]
+    "input, output",
+    [
+        ("", None),
+        ("a", None),
+        ("go", None),
+        ("six", None),
+        ("four", None),
+        ("hello", None),
+    ],
 )
 
 
 @func_test_cases
 def test_func(input, output):
-    print()
+    print('"{}" gives...'.format(input))
     assert substring_powerset(input) == output
     assert substring_powerset_nopcopy(input) == output
 
@@ -47,3 +55,43 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# "" gives...
+#
+# "a" gives...
+# a
+# "go" gives...
+# g       o
+# go
+# "six" gives...
+# s       i       x
+# s       ix
+# si      x
+# six
+# "four" gives...
+# f       o       u       r
+# f       o       ur
+# f       ou      r
+# f       our
+# fo      u       r
+# fo      ur
+# fou     r
+# four
+# "hello" gives...
+# h       e       l       l       o
+# h       e       l       lo
+# h       e       ll      o
+# h       e       llo
+# h       el      l       o
+# h       el      lo
+# h       ell     o
+# h       ello
+# he      l       l       o
+# he      l       lo
+# he      ll      o
+# he      llo
+# hel     l       o
+# hel     lo
+# hell    o
+# hello

@@ -9,6 +9,11 @@ class Node:
         self.left = left
         self.right = right
 
+    def __repr__(self):
+        left_val = None if self.left is None else self.left.value
+        right_val = None if self.right is None else self.right.value
+        return "({}, {}, {})".format(self.value, left_val, right_val)
+
 
 # BFS uses queue and thus iteration
 def print_bfs(node):
@@ -81,16 +86,16 @@ def main():
     n5.left = n6
     n8.right = n1
 
-    print_in_order(root)
+    print_in_order(root)  # 2, 3, 6, 5, 4, 8, 1,
     print()
-    print_pre_order(root)
+    print_pre_order(root)  # 4, 3, 2, 5, 6, 8, 1,
     print()
-    print_post_order(root)
+    print_post_order(root)  # 2, 6, 5, 3, 1, 8, 4,
     print()
     print(get_max_bintree(root))
-    print_bfs(root)
+    print_bfs(root)  # 4, 3, 8, 2, 5, 1, 6,
     print()
-    print_bfs(n3)
+    print_bfs(n3)  # 3, 2, 5, 6,
     print()
 
 

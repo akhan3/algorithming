@@ -31,3 +31,62 @@ if __name__ == "__main__":
     phonet9("418")
     print("----------------------------------------------------")
     phonet9("650")
+
+
+# Expected output
+# JPG
+# JPH
+# JPI
+# JQG
+# JQH
+# JQI
+# JRG
+# JRH
+# JRI
+# JSG
+# JSH
+# JSI
+# KPG
+# KPH
+# KPI
+# KQG
+# KQH
+# KQI
+# KRG
+# KRH
+# KRI
+# KSG
+# KSH
+# KSI
+# LPG
+# LPH
+# LPI
+# LQG
+# LQH
+# LQI
+# LRG
+# LRH
+# LRI
+# LSG
+# LSH
+# LSI
+# ----------------------------------------------------
+# G T
+# G U
+# G V
+# H T
+# H U
+# H V
+# I T
+# I U
+# I V
+# ----------------------------------------------------
+# MJ+
+# MK+
+# ML+
+# NJ+
+# NK+
+# NL+
+# OJ+
+# OK+
+# OL+

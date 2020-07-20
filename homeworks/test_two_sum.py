@@ -31,7 +31,7 @@ def load_test_cases(filename):
         else:
             expected = True
         target = int(this_line[1])
-        if len(this_line[2]):
+        if this_line[2]:
             nums = list(map(int, this_line[2].split(" ")))
         else:
             nums = []

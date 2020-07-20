@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 
-import pytest
 import json
+import pytest
 
 
-def explore(M, container=list(), row=0, col=0, accum=0):
+def explore(M, container=None, row=0, col=0, accum=0):
+    if container is None:  # https://stackoverflow.com/a/113198/107349
+        container = list()
     # handle empty matrices
     if len(M) == 0 or len(M[0]) == 0:
         container.append(0)
@@ -24,7 +26,7 @@ def explore(M, container=list(), row=0, col=0, accum=0):
 
 
 def max_sum_southeast(M):
-    container = explore(M, [])
+    container = explore(M)
     return max(container)
 
 
@@ -54,14 +56,14 @@ def load_test_cases(filename):
 
 
 loaded_test_cases = pytest.mark.parametrize(
-    "input, expected", load_test_cases("test_vectors.json")
+    "inp, expected", load_test_cases("test_vectors.json")
 )
 
 
 @loaded_test_cases
-def test_robo_sum_max(input, expected):
-    assert max_sum_southeast(input) == expected
-    assert max_sum_southeast_simpler(input) == expected
+def test_robo_sum_max(inp, expected):
+    assert max_sum_southeast(inp) == expected
+    assert max_sum_southeast_simpler(inp) == expected
 
 
 def main():

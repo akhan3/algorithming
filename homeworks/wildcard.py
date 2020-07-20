@@ -2,54 +2,59 @@
 
 import pytest
 
+
 # this solution uses two containers to build a word and then to store the finished words
-def wildcard(input: str, output=set(), container=[], i=0):
-    if i == len(input):
-        output.add("".join(container))
-        return
-    if input[i] == "?":
+def wildcard(inp: str, outp=None, container=None, i=0):
+    if outp is None:  # https://stackoverflow.com/a/113198/107349
+        outp = set()
+    if container is None:  # https://stackoverflow.com/a/113198/107349
+        container = list()
+    if i == len(inp):
+        outp.add("".join(container))
+        return outp
+    if inp[i] == "?":
         container.append("0")
-        wildcard(input, output, container, i + 1)
+        wildcard(inp, outp, container, i + 1)
         container.pop()
         container.append("1")
-        wildcard(input, output, container, i + 1)
+        wildcard(inp, outp, container, i + 1)
         container.pop()
     else:
-        container.append(input[i])
-        wildcard(input, output, container, i + 1)
+        container.append(inp[i])
+        wildcard(inp, outp, container, i + 1)
         container.pop()
-    return output
+    return outp
 
 
 # this solution is not space efficient since it passes strings around
-def wildcard_str_passing(input: str, output: str = "", i=0):
-    if i == len(input):
-        print(output)
+def wildcard_str_passing(inp: str, outp: str = "", i=0):
+    if i == len(inp):
+        print(outp)
         return
-    if input[i] == "?":
-        wildcard_str_passing(input, output + "0", i + 1)
-        wildcard_str_passing(input, output + "1", i + 1)
+    if inp[i] == "?":
+        wildcard_str_passing(inp, outp + "0", i + 1)
+        wildcard_str_passing(inp, outp + "1", i + 1)
     else:
-        wildcard_str_passing(input, output + input[i], i + 1)
+        wildcard_str_passing(inp, outp + inp[i], i + 1)
 
 
 # this solution is space efficient since it manipulates a single list reference
-def wildcard_list_reference(input: str, output: list, i=0):
-    if i == len(input):
-        print("".join(output))
+def wildcard_list_reference(inp: str, outp: list, i=0):
+    if i == len(inp):
+        print("".join(outp))
         return
-    if input[i] == "?":
-        output[i] = "0"
-        wildcard_list_reference(input, output, i + 1)
-        output[i] = "1"
-        wildcard_list_reference(input, output, i + 1)
+    if inp[i] == "?":
+        outp[i] = "0"
+        wildcard_list_reference(inp, outp, i + 1)
+        outp[i] = "1"
+        wildcard_list_reference(inp, outp, i + 1)
     else:
-        output[i] = input[i]
-        wildcard_list_reference(input, output, i + 1)
+        outp[i] = inp[i]
+        wildcard_list_reference(inp, outp, i + 1)
 
 
 wildcard_test_cases = pytest.mark.parametrize(
-    "input, output",
+    "inp, outp",
     [
         ("10?", {"101", "100"}),
         ("1?0?", {"1000", "1001", "1100", "1101"}),
@@ -59,10 +64,10 @@ wildcard_test_cases = pytest.mark.parametrize(
 
 
 @wildcard_test_cases
-def test_wildcard(input, output):
-    assert wildcard(input, set(), list()) == output
-    wildcard_str_passing(input)
-    wildcard_list_reference(input, [None] * len(input))
+def test_wildcard(inp, outp):
+    assert wildcard(inp, set(), list()) == outp
+    wildcard_str_passing(inp)
+    wildcard_list_reference(inp, [None] * len(inp))
 
 
 def main():

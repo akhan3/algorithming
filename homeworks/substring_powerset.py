@@ -3,32 +3,36 @@
 import pytest
 
 
-def substring_powerset(input: str, container: list = []):
-    if len(input) == 0:
+def substring_powerset(inp: str, container: list = None):
+    if container is None:  # https://stackoverflow.com/a/113198/107349
+        container = list()
+    if len(inp) == 0:
         [print(q, end="\t") for q in container]
         print()
         return
-    for k in range(len(input)):
-        container.append(input[: k + 1])
+    for k in range(len(inp)):
+        container.append(inp[: k + 1])
         # recursion will use a copy of sliced string
-        substring_powerset(input[k + 1 :], container)
+        substring_powerset(inp[k + 1 :], container)
         container.pop()
 
 
-def substring_powerset_nopcopy(input: str, container: list = [], i: int = 0):
-    if i == len(input):
+def substring_powerset_nopcopy(inp: str, container: list = None, i: int = 0):
+    if container is None:  # https://stackoverflow.com/a/113198/107349
+        container = list()
+    if i == len(inp):
         [print(q, end="\t") for q in container]
         print()
         return
-    for k in range(len(input[i:])):
-        container.append(input[i : i + k + 1])
+    for k in range(len(inp[i:])):
+        container.append(inp[i : i + k + 1])
         # recursion will use the original string (no copy)
-        substring_powerset_nopcopy(input, container, i + k + 1)
+        substring_powerset_nopcopy(inp, container, i + k + 1)
         container.pop()
 
 
 func_test_cases = pytest.mark.parametrize(
-    "input, output",
+    "inp, outp",
     [
         ("", None),
         ("a", None),
@@ -41,10 +45,10 @@ func_test_cases = pytest.mark.parametrize(
 
 
 @func_test_cases
-def test_func(input, output):
-    print('"{}" gives...'.format(input))
-    assert substring_powerset(input) == output
-    assert substring_powerset_nopcopy(input) == output
+def test_func(inp, outp):
+    print('"{}" gives...'.format(inp))
+    assert substring_powerset(inp) == outp
+    assert substring_powerset_nopcopy(inp) == outp
 
 
 def main():

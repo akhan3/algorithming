@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-import pytest
 import random
+import pytest
 from two_sum import (
     two_sum_unsorted_brute_force,
     two_sum_unsorted_optimized,
@@ -31,7 +31,7 @@ def load_test_cases(filename):
         else:
             expected = True
         target = int(this_line[1])
-        if len(this_line[2]):
+        if this_line[2]:
             nums = list(map(int, this_line[2].split(" ")))
         else:
             nums = []

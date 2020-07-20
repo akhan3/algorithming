@@ -30,6 +30,7 @@ def powerfast(x: float, n: int, raised: int = 0, product: float = 1) -> float:
         for _ in range(n - raised):  # O(n/2) = O(n)
             product *= x
         return product
+    return 1  # unreachable (only added to keep pylint happy)
 
 
 # inspired from https://stackoverflow.com/a/101613/107349

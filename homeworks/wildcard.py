@@ -11,7 +11,7 @@ def wildcard(inp: str, outp=None, container=None, i=0):
         container = list()
     if i == len(inp):
         outp.add("".join(container))
-        return
+        return outp
     if inp[i] == "?":
         container.append("0")
         wildcard(inp, outp, container, i + 1)

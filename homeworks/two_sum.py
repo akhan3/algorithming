@@ -65,6 +65,7 @@ def lin_search_de(head, tail, target, nums) -> bool:
         return lin_search_de(head + 1, tail, target, nums)  # trim head
     if ans > target:  # still too large
         return lin_search_de(head, tail - 1, target, nums)  # trim tail
+    return False  # unreachable (only added to keep pylint happy)
 
 
 # linear search double-ended (iterative)
@@ -92,6 +93,7 @@ def binary_search(head, tail, target, nums) -> int:
         return binary_search(middle + 1, tail, target, nums)  # trim head half
     if ans > target:  # still too large
         return binary_search(head, middle - 1, target, nums)  # trim tail half
+    return False  # unreachable (only added to keep pylint happy)
 
 
 # binary search (iterative)

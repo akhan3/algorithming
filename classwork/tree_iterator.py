@@ -23,9 +23,7 @@ class BST_Iterator:
         return str(self.stack)
 
     def _populate_stack(self, node):
-        if node is None:
-            return
-        else:
+        if node is not None:
             self.stack.append(node)  # C (in-order traversal)
             self._populate_stack(node.left)  # L (in-order traversal)
 
@@ -33,9 +31,9 @@ class BST_Iterator:
         if self.has_next():
             node = self.stack.pop()
             self._populate_stack(node.right)  # R (in-order traversal)
-            return node
         else:
             raise IndexError("No more nodes!")
+        return node
 
     def has_next(self):
         return len(self.stack) != 0

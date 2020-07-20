@@ -7,7 +7,7 @@ import pytest
 def power(x: float, n: int) -> float:
     if n < 0:
         return power(1 / x, -n)  # turn negative exponent into positive
-    elif n == 0:
+    if n == 0:
         return 1
     return x * power(x, n - 1)
 
@@ -17,16 +17,16 @@ def power(x: float, n: int) -> float:
 def powerfast(x: float, n: int, raised: int = 0, product: float = 1) -> float:
     if n < 0:
         return powerfast(1 / x, -n)  # turn negative exponent into positive
-    elif n == 1:
+    if n == 1:
         return x
-    elif raised == n:
+    if raised == n:
         return product
 
     if raised == 0:
         return powerfast(x, n, 2, x * x)
-    elif 2 * raised <= n:
+    if 2 * raised <= n:
         return powerfast(x, n, raised * 2, product * product)
-    elif 2 * raised > n:
+    if 2 * raised > n:
         for k in range(n - raised):  # O(n/2) = O(n)
             product *= x
         return product
@@ -37,7 +37,7 @@ def powerfast(x: float, n: int, raised: int = 0, product: float = 1) -> float:
 def powerfaster(x: float, n: int, product: float = 1) -> float:
     if n < 0:
         return powerfaster(1 / x, -n)  # turn negative exponent into positive
-    elif n == 0:
+    if n == 0:
         return 1
     lsb = n & 0b1  # bit mask to get LSB
     # accumulate product if lsb is set

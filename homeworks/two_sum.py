@@ -51,8 +51,7 @@ def two_sum_presorted_binarysearch(nums, target):
 def two_sum_presorted_linsearch(nums, target):
     if len(nums) < 2:  # if the array doesn't have two elements to begin with, bail out
         return False
-    else:
-        return lin_search_de(0, len(nums) - 1, target, nums)  # O(n)
+    return lin_search_de(0, len(nums) - 1, target, nums)  # O(n)
 
 
 # linear search double-ended (recursive)
@@ -62,9 +61,9 @@ def lin_search_de(head, tail, target, nums) -> bool:
     ans = nums[head] + nums[tail]
     if ans == target:  # match found
         return True  # TADA!
-    elif ans < target:  # still too small
+    if ans < target:  # still too small
         return lin_search_de(head + 1, tail, target, nums)  # trim head
-    elif ans > target:  # still too large
+    if ans > target:  # still too large
         return lin_search_de(head, tail - 1, target, nums)  # trim tail
 
 
@@ -74,7 +73,7 @@ def lin_search_de_iter(head, tail, target, nums) -> bool:
         ans = nums[head] + nums[tail]
         if ans == target:  # match found
             return True  # TADA!
-        elif ans < target:  # still too small
+        if ans < target:  # still too small
             head = head + 1  # trim head
         elif ans > target:  # still too large
             tail = tail - 1  # trim tail
@@ -89,9 +88,9 @@ def binary_search(head, tail, target, nums) -> int:
     ans = nums[middle]
     if ans == target:  # match found
         return middle  # TADA!
-    elif ans < target:  # still too small
+    if ans < target:  # still too small
         return binary_search(middle + 1, tail, target, nums)  # trim head half
-    elif ans > target:  # still too large
+    if ans > target:  # still too large
         return binary_search(head, middle - 1, target, nums)  # trim tail half
 
 
@@ -102,7 +101,7 @@ def binary_search_iter(head, tail, target, nums) -> int:
         ans = nums[middle]
         if ans == target:  # match found
             return middle  # TADA!
-        elif ans < target:  # still too small
+        if ans < target:  # still too small
             head = middle + 1  # trim head half
         elif ans > target:  # still too large
             tail = middle - 1  # trim tail half

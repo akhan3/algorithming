@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import pytest
+
 
 class Node:
     def __init__(self, value, left=None, right=None):
@@ -25,7 +27,7 @@ def tree_paths(root, path=None):
         tree_paths(root.right, path + [root.value])  # traverse right
 
 
-def main():
+class TestSetup:
     #        54
     #       /  \
     #      /   99
@@ -55,7 +57,21 @@ def main():
     n54.left = n4
     n54.right = n99
 
+    tree_paths_test_cases = pytest.mark.parametrize(
+        "root", [n4, n3, n8, n6, n54, n99, None]
+    )
+
+
+@TestSetup.tree_paths_test_cases
+def test_tree_paths(root):
+    print()
     tree_paths(root)
+
+
+def main():
+    # just run test cases and return the exit code
+    # __file__ is necessary otherwise pytest cannot find any tests
+    return pytest.main(["-l", "--capture=no", __file__])
 
 
 if __name__ == "__main__":
@@ -67,3 +83,20 @@ if __name__ == "__main__":
 # [4, 3, 2]
 # [4, 3, 5, 6]
 # [4, 8, 1]
+#
+# [3, 2]
+# [3, 5, 6]
+#
+# [8, 1]
+#
+# [6]
+#
+# [54, 4, 3, 2]
+# [54, 4, 3, 5, 6]
+# [54, 4, 8, 1]
+# [54, 99]
+#
+# [99]
+#
+# []
+#

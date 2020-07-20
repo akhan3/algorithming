@@ -64,11 +64,11 @@ def produce_test_vectors():
     results = list()
     MAX = 10
     n = 5
-    for j in range(200):
+    for _ in range(200):
         n = random.randint(0, 4)
         m = random.randint(0, 4)
         M = list(list())
-        for k in range(n):
+        for __ in range(n):
             M.append(random.sample(range(MAX), m))
         ans = robo_sum_max(M)
         results.append({"in": M, "out": ans})

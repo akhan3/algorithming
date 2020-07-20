@@ -64,7 +64,7 @@ def main():
     n8.right = n1
 
     iterator = BST_Iterator(root)
-    for k in range(10):
+    for _ in range(10):
         try:
             node = iterator.next()
             print(iterator.has_next(), node)

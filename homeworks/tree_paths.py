@@ -26,6 +26,9 @@ def tree_paths(root, path=None):
 
 
 def main():
+    #        54
+    #       /  \
+    #      /   99
     #     4
     #    / \
     #   3   8
@@ -33,7 +36,6 @@ def main():
     # 2   5   1
     #    /
     #   6
-
     n4 = Node(4)
     n3 = Node(3)
     n8 = Node(8)
@@ -41,13 +43,17 @@ def main():
     n5 = Node(5)
     n1 = Node(1)
     n6 = Node(6)
-    root = n4
     n4.left = n3
     n4.right = n8
     n3.left = n2
     n3.right = n5
     n5.left = n6
     n8.right = n1
+    # ------------------------
+    n54 = Node(54)
+    n99 = Node(99)
+    n54.left = n4
+    n54.right = n99
 
     tree_paths(root)
 

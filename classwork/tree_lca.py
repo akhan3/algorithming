@@ -40,6 +40,9 @@ def find_path(root: Node, node: Node, path: list = None) -> list:
 
 
 class TestSetup:
+    #        54
+    #       /  \
+    #      /   99
     #     4
     #    / \
     #   3   8
@@ -63,8 +66,8 @@ class TestSetup:
     # ------------------------
     n54 = Node(54)
     n99 = Node(99)
-    n54.left = n99
-    n54.right = n4
+    n54.left = n4
+    n54.right = n99
 
     lca_test_cases = pytest.mark.parametrize(
         "root, p, q, expected",

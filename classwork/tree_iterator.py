@@ -15,25 +15,25 @@ class Node:
 
 
 class BST_Iterator:
-    def __init__(self, node):
+    def __init__(self, root):
         self.stack = []  # initialize empty stack
-        self._populate_stack(node)
+        self._populate_stack(root)
 
     def __repr__(self):
         return str(self.stack)
 
-    def _populate_stack(self, node):
-        if node is not None:
-            self.stack.append(node)  # C (in-order traversal)
-            self._populate_stack(node.left)  # L (in-order traversal)
+    def _populate_stack(self, root):
+        if root is not None:
+            self.stack.append(root)  # C (in-order traversal)
+            self._populate_stack(root.left)  # L (in-order traversal)
 
     def next(self):
         if self.has_next():
-            node = self.stack.pop()
-            self._populate_stack(node.right)  # R (in-order traversal)
+            root = self.stack.pop()
+            self._populate_stack(root.right)  # R (in-order traversal)
         else:
             raise IndexError("No more nodes!")
-        return node
+        return root
 
     def has_next(self):
         return len(self.stack) != 0

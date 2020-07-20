@@ -16,49 +16,49 @@ class Node:
 
 
 # BFS uses queue and thus iteration
-def print_bfs(node):
-    Q = [node]
+def print_bfs(root):
+    Q = [root]
     while len(Q) != 0:
-        node = Q.pop(0)  # dequeue
-        if node is None:
+        root = Q.pop(0)  # dequeue
+        if root is None:
             continue
-        print(node.value, end=", ")  # process currennt node
-        Q.append(node.left)  # enqueue all children
-        Q.append(node.right)  # enqueue all children
+        print(root.value, end=", ")  # process root (current node)
+        Q.append(root.left)  # enqueue all children
+        Q.append(root.right)  # enqueue all children
 
 
 # DFS uses stack and thus recursion
-def print_in_order(node):
-    if node is None:
+def print_in_order(root):
+    if root is None:
         return
-    print_in_order(node.left)  # L
-    print(node.value, end=", ")  # C
-    print_in_order(node.right)  # R
+    print_in_order(root.left)  # L
+    print(root.value, end=", ")  # C
+    print_in_order(root.right)  # R
 
 
-def print_pre_order(node):
-    if node is None:
+def print_pre_order(root):
+    if root is None:
         return
-    print(node.value, end=", ")  # C
-    print_pre_order(node.left)  # L
-    print_pre_order(node.right)  # R
+    print(root.value, end=", ")  # C
+    print_pre_order(root.left)  # L
+    print_pre_order(root.right)  # R
 
 
-def print_post_order(node):
-    if node is None:
+def print_post_order(root):
+    if root is None:
         return
-    print_post_order(node.left)  # L
-    print_post_order(node.right)  # R
-    print(node.value, end=", ")  # C
+    print_post_order(root.left)  # L
+    print_post_order(root.right)  # R
+    print(root.value, end=", ")  # C
 
 
-def get_max_bintree(node, container=-sys.maxsize):
-    if node is None:
+def get_max_bintree(root, container=-sys.maxsize):
+    if root is None:
         return container
-    container = get_max_bintree(node.left, container)
-    container = get_max_bintree(node.right, container)
-    if node.value > container:
-        container = node.value
+    container = get_max_bintree(root.left, container)
+    container = get_max_bintree(root.right, container)
+    if root.value > container:
+        container = root.value
     return container
 
 

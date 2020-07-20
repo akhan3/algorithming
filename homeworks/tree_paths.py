@@ -13,7 +13,9 @@ class Node:
         return "({}, {}, {})".format(self.value, left_val, right_val)
 
 
-def tree_paths(node, path=list()):
+def tree_paths(node, path=None):
+    if path is None:  # https://stackoverflow.com/a/113198/107349
+        path = list()
     if not node.left and not node.right:  # If no children
         print(path + [node.value])  # It's a leaf node. Print the accumulated path
         return  # break recursion

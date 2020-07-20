@@ -7,7 +7,9 @@ def fibonacci(n):
     return fibonacci(n - 1) + fibonacci(n - 2)
 
 
-def fibonacci_call_stack(n, stack=list()):
+def fibonacci_call_stack(n, stack=None):
+    if stack is None:  # https://stackoverflow.com/a/113198/107349
+        stack = list()
     if n <= 1:
         return n
 

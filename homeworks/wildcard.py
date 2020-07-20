@@ -3,7 +3,11 @@
 import pytest
 
 # this solution uses two containers to build a word and then to store the finished words
-def wildcard(input: str, output=set(), container=[], i=0):
+def wildcard(input: str, output=None, container=None, i=0):
+    if output is None:  # https://stackoverflow.com/a/113198/107349
+        output = set()
+    if container is None:  # https://stackoverflow.com/a/113198/107349
+        container = list()
     if i == len(input):
         output.add("".join(container))
         return

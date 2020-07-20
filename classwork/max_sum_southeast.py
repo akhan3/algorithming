@@ -4,7 +4,9 @@ import pytest
 import json
 
 
-def explore(M, container=list(), row=0, col=0, accum=0):
+def explore(M, container=None, row=0, col=0, accum=0):
+    if container is None:  # https://stackoverflow.com/a/113198/107349
+        container = list()
     # handle empty matrices
     if len(M) == 0 or len(M[0]) == 0:
         container.append(0)

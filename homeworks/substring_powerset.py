@@ -3,7 +3,9 @@
 import pytest
 
 
-def substring_powerset(input: str, container: list = []):
+def substring_powerset(input: str, container: list = None):
+    if container is None:  # https://stackoverflow.com/a/113198/107349
+        container = list()
     if len(input) == 0:
         [print(q, end="\t") for q in container]
         print()
@@ -15,7 +17,9 @@ def substring_powerset(input: str, container: list = []):
         container.pop()
 
 
-def substring_powerset_nopcopy(input: str, container: list = [], i: int = 0):
+def substring_powerset_nopcopy(input: str, container: list = None, i: int = 0):
+    if container is None:  # https://stackoverflow.com/a/113198/107349
+        container = list()
     if i == len(input):
         [print(q, end="\t") for q in container]
         print()

@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
 
-def generate_power_set(S, head=0, container=list()):
+def generate_power_set(S, head=0, container=None):
+    if container is None:  # https://stackoverflow.com/a/113198/107349
+        container = list()
     if head == len(S):
         print(container)
         return
@@ -13,7 +15,9 @@ def generate_power_set(S, head=0, container=list()):
     return
 
 
-def generate_power_set_no_stack(S, s=0, Q=[], q=0):
+def generate_power_set_no_stack(S, s=0, Q=None, q=0):
+    if Q is None:  # https://stackoverflow.com/a/113198/107349
+        Q = list()
     if len(Q) == 0:
         Q = [None] * len(S)
     if s == len(S):

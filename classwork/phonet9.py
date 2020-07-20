@@ -15,7 +15,9 @@ lut = {
 }
 
 
-def phonet9(inp, i=0, container=list()):
+def phonet9(inp, i=0, container=None):
+    if container is None:  # https://stackoverflow.com/a/113198/107349
+        container = list()
     if i == len(inp):
         print("".join(container))
         return

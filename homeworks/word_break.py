@@ -57,20 +57,14 @@ def word_break(
         container = []
 
     if len(S) == 0:  # break recursion
-        container.append(sentence)
+        container.append(sentence[:-1])  # remove trailing space before storing
         return container
 
     for k in range(len(S)):
         sub = S[: k + 1]
         if sub in dictionary:  # Prune if not a dictionary word
-            sentence += sub + " "
-            word_break(S[k + 1 :], dictionary, sentence, container)
+            word_break(S[k + 1 :], dictionary, sentence + sub + " ", container)
     return container
-
-
-# ['cat sand dog ', 'cat cats and dog ']
-# []
-# ['pine apple pen apple ', 'pine apple applepen apple ', 'pine pineapple pen apple ']
 
 
 func_test_cases = pytest.mark.parametrize(
@@ -79,7 +73,7 @@ func_test_cases = pytest.mark.parametrize(
         (
             "catsanddog",
             ["cat", "cats", "and", "sand", "dog"],
-            ["cat sand dog ", "cat cats and dog "],
+            ["cat sand dog", "cats and dog"],
         ),
         (
             "pineapplepenapple",
@@ -94,7 +88,7 @@ func_test_cases = pytest.mark.parametrize(
 @func_test_cases
 def test_func(S, dictionary, expected):
     ans = word_break(S, dictionary)
-    print("\n", ans)
+    print(ans)
     assert set(ans) == set(expected)
 
 

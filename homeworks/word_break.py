@@ -81,16 +81,12 @@ func_test_cases = pytest.mark.parametrize(
             ["cat", "cats", "and", "sand", "dog"],
             ["cat sand dog ", "cat cats and dog "],
         ),
-        ("catsandog", ["cats", "dog", "sand", "and", "cat"], []),
         (
             "pineapplepenapple",
             ["apple", "pen", "applepen", "pine", "pineapple"],
-            [
-                "pine apple pen apple",
-                "pineapple pen apple",
-                "pine applepen apple",
-            ],
+            ["pine apple pen apple", "pineapple pen apple", "pine applepen apple"],
         ),
+        ("catsandog", ["cats", "dog", "sand", "and", "cat"], []),
     ],
 )
 

@@ -55,6 +55,8 @@ def word_break(
         sentence = ""
     if container is None:  # intialization (overloading)
         container = []
+    if type(dictionary) is list:  # initialization (convert to set for fast look-up)
+        dictionary = set(dictionary)
 
     if len(S) == 0:  # break recursion
         container.append(sentence[:-1])  # remove trailing space before storing

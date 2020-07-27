@@ -30,25 +30,27 @@ Explanation: The array cannot be partitioned into equal sum subsets.
 """
 
 
-def partition_equal_subsets(
+def partition_equal_subsets(numbers: list):
+    if sum(numbers) % 2 == 1:  # if total is odd, 2 equal partitions are impossible
+        return False  # don't bother to start
+    return partition_equal_subsets_aux(numbers, 0, 0, sum(numbers))
+
+
+def partition_equal_subsets_aux(
     numbers: list, pointer: int = 0, accum1: int = 0, accum2: int = None
 ):
-    if accum2 is None:  # intialization (overloading)
-        accum2 = sum(numbers)
-        if sum(numbers) % 2 == 1:  # if total is odd, 2 equal partitions are impossible
-            return False  # don't bother to start
     if pointer >= len(numbers):  # break recursion
         return False
     if accum1 == accum2:  # TADA!
         return True
-    if accum1 > accum2:  # bounding function hit: prune
-        return False
-    if accum1 + sum(numbers[pointer:]) < sum(numbers) // 2:
-        return False  # bounding function hit: prune
+    if accum1 > accum2:  # if growing accum exceeds diminishing accum
+        return False  # bounding function hit; prune
+    if accum1 + sum(numbers[pointer:]) < sum(numbers) // 2:  # if not enough items left
+        return False  # bounding function hit; prune
     # Build accumulators and recurse
-    return partition_equal_subsets(
+    return partition_equal_subsets_aux(
         numbers, pointer + 1, accum1 + numbers[pointer], accum2 - numbers[pointer]
-    ) or partition_equal_subsets(numbers, pointer + 1, accum1, accum2)
+    ) or partition_equal_subsets_aux(numbers, pointer + 1, accum1, accum2)
 
 
 func_test_cases = pytest.mark.parametrize(

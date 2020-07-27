@@ -48,16 +48,11 @@ Output:
 """
 
 
-def word_break(
-    S: str, dictionary: list, sentence: str = None, container: list = None
-) -> list:
-    if sentence is None:  # intialization (overloading)
-        sentence = ""
-    if container is None:  # intialization (overloading)
-        container = []
-    if type(dictionary) is list:  # initialization (convert to set for fast look-up)
-        dictionary = set(dictionary)
+def word_break(S: str, dictionary: list) -> list:
+    return word_break_aux(S, set(dictionary), "", [])  # convert to set for fast look-up
 
+
+def word_break_aux(S: str, dictionary: set, sentence: str, container: list) -> list:
     if len(S) == 0:  # break recursion
         container.append(sentence[:-1])  # remove trailing space before storing
         return container
@@ -65,7 +60,7 @@ def word_break(
     for k in range(len(S)):
         sub = S[: k + 1]
         if sub in dictionary:  # Prune if not a dictionary word
-            word_break(S[k + 1 :], dictionary, sentence + sub + " ", container)
+            word_break_aux(S[k + 1 :], dictionary, sentence + sub + " ", container)
     return container
 
 

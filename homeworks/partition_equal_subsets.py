@@ -35,10 +35,16 @@ def partition_equal_subsets(
 ):
     if accum2 is None:  # intialization (overloading)
         accum2 = sum(numbers)
+        if sum(numbers) % 2 == 1:  # if total is odd, 2 equal partitions are impossible
+            return False  # don't bother to start
     if pointer >= len(numbers):  # break recursion
         return False
     if accum1 == accum2:  # TADA!
         return True
+    if accum1 > accum2:  # bounding function hit: prune
+        return False
+    if accum1 + sum(numbers[pointer:]) < sum(numbers) // 2:
+        return False  # bounding function hit: prune
     # Build accumulators and recurse
     return partition_equal_subsets(
         numbers, pointer + 1, accum1 + numbers[pointer], accum2 - numbers[pointer]
@@ -53,6 +59,7 @@ func_test_cases = pytest.mark.parametrize(
         ([7], False),
         ([8, 8], True),
         ([4, 8, 4], True),
+        ([1, 2, 3, 4, 5], False),
     ],
 )
 

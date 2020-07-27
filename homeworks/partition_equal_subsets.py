@@ -53,6 +53,26 @@ def partition_equal_subsets_aux(
     ) or partition_equal_subsets_aux(numbers, pointer + 1, accum1, accum2)
 
 
+"""
+Another approach which transforms the problem into a group sum problem.
+It sets the target to total/2 and works from there.
+"""
+
+
+def partition_equal_subsets_div2(numbers: list):
+    if sum(numbers) % 2 == 1:  # if total is odd, 2 equal partitions are impossible
+        return False  # don't bother to start
+    return partition_equal_subsets_div2_aux(numbers, 0, sum(numbers) // 2)
+
+
+def partition_equal_subsets_div2_aux(numbers: list, pointer: int, target: int) -> bool:
+    if pointer >= len(numbers):
+        return target == 0
+    return partition_equal_subsets_div2_aux(
+        numbers, pointer + 1, target - numbers[pointer]
+    ) or partition_equal_subsets_div2_aux(numbers, pointer + 1, target)
+
+
 func_test_cases = pytest.mark.parametrize(
     "inp, outp",
     [
@@ -69,6 +89,7 @@ func_test_cases = pytest.mark.parametrize(
 @func_test_cases
 def test_func(inp, outp):
     assert partition_equal_subsets(inp) == outp
+    assert partition_equal_subsets_div2(inp) == outp
 
 
 def main():

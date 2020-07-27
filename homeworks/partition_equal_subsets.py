@@ -68,9 +68,19 @@ def partition_equal_subsets_div2(numbers: list):
 def partition_equal_subsets_div2_aux(numbers: list, pointer: int, target: int) -> bool:
     if pointer >= len(numbers):
         return target == 0
-    return partition_equal_subsets_div2_aux(
+    if target == 0:
+        return True
+    if target < 0:  # if target is overshot
+        return False  # prune
+    if target > sum(numbers[pointer:]):  # if not enough reserves to reach the target
+        return False  # prune
+    if partition_equal_subsets_div2_aux(
         numbers, pointer + 1, target - numbers[pointer]
-    ) or partition_equal_subsets_div2_aux(numbers, pointer + 1, target)
+    ):
+        return True
+    if partition_equal_subsets_div2_aux(numbers, pointer + 1, target):
+        return True
+    return False
 
 
 func_test_cases = pytest.mark.parametrize(

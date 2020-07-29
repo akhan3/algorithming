@@ -16,21 +16,24 @@ class Node:
 
 
 def tree_diameter(root: Node) -> int:
-    dia, _, _ = tree_diameter_aux(root)
+    dia, _ = tree_diameter_aux(root)
     return dia
 
 
-def tree_diameter_aux(root: Node) -> (int, int, int):
+def tree_diameter_aux(root: Node) -> (int, int):
     if root is None:
-        return (0, -1, -1)
-    ldia, ll, lr, = tree_diameter_aux(root.left)
-    rdia, rl, rr, = tree_diameter_aux(root.right)
-    left = 1 + max(ll, lr)
-    right = 1 + max(rl, rr)
-    cdia = 1 + left + right
+        return (0, 0)
+    ldia, lheight = tree_diameter_aux(root.left)
+    rdia, rheight = tree_diameter_aux(root.right)
+    cdia = 1 + lheight + rheight
+    cheight = 1 + max(lheight, rheight)
     dia = max([cdia, ldia, rdia])
-    print("[{}]\t{}\t{},{}\t".format(root.value, dia, left, right), [cdia, ldia, rdia])
-    return (dia, left, right)
+    print(
+        "[{}]\t{}\tht: {}\tdia: {}".format(
+            root.value, dia, [lheight, rheight, cheight], [ldia, rdia, cdia]
+        )
+    )
+    return (dia, cheight)
 
 
 class TestSetup:

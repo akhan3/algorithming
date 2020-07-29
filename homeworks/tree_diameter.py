@@ -15,58 +15,146 @@ class Node:
         return "({}, {}, {})".format(self.value, left_val, right_val)
 
 
-def tree_diameter(root, path=None, paths=None):
-    if path is None:  # https://stackoverflow.com/a/113198/107349
-        path = list()
-    if paths is None:  # https://stackoverflow.com/a/113198/107349
-        paths = list()
+def tree_diameter(root: Node) -> int:
+    dia, _, _ = tree_diameter_aux(root)
+    return dia
+
+
+def tree_diameter_aux(root: Node) -> (int, int, int):
     if root is None:
-        paths.append(path)
-        return  # break recursion
-    path.append(root)
-    tree_diameter(root.left, path, paths)  # traverse left
-    path.pop()
-    tree_diameter(root.right, path, paths)  # traverse right
-    path.pop()
+        return (0, -1, -1)
+    ldia, ll, lr, = tree_diameter_aux(root.left)
+    rdia, rl, rr, = tree_diameter_aux(root.right)
+    left = 1 + max(ll, lr)
+    right = 1 + max(rl, rr)
+    cdia = 1 + left + right
+    dia = max([cdia, ldia, rdia])
+    print("[{}]\t{}\t{},{}\t".format(root.value, dia, left, right), [cdia, ldia, rdia])
+    return (dia, left, right)
 
 
 class TestSetup:
-    #        54
-    #       /  \
-    #      /   99
-    #     4
+    #       54
+    #      /  \
+    #     4   99
     #    / \
     #   3   8
     #  / \   \
     # 2   5   1
-    #    /
-    #   6
+    #    /     \
+    #   6       7
+    n54 = Node(54)
     n4 = Node(4)
+    n99 = Node(99)
     n3 = Node(3)
     n8 = Node(8)
     n2 = Node(2)
     n5 = Node(5)
     n1 = Node(1)
     n6 = Node(6)
+    n7 = Node(7)
+    n54.left = n4
+    n54.right = n99
     n4.left = n3
     n4.right = n8
     n3.left = n2
     n3.right = n5
     n5.left = n6
     n8.right = n1
-    # ------------------------
+    n1.right = n7
+    tree_diameter_test_cases = pytest.mark.parametrize(
+        "root, expected", [(None, 0), (n7, 1), (n1, 2), (n54, 7)]
+    )
+
+    #       54
+    #      /  \
+    #     4   99
+    #    / \
+    #   3   8
+    #  / \
+    # 2   5
+    #  \   \
+    #   1   6
+    #  /
+    # 7
     n54 = Node(54)
+    n4 = Node(4)
     n99 = Node(99)
+    n3 = Node(3)
+    n8 = Node(8)
+    n2 = Node(2)
+    n5 = Node(5)
+    n1 = Node(1)
+    n6 = Node(6)
+    n7 = Node(7)
     n54.left = n4
     n54.right = n99
+    n4.left = n3
+    n4.right = n8
+    n3.left = n2
+    n3.right = n5
+    n2.right = n1
+    n5.right = n6
+    n1.left = n7
+    tree_diameter_test_cases2 = pytest.mark.parametrize("root, expected", [(n54, 7)])
 
-    tree_diameter_test_cases = pytest.mark.parametrize("root", [n54])
+    #       54
+    #      /  \
+    #     4   99
+    #    / \
+    #   3   8
+    #  / \
+    # 2   5
+    #  \   \
+    #   1   6
+    #  /     \
+    # 7      20
+    #  \       \
+    #  30      40
+    n54 = Node(54)
+    n4 = Node(4)
+    n99 = Node(99)
+    n3 = Node(3)
+    n8 = Node(8)
+    n2 = Node(2)
+    n5 = Node(5)
+    n1 = Node(1)
+    n6 = Node(6)
+    n7 = Node(7)
+    n20 = Node(20)
+    n30 = Node(30)
+    n40 = Node(40)
+    n54.left = n4
+    n54.right = n99
+    n4.left = n3
+    n4.right = n8
+    n3.left = n2
+    n3.right = n5
+    n2.right = n1
+    n5.right = n6
+    n1.left = n7
+    n6.right = n20
+    n7.right = n30
+    n20.right = n40
+    tree_diameter_test_cases3 = pytest.mark.parametrize("root, expected", [(n54, 9)])
 
 
 @TestSetup.tree_diameter_test_cases
-def test_tree_diameter(root):
+def test_tree_diameter(root, expected):
     print()
-    tree_diameter(root)
+    assert tree_diameter(root) == expected
+
+
+@TestSetup.tree_diameter_test_cases2
+def test_tree_diameter2(root, expected):
+    print()
+    assert tree_diameter(root) == expected
+
+
+@TestSetup.tree_diameter_test_cases3
+def test_tree_diameter3(root, expected):
+    print()
+    assert tree_diameter(root) == expected
 
 
 def main():
@@ -77,27 +165,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-# Output for the above tree should be
-# $ python3 tree_paths.py
-# [4, 3, 2]
-# [4, 3, 5, 6]
-# [4, 8, 1]
-#
-# [3, 2]
-# [3, 5, 6]
-#
-# [8, 1]
-#
-# [6]
-#
-# [54, 4, 3, 2]
-# [54, 4, 3, 5, 6]
-# [54, 4, 8, 1]
-# [54, 99]
-#
-# [99]
-#
-# []
-#

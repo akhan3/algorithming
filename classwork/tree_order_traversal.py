@@ -28,28 +28,28 @@ def print_bfs(root):
 
 
 # DFS uses stack and thus recursion
-def print_in_order(root):
+def print_in_order(root):  # LCR    /^\
     if root is None:
         return
-    print_in_order(root.left)  # L
-    print(root.value, end=", ")  # C
-    print_in_order(root.right)  # R
+    print_in_order(root.left)
+    print(root.value, end=", ")
+    print_in_order(root.right)
 
 
-def print_pre_order(root):
+def print_pre_order(root):  # CLR   ^/\
     if root is None:
         return
-    print(root.value, end=", ")  # C
-    print_pre_order(root.left)  # L
-    print_pre_order(root.right)  # R
+    print(root.value, end=", ")
+    print_pre_order(root.left)
+    print_pre_order(root.right)
 
 
-def print_post_order(root):
+def print_post_order(root):  # LRC  /\^
     if root is None:
         return
-    print_post_order(root.left)  # L
-    print_post_order(root.right)  # R
-    print(root.value, end=", ")  # C
+    print_post_order(root.left)
+    print_post_order(root.right)
+    print(root.value, end=", ")
 
 
 def get_max_bintree(root, container=-sys.maxsize):

@@ -15,20 +15,22 @@ class Node:
         return "({}, {}, {})".format(self.value, left_val, right_val)
 
 
+# https://leetcode.com/problems/diameter-of-binary-tree/
 def tree_diameter(root: Node) -> int:
-    dia, _ = tree_diameter_aux(root, 0)
+    def tree_diameter_aux(root: Node) -> int:
+        nonlocal dia  # https://stackoverflow.com/a/8178808/107349
+        if root is None:
+            return 0
+        lheight = tree_diameter_aux(root.left)
+        rheight = tree_diameter_aux(root.right)
+        cheight = 1 + max(lheight, rheight)
+        dia = max(1 + lheight + rheight, dia)
+        print("[{}]\t{}\tht: {}".format(root.value, dia, [lheight, rheight, cheight]))
+        return cheight
+
+    dia = 0
+    tree_diameter_aux(root)
     return dia
-
-
-def tree_diameter_aux(root: Node, diameter: int) -> (int, int):
-    if root is None:
-        return (diameter, 0)
-    diameter, lheight = tree_diameter_aux(root.left, diameter)
-    diameter, rheight = tree_diameter_aux(root.right, diameter)
-    dia = max(1 + lheight + rheight, diameter)
-    cheight = 1 + max(lheight, rheight)
-    print("[{}]\t{}\tht: {}".format(root.value, dia, [lheight, rheight, cheight]))
-    return (dia, 1 + max(lheight, rheight))
 
 
 class TestSetup:

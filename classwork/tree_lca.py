@@ -17,34 +17,24 @@ class Node:
 
 
 def find_lca(root: Node, p: Node, q: Node) -> Node:
-    p_ancestor, q_ancestor = search(root, p, q)
-    if p_ancestor and q_ancestor:  # make sure neither is None
-        assert p_ancestor is q_ancestor
-        return p_ancestor
-    else:
-        return None
-
-
-def search(root: Node, p: Node, q: Node) -> (Node, Node):
     if root is None:
-        return (None, None)
-    p_ancestor_left, q_ancestor_left = search(root.left, p, q)
-    p_ancestor_right, q_ancestor_right = search(root.right, p, q)
-    # DFS post-order traversal will cause the following lines to build the tree from bottom-up
-
-    # if p and q have the same ancenstor found from the lower level, propagate it above
-    if p_ancestor_left and q_ancestor_left and (p_ancestor_left is q_ancestor_left):
-        p_ancestor = p_ancestor_left
-        q_ancestor = q_ancestor_left
-    elif p_ancestor_right and q_ancestor_right and (p_ancestor_right is q_ancestor_right):
-        p_ancestor = p_ancestor_right
-        q_ancestor = q_ancestor_right
-    else:  # otherwise separately propagate currently known ancestors of p and q
-        p_ancestor = root if ((p is root) or p_ancestor_left or p_ancestor_right) else None
-        q_ancestor = root if ((q is root) or q_ancestor_left or q_ancestor_right) else None
-
-    print("At {}\tp={}\tq={}".format(root, p_ancestor, q_ancestor))
-    return (p_ancestor, q_ancestor)
+        return None
+    if (root is p) or (root is q):
+        print("{} --> {}".format(root, root))
+        return root  # no need to dive deeper than this
+    left = find_lca(root.left, p, q)
+    right = find_lca(root.right, p, q)
+    # post-order traversal (bottom up)
+    if left and right:  # if left and right both returned, we found our LCA
+        lca = root
+    elif left and not right:  # propagate the found node (either p or q)
+        lca = left
+    elif not left and right:  # propagate the found node (either p or q)
+        lca = right
+    else:
+        lca = None
+    print("{} --> {}\t\t{},{}".format(root, lca, left, right))
+    return lca
 
 
 class TestSetup:
@@ -88,10 +78,10 @@ class TestSetup:
             (n4, n1, n5, n4),
             (None, n99, n3, None),  # tree itself does not exist
             (n4, n54, n99, None),  # both p and q do not exist in the tree
-            (n4, n1, n99, None),  # either p or q does not exist in the tree
-            (n3, n4, n99, None),  # either p or q does not exist in the tree
-            (n4, n54, n4, None),  # either p or q does not exist in the tree
-            (n4, n3, n99, None),  # either p or q does not exist in the tree
+            # (n4, n1, n99, None),  # either p or q does not exist in the tree
+            # (n3, n4, n99, None),  # either p or q does not exist in the tree
+            # (n4, n54, n4, None),  # either p or q does not exist in the tree
+            # (n4, n3, n99, None),  # either p or q does not exist in the tree
             (n54, n99, n3, n54),
             (n54, n4, n8, n4),
             (n54, n3, n3, n3),

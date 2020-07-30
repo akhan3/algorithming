@@ -17,34 +17,34 @@ class Node:
 
 
 def find_lca(root: Node, p: Node, q: Node) -> Node:
-    fp, fq = search(root, p, q)
-    print(fp, fq)
-    return fp if (fp and fq) else None
+    p_ancestor, q_ancestor = search(root, p, q)
+    if p_ancestor and q_ancestor:  # make sure neither is None
+        assert p_ancestor is q_ancestor
+        return p_ancestor
+    else:
+        return None
 
 
 def search(root: Node, p: Node, q: Node) -> (Node, Node):
     if root is None:
         return (None, None)
-    (leftp, leftq) = search(root.left, p, q)
-    (rightp, rightq) = search(root.right, p, q)
+    p_ancestor_left, q_ancestor_left = search(root.left, p, q)
+    p_ancestor_right, q_ancestor_right = search(root.right, p, q)
+    # DFS post-order traversal will cause the following lines to build the tree from bottom-up
 
-    if leftp or rightp or (p is root):
-        fp = root
-    else:
-        fp = None
+    # if p and q have the same ancenstor found from the lower level, propagate it above
+    if p_ancestor_left and q_ancestor_left and (p_ancestor_left is q_ancestor_left):
+        p_ancestor = p_ancestor_left
+        q_ancestor = q_ancestor_left
+    elif p_ancestor_right and q_ancestor_right and (p_ancestor_right is q_ancestor_right):
+        p_ancestor = p_ancestor_right
+        q_ancestor = q_ancestor_right
+    else:  # otherwise separately propagate currently known ancestors of p and q
+        p_ancestor = root if ((p is root) or p_ancestor_left or p_ancestor_right) else None
+        q_ancestor = root if ((q is root) or q_ancestor_left or q_ancestor_right) else None
 
-    if leftq or rightq or (q is root):
-        fq = root
-    else:
-        fq = None
-
-    if leftp and leftq and (leftp is leftq):
-        fp, fq = leftp, leftq
-    if rightp and rightq and (rightp is rightq):
-        fp, fq = rightp, rightq
-
-    print("At {}\tp={}\tq={}".format(root, fp, fq))
-    return (fp, fq)
+    print("At {}\tp={}\tq={}".format(root, p_ancestor, q_ancestor))
+    return (p_ancestor, q_ancestor)
 
 
 class TestSetup:
@@ -85,12 +85,21 @@ class TestSetup:
             (n4, n2, n5, n3),
             (n4, n2, n2, n2),
             (n4, n1, n8, n8),
-            (n4, n1, n99, None),
-            (n3, n4, n99, None),
-            (n4, n54, n4, None),
-            (n4, n54, n99, None),
+            (n4, n1, n5, n4),
+            (None, n99, n3, None),  # tree itself does not exist
+            (n4, n54, n99, None),  # both p and q do not exist in the tree
+            (n4, n1, n99, None),  # either p or q does not exist in the tree
+            (n3, n4, n99, None),  # either p or q does not exist in the tree
+            (n4, n54, n4, None),  # either p or q does not exist in the tree
+            (n4, n3, n99, None),  # either p or q does not exist in the tree
             (n54, n99, n3, n54),
-            (None, n99, n3, None),
+            (n54, n4, n8, n4),
+            (n54, n3, n3, n3),
+            (n54, n2, n5, n3),
+            (n54, n3, n5, n3),
+            (n54, n5, n3, n3),
+            (n54, n3, n4, n4),
+            (n54, n1, n5, n4),
         ],
     )
 

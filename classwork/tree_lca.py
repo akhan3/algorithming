@@ -10,8 +10,8 @@ class Node:
         self.right = right
 
     def __repr__(self):
-        left_val = None if self.left is None else self.left.value
-        right_val = None if self.right is None else self.right.value
+        # left_val = None if self.left is None else self.left.value
+        # right_val = None if self.right is None else self.right.value
         # return "({}, {}, {})".format(self.value, left_val, right_val)
         return "<{}>".format(self.value)
 
@@ -19,18 +19,31 @@ class Node:
 def find_lca(root: Node, p: Node, q: Node) -> Node:
     fp, fq = search(root, p, q)
     print(fp, fq)
-    assert fp is fq
-    return fp
+    return fp if (fp and fq) else None
 
 
 def search(root: Node, p: Node, q: Node) -> (Node, Node):
     if root is None:
         return (None, None)
-    (lfp, lfq) = search(root.left, p, q)
-    (rfp, rfq) = search(root.right, p, q)
-    fp = root if (lfp or rfp or root == p) else None
-    fq = root if (lfq or rfq or root == q) else None
-    print("At {} we found {} and {}".format(root, fp, fq))
+    (leftp, leftq) = search(root.left, p, q)
+    (rightp, rightq) = search(root.right, p, q)
+
+    if leftp or rightp or (p is root):
+        fp = root
+    else:
+        fp = None
+
+    if leftq or rightq or (q is root):
+        fq = root
+    else:
+        fq = None
+
+    if leftp and leftq and (leftp is leftq):
+        fp, fq = leftp, leftq
+    if rightp and rightq and (rightp is rightq):
+        fp, fq = rightp, rightq
+
+    print("At {}\tp={}\tq={}".format(root, fp, fq))
     return (fp, fq)
 
 
@@ -68,15 +81,16 @@ class TestSetup:
         "root, p, q, expected",
         [
             (n4, n2, n6, n3),
-            # (n4, n6, n1, n4),
-            # (n4, n2, n5, n3),
-            # (n4, n2, n2, n2),
-            # (n4, n1, n8, n8),
-            # (n4, n1, n99, None),
-            # (n4, n54, n4, None),
-            # (n4, n54, n99, None),
-            # (n54, n99, n3, n54),
-            # (None, n99, n3, None),
+            (n4, n6, n1, n4),
+            (n4, n2, n5, n3),
+            (n4, n2, n2, n2),
+            (n4, n1, n8, n8),
+            (n4, n1, n99, None),
+            (n3, n4, n99, None),
+            (n4, n54, n4, None),
+            (n4, n54, n99, None),
+            (n54, n99, n3, n54),
+            (None, n99, n3, None),
         ],
     )
 

@@ -1,0 +1,112 @@
+#!/usr/bin/env python3
+
+import pytest
+import copy
+
+
+class ChessBoard:
+    def __init__(self, n: int = 8):
+        self.width = n
+        self.height = n
+        # https://stackoverflow.com/a/13157994/107349
+        self.board = [[0] * self.width for _ in range(self.height)]
+
+    def clear(self):
+        for r in range(self.height):
+            for c in range(self.width):
+                self.board[r][c] = 0
+
+    def place_queen(self, row, col):
+        assert row >= 0 and row < len(self.board)
+        assert col >= 0 and col < len(self.board[0])
+        self.board[row][col] = 1
+
+    def remove_queen(self, row, col):
+        assert row >= 0 and row < len(self.board)
+        assert col >= 0 and col < len(self.board[0])
+        self.board[row][col] = 0
+
+    def __repr__(self):
+        ret = ""
+        ret += (
+            "+"
+            + "-" * (self.width * 2 + 1)
+            + "+ {}x{}".format(self.height, self.width)
+            + "\n| "
+        )
+        for r in range(self.height):
+            for c in range(self.width):
+                ret += "Q " if self.board[r][c] else ". "
+            ret += "|\n| "
+        ret = ret[:-2]
+        ret += "+" + "-" * (self.width * 2 + 1) + "+"
+        return ret
+
+
+def nqueen(n: int) -> list:
+    cboard = ChessBoard(n)
+    solutions = []
+    ret = nqueen_aux(cboard, row=0, solutions=solutions)
+    print(
+        "n = {:2} has {:6,} solutions searched across {:17,} possible states".format(
+            n, len(solutions), n ** n
+        )
+    )
+    return ret
+
+
+def nqueen_aux(cboard: ChessBoard, row: int, solutions: list) -> None:
+    if row == cboard.height:
+        # print(cboard)
+        solutions.append(copy.deepcopy(cboard))
+        return
+    for col in range(cboard.width):
+        cboard.place_queen(row, col)  # Place the queen at (row, col)
+        if not is_under_attack(row, col, cboard):
+            nqueen_aux(cboard, row + 1, solutions)  # Recurse
+        cboard.remove_queen(row, col)  # backtrack
+    return
+
+
+def is_under_attack(row: int, col: int, cboard: ChessBoard) -> bool:
+    for r in range(row):
+        if cboard.board[r][col]:  # check for file attack
+            return True
+        delta = row - r
+        if (col - delta >= 0) and (cboard.board[r][col - delta]):
+            return True
+        if (col + delta < cboard.width) and (cboard.board[r][col + delta]):
+            return True
+    return False
+
+
+def test_nqueen():
+    for n in range(0, 13):
+        # print("n = {}".format(n))
+        # print()
+        nqueen(n)
+
+
+def main():
+    # just run test cases and return the exit code
+    # __file__ is necessary otherwise pytest cannot find any tests
+    return pytest.main(["-l", "--capture=no", __file__])
+
+
+if __name__ == "__main__":
+    main()
+
+
+# n =  0 has      1 solutions searched across                 1 possible states
+# n =  1 has      1 solutions searched across                 1 possible states
+# n =  2 has      0 solutions searched across                 4 possible states
+# n =  3 has      0 solutions searched across                27 possible states
+# n =  4 has      2 solutions searched across               256 possible states
+# n =  5 has     10 solutions searched across             3,125 possible states
+# n =  6 has      4 solutions searched across            46,656 possible states
+# n =  7 has     40 solutions searched across           823,543 possible states
+# n =  8 has     92 solutions searched across        16,777,216 possible states
+# n =  9 has    352 solutions searched across       387,420,489 possible states
+# n = 10 has    724 solutions searched across    10,000,000,000 possible states
+# n = 11 has  2,680 solutions searched across   285,311,670,611 possible states
+# n = 12 has 14,200 solutions searched across 8,916,100,448,256 possible states

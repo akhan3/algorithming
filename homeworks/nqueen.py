@@ -2,6 +2,7 @@
 
 import pytest
 import copy
+from time import sleep
 
 
 class ChessBoard:
@@ -44,11 +45,12 @@ class ChessBoard:
 
 
 def nqueen(n: int) -> int:
+    sleep(2 * n / 10)
     cboard = ChessBoard(n)
     solutions = []
     ret = nqueen_aux(cboard, row=0, solutions=solutions)
     print(
-        "n = {:2} has {:6,} solutions searched across {:19,} possible states".format(
+        "n = {:,} has {:,} solutions searched across {:,} possible states".format(
             n, len(solutions), n ** n
         )
     )
@@ -98,8 +100,8 @@ func_test_cases = pytest.mark.parametrize(
         (9, 352),
         (10, 724),
         (11, 2680),
-        (12, 14200),
-        (13, 73712),
+        # (12, 14200),
+        # (13, 73712),
         # (14, 365596),  # will take hopelessly long
         # (15, 2279184),
         # (16, 14772512),

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import pytest
+import pytest  # type: ignore
 
 
 def substring_powerset(inp: str, container: list = None):

@@ -2,7 +2,7 @@
 
 import os
 import random
-import pytest
+import pytest  # type: ignore
 from two_sum import (
     two_sum_unsorted_brute_force,
     two_sum_unsorted_optimized,

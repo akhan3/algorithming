@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import pytest
+import pytest  # type: ignore
 
 
 def expression_creator(inp: str, container: list = None, i: int = 0):

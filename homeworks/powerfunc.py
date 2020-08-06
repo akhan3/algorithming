@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import pytest
+import pytest  # type: ignore
 
 
 # time complexity: O(n)

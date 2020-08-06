@@ -3,7 +3,7 @@
 import os
 import json
 import random
-import pytest
+import pytest  # type: ignore
 
 # Seed the random generator for repeatability
 random.seed(0)

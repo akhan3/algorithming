@@ -9,7 +9,7 @@
 # groupSum5        groupSumClump   splitArray
 # splitOdd10       split53
 
-import pytest
+import pytest  # type: ignore
 
 # Given an array of ints, is it possible to choose a group of some
 # of the ints, such that the group sums to the given target? This is a

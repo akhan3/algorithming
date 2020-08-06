@@ -2,7 +2,7 @@
 
 import os
 import json
-import pytest
+import pytest  # type: ignore
 
 
 def explore(M, container=None, row=0, col=0, accum=0):

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import pytest
+import pytest  # type: ignore
 
 
 # this solution uses two containers to build a word and then to store the finished words

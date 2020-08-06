@@ -2,7 +2,7 @@
 
 import os
 import json
-import pytest
+import pytest  # type: ignore
 
 
 def is_palindrome(s):

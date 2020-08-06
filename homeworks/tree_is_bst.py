@@ -18,40 +18,39 @@ class Node:
         return "<{}>".format(self.value)
 
 
-def is_bst_master(root: Node) -> bool:
+def is_bst_postorder(root: Node) -> bool:
+    def is_bst(root: Node, direction: str) -> Tuple[bool, int]:
+        dontcare: int = 0
+        if not root:
+            return True, dontcare
+        if (not root.left) and (not root.right):
+            return True, root.value
+
+        # post-order traversal
+        left_res, left_max = True, root.value
+        right_res, right_min = True, root.value
+        if root.left:
+            left_res, left_max = is_bst(root.left, "left")
+        if root.right:
+            right_res, right_min = is_bst(root.right, "right")
+
+        # detect failure and terminate
+        if not (
+            left_res
+            and right_res
+            and (left_max <= root.value)
+            and (root.value <= right_min)
+        ):
+            return False, dontcare
+
+        # combine results and propagate above
+        if direction == "left":
+            return True, max(left_max, right_min, root.value)
+        if direction == "right":
+            return True, min(left_max, right_min, root.value)
+        return True, dontcare  # we are back at the root
+
     return is_bst(root, "root")[0]
-
-
-def is_bst(root: Node, direction: str) -> Tuple[bool, int]:
-    dontcare: int = 0
-    if not root:
-        return True, dontcare
-    if (not root.left) and (not root.right):
-        return True, root.value
-
-    # post-order traversal
-    left_res, left_max = True, root.value
-    right_res, right_min = True, root.value
-    if root.left:
-        left_res, left_max = is_bst(root.left, "left")
-    if root.right:
-        right_res, right_min = is_bst(root.right, "right")
-
-    # detect failure and terminate
-    if not (
-        left_res
-        and right_res
-        and (left_max <= root.value)
-        and (root.value <= right_min)
-    ):
-        return False, dontcare
-
-    # combine results and propagate above
-    if direction == "left":
-        return True, max(left_max, right_min, root.value)
-    if direction == "right":
-        return True, min(left_max, right_min, root.value)
-    return True, dontcare  # we are back at the root
 
 
 def is_bst_preorder(
@@ -66,7 +65,38 @@ def is_bst_preorder(
     )
 
 
+def is_bst_inorder(root: Node, previous: Node = None) -> bool:
+    if not root:
+        return True
+    if not is_bst_inorder(root.left, previous):
+        return False
+    if previous and previous.value > root.value:  # check sorted order
+        return False
+    if not is_bst_inorder(root.right, root):  # update previously visited node
+        return False
+    return True
+
+
 class TestSetup:
+    def build_tree(values_in: tuple) -> Node:  # Build tree in level-order traversal
+        if not values_in:
+            return None  # type: ignore
+        values = list(values_in)  # make a copy
+        root = Node(values.pop(0))
+        container = [root]
+        while values:  # keep going until no more values left
+            node = container.pop(0)  # dequeue
+            val = values.pop(0) if values else None
+            if val is not None:
+                node.left = Node(val)
+                container.append(node.left)
+            val = values.pop(0) if values else None
+            if val is not None:
+                node.right = Node(val)
+                container.append(node.right)
+        return root
+
+    #
     #        8
     #       / \
     #      /   \
@@ -76,30 +106,13 @@ class TestSetup:
     #      / \    /
     #     4   7  13
     #
+    bst_n8 = build_tree((8, 3, 10, 1, 6, None, 14, None, None, 4, 7, 13))
+    bst_n3 = build_tree((3, 1, 6, None, None, 4, 7))
+    single_node = build_tree((4,))
+    empty_tree = build_tree(())
+    void_tree = build_tree(None)  # type: ignore
     #
-    n8 = Node(8)
-    n3 = Node(3)
-    n10 = Node(10)
-    n1 = Node(1)
-    n6 = Node(6)
-    n14 = Node(14)
-    n4 = Node(4)
-    n7 = Node(7)
-    n13 = Node(13)
-    n8.left = n3
-    n3.left = n1
-    n3.right = n6
-    n6.left = n4
-    n6.right = n7
-    n8.right = n10
-    n10.right = n14
-    n14.left = n13
-
-    func_test_cases = pytest.mark.parametrize(
-        "root, expected", [(n8, True), (n3, True), (n4, True), (None, True)]
-    )
-
-    #        8
+    #        9
     #       / \
     #      /   \
     #     3     10
@@ -108,40 +121,28 @@ class TestSetup:
     #      / \    /
     #     2   7  13
     #
-    #
-    n8 = Node(8)
-    n3 = Node(3)
-    n10 = Node(10)
-    n1 = Node(1)
-    n6 = Node(6)
-    n14 = Node(14)
-    n2 = Node(2)
-    n7 = Node(7)
-    n13 = Node(13)
-    n8.left = n3
-    n3.left = n1
-    n3.right = n6
-    n6.left = n2
-    n6.right = n7
-    n8.right = n10
-    n10.right = n14
-    n14.left = n13
+    not_bst_n9 = build_tree((9, 3, 10, 1, 6, None, 14, None, None, 2, 7, 13))
+    bst_n10 = build_tree((10, None, 14, 13))
 
-    func_test_cases2 = pytest.mark.parametrize(
-        "root, expected", [(n8, False), (n10, True), (n2, True), (None, True)]
+    func_test_cases = pytest.mark.parametrize(
+        "root, expected",
+        [
+            (bst_n8, True),
+            (bst_n3, True),
+            (bst_n10, True),
+            (not_bst_n9, False),
+            (single_node, True),
+            (empty_tree, True),
+            (void_tree, True),
+        ],
     )
 
 
 @TestSetup.func_test_cases
 def test_func(root, expected):
-    assert is_bst_master(root) is expected
+    assert is_bst_postorder(root) is expected
     assert is_bst_preorder(root) is expected
-
-
-@TestSetup.func_test_cases2
-def test_func2(root, expected):
-    assert is_bst_master(root) is expected
-    assert is_bst_preorder(root) is expected
+    assert is_bst_inorder(root) is expected
 
 
 def main():

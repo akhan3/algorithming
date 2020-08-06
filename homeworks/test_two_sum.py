@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os
 import random
 import pytest
 from two_sum import (
@@ -40,7 +41,12 @@ def load_test_cases(filename):
 
 
 two_sum_test_cases = pytest.mark.parametrize(
-    "nums, target, expected", load_test_cases("two_sum_test_vectors_001.txt")
+    "nums, target, expected",
+    load_test_cases(
+        os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), "two_sum_test_vectors_001.txt"
+        )
+    ),
 )
 
 

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os
 import json
 import pytest
 
@@ -31,7 +32,10 @@ def load_test_cases(filename):
 
 
 loaded_test_cases = pytest.mark.parametrize(
-    "inp, expected", load_test_cases("test_vectors.json")
+    "inp, expected",
+    load_test_cases(
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), "test_vectors.json")
+    ),
 )
 
 

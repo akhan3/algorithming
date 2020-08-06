@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import copy
-from time import sleep
 import pytest  # type: ignore
 
 
@@ -45,7 +44,7 @@ class ChessBoard:
 
 
 def nqueen(n: int) -> int:
-    sleep(2 * n / 10)
+    # sleep(2 * n / 10)
     cboard = ChessBoard(n)
     solutions: list = []
     nqueen_aux(cboard, row=0, solutions=solutions)
@@ -99,7 +98,7 @@ func_test_cases = pytest.mark.parametrize(
         (8, 92),
         (9, 352),
         (10, 724),
-        (11, 2680),
+        # (11, 2680),
         # (12, 14200),
         # (13, 73712),
         # (14, 365596),  # will take hopelessly long

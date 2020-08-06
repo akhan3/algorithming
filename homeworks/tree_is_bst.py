@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import sys
 from typing import Tuple
 import pytest  # type: ignore
 
@@ -51,6 +52,18 @@ def is_bst(root: Node, direction: str) -> Tuple[bool, int]:
     if direction == "right":
         return True, min(left_max, right_min, root.value)
     return True, dontcare  # we are back at the root
+
+
+def is_bst_preorder(
+    root: Node, lower: int = -sys.maxsize, upper: int = sys.maxsize
+) -> bool:
+    if not root:
+        return True
+    if not (lower < root.value and root.value < upper):
+        return False
+    return is_bst_preorder(root.left, lower, root.value) and is_bst_preorder(
+        root.right, root.value, upper
+    )
 
 
 class TestSetup:
@@ -122,11 +135,13 @@ class TestSetup:
 @TestSetup.func_test_cases
 def test_func(root, expected):
     assert is_bst_master(root) is expected
+    assert is_bst_preorder(root) is expected
 
 
 @TestSetup.func_test_cases2
 def test_func2(root, expected):
     assert is_bst_master(root) is expected
+    assert is_bst_preorder(root) is expected
 
 
 def main():

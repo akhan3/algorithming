@@ -7,7 +7,8 @@ def substring_powerset(inp: str, container: list = None):
     if container is None:  # https://stackoverflow.com/a/113198/107349
         container = list()
     if len(inp) == 0:
-        [print(q, end="\t") for q in container]
+        for q in container:
+            print(q, end="\t")
         print()
         return
     for k in range(len(inp)):
@@ -21,7 +22,8 @@ def substring_powerset_nopcopy(inp: str, container: list = None, i: int = 0):
     if container is None:  # https://stackoverflow.com/a/113198/107349
         container = list()
     if i == len(inp):
-        [print(q, end="\t") for q in container]
+        for q in container:
+            print(q, end="\t")
         print()
         return
     for k in range(len(inp[i:])):

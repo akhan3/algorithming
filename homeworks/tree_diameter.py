@@ -17,6 +17,8 @@ class Node:
 
 # https://leetcode.com/problems/diameter-of-binary-tree/
 def tree_diameter(root: Node) -> int:
+    dia: int = 0
+
     def tree_diameter_aux(root: Node) -> int:
         nonlocal dia  # https://stackoverflow.com/a/8178808/107349
         if root is None:
@@ -28,7 +30,6 @@ def tree_diameter(root: Node) -> int:
         print("[{}]\t{}\tht: {}".format(root.value, dia, [lheight, rheight, cheight]))
         return cheight
 
-    dia = 0
     tree_diameter_aux(root)
     return dia
 

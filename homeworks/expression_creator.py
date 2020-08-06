@@ -7,7 +7,8 @@ def expression_creator(inp: str, container: list = None, i: int = 0):
     if container is None:  # https://stackoverflow.com/a/113198/107349
         container = list()
     if i == len(inp):
-        [print(q, end="") for q in container]
+        for q in container:
+            print(q, end="")
         print()
         return
     for k in range(len(inp[i:])):

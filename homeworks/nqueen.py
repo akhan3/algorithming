@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
-import pytest
 import copy
 from time import sleep
+import pytest  # type: ignore
 
 
 class ChessBoard:
@@ -18,13 +18,13 @@ class ChessBoard:
                 self.board[r][c] = 0
 
     def place_queen(self, row, col):
-        assert row >= 0 and row < len(self.board)
-        assert col >= 0 and col < len(self.board[0])
+        assert 0 <= row < len(self.board)
+        assert 0 <= col < len(self.board)
         self.board[row][col] = 1
 
     def remove_queen(self, row, col):
-        assert row >= 0 and row < len(self.board)
-        assert col >= 0 and col < len(self.board[0])
+        assert 0 <= row < len(self.board)
+        assert 0 <= col < len(self.board)
         self.board[row][col] = 0
 
     def __repr__(self):
@@ -47,8 +47,8 @@ class ChessBoard:
 def nqueen(n: int) -> int:
     sleep(2 * n / 10)
     cboard = ChessBoard(n)
-    solutions = []
-    ret = nqueen_aux(cboard, row=0, solutions=solutions)
+    solutions: list = []
+    nqueen_aux(cboard, row=0, solutions=solutions)
     print(
         "n = {:,} has {:,} solutions searched across {:,} possible states".format(
             n, len(solutions), n ** n

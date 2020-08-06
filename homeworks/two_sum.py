@@ -26,7 +26,8 @@ def two_sum_unsorted_optimized(nums, target):
     cache = set()  # initialize a cache container
     for N in nums:  # iterate over elements: O(n)
         if N in cache:  # look-up in O(1)
-            # it implements the check (n1+n2 == target) and is specific to two-sum problem
+            # it implements the check (n1+n2 == target)
+            # and is specific to two-sum problem
             return True  # TADA!
         cache.add(target - N)  # insertion in O(1)
         # save this element's complement for later look-up to avoid a nested loop

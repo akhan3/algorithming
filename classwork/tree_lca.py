@@ -20,7 +20,7 @@ def find_lca(root: Node, p: Node, q: Node) -> Node:
     if root is None:
         return None
     if (root is p) or (root is q):
-        print("{} --> {}".format(root, root))
+        print("{0} --> {0}".format(root))
         return root  # no need to dive deeper than this
     left = find_lca(root.left, p, q)
     right = find_lca(root.right, p, q)

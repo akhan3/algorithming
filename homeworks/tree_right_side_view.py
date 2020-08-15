@@ -3,15 +3,30 @@
 import pytest  # type: ignore
 
 
+# Binary Tree Right Side View
+# 0 of 0 points
+# Given a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.
+# Example:
+# Input: [1,2,3,null,5,null,4]
+# Output: [1, 3, 4]
+# Explanation:
+#    1            <---
+#  /   \
+# 2     3         <---
+#  \     \
+#   5     4       <---
+
+
+# Submitted at 10:34 am
 def tree_right_side_view(root) -> list:
     if root is None:  # handle edge case
-        return ""
+        return []
     ret = list()  # initialize an output container
     # initialize a queue with the root element and None as a delimiter
     queue = [root, None]
     # iterate until a single element is left in the queue
     while len(queue) > 1:
-        node = queue.pop(0) 
+        node = queue.pop(0)
         if node is None:
             queue.append(None)  # replenish the delimiter
             continue
@@ -23,6 +38,18 @@ def tree_right_side_view(root) -> list:
         if node.right:
             queue.append(node.right)
     return ret
+
+
+def tree_right_side_view_simple(root) -> list:
+    def helper(root, container) -> list:
+        if root is None:
+            return
+        container.append(root.right)
+        helper(root, container)
+
+    if root is None:
+        return []
+    return helper(root, [])
 
 
 class Node:
@@ -91,7 +118,8 @@ class TestSetup:
 def test_func(root, expected):
     print()
     print(tree_right_side_view(root))
-
+    print(tree_right_side_view_simple(root))
+    
 
 def main():
     # just run test cases and return the exit code

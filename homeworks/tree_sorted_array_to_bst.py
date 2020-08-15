@@ -4,6 +4,20 @@ import sys
 import pytest  # type: ignore
 
 
+# Convert Sorted Array to Binary Search Tree
+# 0 of 0 points
+# Given an array where elements are sorted in ascending order, convert it to a height balanced BST.
+# For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ by more than 1.
+# Example:
+# Given the sorted array: [-10,-3,0,5,9],
+# One possible answer is: [0,-3,9,-10,null,5], which represents the following height balanced BST:
+#       0
+#      / \
+#    -3   9
+#    /   /
+#  -10  5
+
+
 class Node:
     def __init__(self, value: int, left=None, right=None):
         self.value = value
@@ -17,6 +31,7 @@ class Node:
         return "{}".format(self.value)
 
 
+# Submitted at 11:08 am
 def tree_sorted_array_to_bst(nums: list) -> Node:
     if not nums:  # handle edge case
         return None
